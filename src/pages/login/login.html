@@ -1,0 +1,53 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-content padding>
+  <div>
+    <ion-item>
+      <ion-label stacked>Username</ion-label>
+      <ion-input
+        required
+        type="text"
+        name="username"
+        placeholder="Username"
+        ngModel
+        #username="ngModel"
+        (change)="log(username)"
+        [class.invalid]="username.touched && username.invalid"
+        class="input"
+      ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="username.touched && username.invalid">
+      <div class="invalid-feedback">
+        Username is required
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Password</ion-label>
+      <ion-input
+        type="password"
+        name="password"
+        placeholder="Password"
+        ngModel
+        #password="ngModel"
+        [class.invalid]="password.touched && password.invalid"
+        required
+      ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="password.touched && password.invalid">
+      <div class="invalid-feedback">
+        Password is required
+      </div>
+    </ion-item>
+    <ion-buttons center class="mb-1">
+      <button ion-button full (click)="showLoginPage()">
+        Login
+      </button>
+    </ion-buttons>
+  </div>
+</ion-content>
