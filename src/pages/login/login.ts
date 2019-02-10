@@ -43,9 +43,7 @@ export class LoginPage {
 
   @ViewChild("f") form: any;
 
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad LoginPage");
-  }
+  ionViewDidLoad() {}
 
   log(username) {
     console.log(username);
@@ -56,6 +54,8 @@ export class LoginPage {
       const { value } = this.loginForm;
       console.log(this.loginForm);
       this.mediaProvider.login(value).subscribe((res: UserLoginResponse) => {
+        console.log(res);
+
         localStorage.setItem("token", res.token);
         this.navCtrl.push(TabsPage);
       });

@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { TabsPage } from "../tabs/tabs";
 import { LoginPage } from "./../login/login";
 
 /**
@@ -18,7 +19,7 @@ export class FrontPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad FrontPage");
+    localStorage.getItem("token") && this.navCtrl.push(TabsPage);
   }
 
   showLoginPage() {

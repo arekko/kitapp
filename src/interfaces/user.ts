@@ -1,5 +1,3 @@
-
-
 export interface UserLogin {
   username: string;
   password: string;
@@ -14,7 +12,10 @@ export interface User {
   username: string;
   email: string;
   time_created: string;
+  full_name?: string;
+  is_admin?: boolean;
 }
+
 export interface CheckUsernameResponse {
   username: string;
   available: boolean;
