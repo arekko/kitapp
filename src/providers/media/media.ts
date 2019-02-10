@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import {
+  User,
   UserLogin,
   UserLoginResponse,
   UserRegister,
@@ -10,6 +11,10 @@ import {
 
 @Injectable()
 export class MediaProvider {
+
+  // this variable contains current user's data (check User type for more details)
+  user: User;
+
   constructor(public http: HttpClient) {
     console.log("Hello MediaProvider Provider");
   }
@@ -17,8 +22,6 @@ export class MediaProvider {
   _baseAPI = "http://media.mw.metropolia.fi/wbma";
 
   // User
-
-
 
   // Login user
 

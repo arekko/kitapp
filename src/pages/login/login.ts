@@ -1,5 +1,6 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Storage } from "@ionic/storage";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { MediaProvider } from "../../providers/media/media";
 import { UserLoginResponse } from "./../../interfaces/user";
@@ -18,7 +19,8 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public mediaProvider: MediaProvider,
-    public formbuilder: FormBuilder
+    public formbuilder: FormBuilder,
+    private storage: Storage
   ) {
     this.loginForm = formbuilder.group({
       username: [
@@ -41,8 +43,6 @@ export class LoginPage {
     });
   }
 
-  @ViewChild("f") form: any;
-
   ionViewDidLoad() {}
 
   log(username) {
@@ -55,6 +55,9 @@ export class LoginPage {
       console.log(this.loginForm);
       this.mediaProvider.login(value).subscribe((res: UserLoginResponse) => {
         console.log(res);
+        this.mediaProvider.user = res.user;
+
+        this.storage.set("user", JSON.stringify(res.user));
 
         localStorage.setItem("token", res.token);
         this.navCtrl.push(TabsPage);
