@@ -3,13 +3,6 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Media } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
 
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: "page-profile",
@@ -17,6 +10,7 @@ import { MediaProvider } from "./../../providers/media/media";
 })
 export class ProfilePage {
   userMedia: Media[];
+  userPostsAmount: number;
 
   constructor(
     public navCtrl: NavController,
@@ -30,6 +24,7 @@ export class ProfilePage {
 
   getCurrentUserMedia() {
     this.mediaProvider.getCurrentUserMedia().subscribe((res: Media[]) => {
+      this.userPostsAmount = res.length;
       this.userMedia = res;
     });
   }

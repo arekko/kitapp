@@ -56,6 +56,7 @@ export class LoginPage {
       this.mediaProvider.login(value).subscribe((res: UserLoginResponse) => {
         console.log(res);
         this.mediaProvider.user = res.user;
+        this.mediaProvider.isLoggedIn = true;
 
         this.storage.set("user", JSON.stringify(res.user));
 

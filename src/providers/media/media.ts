@@ -14,13 +14,14 @@ import {
 export class MediaProvider {
   // this variable contains current user's data (check User type for more details)
   user: User;
+  isLoggedIn: boolean = false;
+
+  _baseAPI = "http://media.mw.metropolia.fi/wbma";
+  mediaFilePath = "http://media.mw.metropolia.fi/wbma/uploads/";
 
   constructor(public http: HttpClient) {
     console.log("Hello MediaProvider Provider");
   }
-
-  _baseAPI = "http://media.mw.metropolia.fi/wbma";
-  _mediaFilePath = "http://media.mw.metropolia.fi/wbma/uploads/";
 
   private _getHeaderWithToken(): object | null {
     const token = localStorage.getItem("token");

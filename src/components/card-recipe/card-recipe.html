@@ -9,7 +9,10 @@
     <p>November 5, 1955</p>
   </ion-item>
 
-  <img [src]="item.file_id | thumbnail: 'medium' | async" />
+  <img
+    [src]="item.file_id | thumbnail: 'medium' | async"
+    (click)="showRecipePage(item)"
+  />
 
   <ion-card-content>
     <h2 class="card-title">{{ item.title }}</h2>

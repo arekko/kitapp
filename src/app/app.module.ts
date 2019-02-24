@@ -9,9 +9,11 @@ import { HomePage } from "../pages/home/home";
 import { MediaProvider } from "../providers/media/media";
 import { CardRecipeComponent } from "./../components/card-recipe/card-recipe";
 import { BookmarksPage } from "./../pages/bookmarks/bookmarks";
+import { CommentsPage } from "./../pages/comments/comments";
 import { FrontPage } from "./../pages/front/front";
 import { LoginPage } from "./../pages/login/login";
 import { ProfilePage } from "./../pages/profile/profile";
+import { RecipeViewPage } from "./../pages/recipe-view/recipe-view";
 import { TabsPage } from "./../pages/tabs/tabs";
 import { UploadPage } from "./../pages/upload/upload";
 import { PipesModule } from "./../pipes/pipes.module";
@@ -27,7 +29,9 @@ import { MyApp } from "./app.component";
     ProfilePage,
     UploadPage,
     BookmarksPage,
-    CardRecipeComponent
+    CardRecipeComponent,
+    RecipeViewPage,
+    CommentsPage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,9 @@ import { MyApp } from "./app.component";
     TabsPage,
     ProfilePage,
     UploadPage,
-    BookmarksPage
+    BookmarksPage,
+    RecipeViewPage,
+    CommentsPage
   ],
   providers: [
     HttpClientModule,

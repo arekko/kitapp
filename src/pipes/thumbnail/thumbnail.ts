@@ -17,7 +17,7 @@ export class ThumbnailPipe implements PipeTransform {
 
     return new Promise((resolve, reject) => {
       this.mediaProvider.getSingleMedia(id).subscribe((response: Media) => {
-        const url = this.mediaProvider._mediaFilePath;
+        const url = this.mediaProvider.mediaFilePath;
 
         if (response.thumbnails) {
           switch (args[0]) {
