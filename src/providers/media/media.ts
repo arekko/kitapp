@@ -80,4 +80,14 @@ export class MediaProvider {
       );
     }
   }
+
+  // List of file of current user
+  getCurrentUserMedia() {
+    if (this._getHeaderWithToken) {
+      return this.http.get<Media[]>(
+        `${this._baseAPI}/media/user`,
+        this._getHeaderWithToken()
+      );
+    }
+  }
 }

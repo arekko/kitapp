@@ -2,9 +2,6 @@ import { Pipe, PipeTransform } from "@angular/core";
 import { Favorites } from "../../interfaces/media";
 import { MediaProvider } from "../../providers/media/media";
 
-
-
-
 // FIXME: Think about favorite button implementation
 
 @Pipe({
@@ -13,7 +10,7 @@ import { MediaProvider } from "../../providers/media/media";
 export class FavoritePipe implements PipeTransform {
   constructor(private mediaProvider: MediaProvider) {}
 
-  transform(value: number, ...args) {
+  transform(value: number, ...args: any[]) {
     console.log("user_id" + value);
 
     return new Promise((resolve, reject) => {

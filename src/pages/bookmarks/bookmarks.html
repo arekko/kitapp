@@ -10,6 +10,6 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content padding *ngIf="favoriteList">
+  <card-recipe *ngFor="let item of favoriteList" [item]="item"></card-recipe>
 </ion-content>
