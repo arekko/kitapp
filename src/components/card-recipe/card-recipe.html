@@ -19,7 +19,7 @@
     <ion-col>
       <button ion-button icon-start clear small>
         <ion-icon name="star"></ion-icon>
-        <div>4.5</div>
+        <div>{{ item.file_id | rating | async }}</div>
       </button>
     </ion-col>
     <ion-col>

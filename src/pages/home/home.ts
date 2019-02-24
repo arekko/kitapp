@@ -11,6 +11,7 @@ export class HomePage {
   _tag: string = "kitapp";
   // here we are storing all media with tag _tag
   mediaList: Media[] = null;
+  mArr: any;
 
   constructor(
     public navCtrl: NavController,

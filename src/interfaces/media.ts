@@ -26,7 +26,7 @@ export interface Rating {
   user_id: number;
 }
 
-export interface Comments {
+export interface Comment {
   comment_id: number;
   comment: string;
   time_added: string;

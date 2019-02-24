@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { Media, Rating } from "./../../interfaces/media";
+import { Comment, Media, Rating } from "./../../interfaces/media";
 import {
   User,
   UserLogin,
@@ -53,7 +53,7 @@ export class MediaProvider {
   }
 
   // Request a list of comments by fileId
-  getCommentsByFileId(fileId: string) {
-    return this.http.get(`${this._baseAPI}/comments/file/${fileId}`)
+  getCommentsByFileId(fileId: number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(`${this._baseAPI}/comments/file/${fileId}`);
   }
 }
