@@ -1,7 +1,7 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { Comment, Media, Rating } from "./../../interfaces/media";
+import { Comment, Favorites, Media, Rating } from "./../../interfaces/media";
 import {
   User,
   UserLogin,
@@ -21,6 +21,20 @@ export class MediaProvider {
 
   _baseAPI = "http://media.mw.metropolia.fi/wbma";
   _mediaFilePath = "http://media.mw.metropolia.fi/wbma/uploads/";
+
+  private _getHeaderWithToken(): object | null {
+    const token = localStorage.getItem("token");
+    let options: object | null = null;
+
+    if (token) {
+      options = {
+        headers: new HttpHeaders({
+          "x-access-token": token
+        })
+      };
+    }
+    return options;
+  }
 
   // User
 
@@ -55,5 +69,15 @@ export class MediaProvider {
   // Request a list of comments by fileId
   getCommentsByFileId(fileId: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`${this._baseAPI}/comments/file/${fileId}`);
+  }
+
+  // Reuest a list of favorites
+  getUserFavorites(): Observable<Favorites[]> {
+    if (this._getHeaderWithToken) {
+      return this.http.get<Favorites[]>(
+        `${this._baseAPI}/favourites`,
+        this._getHeaderWithToken()
+      );
+    }
   }
 }

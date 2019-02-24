@@ -33,3 +33,9 @@ export interface Comment {
   file_id: number;
   user_id: number;
 }
+
+export interface Favorites {
+  favourite_id: number;
+  file_id: number;
+  user_id: number;
+}
