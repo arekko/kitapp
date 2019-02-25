@@ -1,27 +1,45 @@
-<div class="card-wrapper">
-  <div class="top-row">
-    <div class="top-user-info">
-      <div class="top-avatar">
-        <img
-          src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_beanie_girl-512.png"
-          alt=""
-        />
-      </div>
-      <div class="top-username">
-        <p>Jeanny Williams</p>
-      </div>
-    </div>
-    <div class="top-date">
-      <span>23.02.2019</span>
-    </div>
-  </div>
+<ion-list>
+  <ion-item-sliding>
+    <ion-item>
+      <div
+        [className]="
+          (comment.user_id | owner) ? 'card-wrapper owner-mark' : 'card-wrapper'
+        "
+      >
+        <div class="top-row">
+          <div class="top-user-info">
+            <div class="top-avatar">
+              <img
+                src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_beanie_girl-512.png"
+                alt=""
+              />
+            </div>
+            <div class="top-username">
+              <p>Jeanny Williams</p>
+            </div>
+          </div>
+          <div class="top-date">
+            <span>{{ comment.time_added | date: "short" }}</span>
+          </div>
+        </div>
 
-  <div class="bottom-row">
-    <p class="bottom-text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione quidem
-      tempore tempora molestiae voluptas fugit rem error ea eos autem
-      exercitationem aliquid consequuntur impedit quam, cum cumque sequi saepe
-      earum.
-    </p>
-  </div>
-</div>
+        <div class="bottom-row">
+          <p class="bottom-text">
+            {{ comment.comment }}
+          </p>
+        </div>
+      </div>
+    </ion-item>
+    <ion-item-options *ngIf="(comment.user_id | owner)" side="right">
+      <button
+        ion-button
+        color="primary"
+        small
+        (click)="removeComment(comment.comment_id)"
+      >
+        <ion-icon name="trash"></ion-icon>
+        Remove
+      </button>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>

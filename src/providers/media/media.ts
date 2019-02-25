@@ -1,7 +1,13 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { Comment, Favorites, Media, Rating } from "./../../interfaces/media";
+import {
+  Comment,
+  CommentDelete,
+  Favorites,
+  Media,
+  Rating
+} from "./../../interfaces/media";
 import {
   User,
   UserLogin,
@@ -67,9 +73,19 @@ export class MediaProvider {
     return this.http.get<Rating[]>(`${this._baseAPI}/ratings/file/${fileId}`);
   }
 
+  // Comments methods
   // Request a list of comments by fileId
   getCommentsByFileId(fileId: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`${this._baseAPI}/comments/file/${fileId}`);
+  }
+  // Delete comment
+  deleteCommentById(commentId: number): Observable<CommentDelete> {
+    if (this._getHeaderWithToken()) {
+      return this.http.delete<CommentDelete>(
+        `${this._baseAPI}/comments/${commentId}`,
+        this._getHeaderWithToken()
+      );
+    }
   }
 
   // Reuest a list of favorites

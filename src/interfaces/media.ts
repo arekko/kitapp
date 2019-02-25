@@ -34,6 +34,10 @@ export interface Comment {
   user_id: number;
 }
 
+export interface CommentDelete {
+  message: string;
+}
+
 export interface Favorites {
   favourite_id: number;
   file_id: number;

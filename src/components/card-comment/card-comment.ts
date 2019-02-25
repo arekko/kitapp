@@ -1,22 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Comment } from "./../../interfaces/media";
+import { MediaProvider } from "./../../providers/media/media";
 
-/**
- * Generated class for the CardCommentComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
-  selector: 'card-comment',
-  templateUrl: 'card-comment.html'
+  selector: "card-comment",
+  templateUrl: "card-comment.html"
 })
 export class CardCommentComponent {
+  @Input() comment: Comment;
+  @Output() delComment = new EventEmitter<number>();
 
-  text: string;
+  constructor(private mediaProvider: MediaProvider) {}
 
-  constructor() {
-    console.log('Hello CardCommentComponent Component');
-    this.text = 'Hello World';
+  removeComment(commentId) {
+    console.log("click");
+
+    this.delComment.emit(commentId);
   }
-
 }
