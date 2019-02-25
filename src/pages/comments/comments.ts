@@ -1,6 +1,10 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
-import { Comment, CommentDelete } from "./../../interfaces/media";
+import {
+  Comment,
+  CommentDelete,
+  CommentResponse
+} from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
 @IonicPage()
 @Component({
@@ -33,6 +37,20 @@ export class CommentsPage {
     this.mediaProvider
       .deleteCommentById(commentId)
       .subscribe((res: CommentDelete) => {
+        console.log(res);
+        this.getComments(this.fileId);
+      });
+  }
+
+  // FIXME:  add update feed
+  addComment(f) {
+    console.log(f.value.comment);
+    this.mediaProvider
+      .addCommentByFileId({
+        file_id: this.fileId,
+        comment: f.value.comment
+      })
+      .subscribe((res: CommentResponse) => {
         console.log(res);
         this.getComments(this.fileId);
       });

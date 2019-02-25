@@ -26,12 +26,23 @@ export interface Rating {
   user_id: number;
 }
 
+// Comments
 export interface Comment {
   comment_id: number;
   comment: string;
   time_added: string;
   file_id: number;
   user_id: number;
+}
+
+export interface CommentRequest {
+  file_id: number;
+  comment: string;
+}
+
+export interface CommentResponse {
+  message: string;
+  comment_id: number;
 }
 
 export interface CommentDelete {

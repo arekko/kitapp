@@ -3,8 +3,22 @@
     <ion-title>comments</ion-title>
   </ion-navbar>
 </ion-header>
-
+<!-- FIXME: add beautiful input files -->
 <ion-content>
+  <form #f="ngForm" (submit)="addComment(f)">
+    <ion-item>
+      <ion-input
+        type="text"
+        name="comment"
+        placeholder="Input comment"
+        ngModel
+        name="comment"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button type="submit">Submit</button>
+    </ion-item>
+  </form>
   <card-comment
     *ngFor="let comment of commentsList"
     [comment]="comment"

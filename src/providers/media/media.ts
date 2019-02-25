@@ -4,6 +4,8 @@ import { Observable } from "rxjs/Observable";
 import {
   Comment,
   CommentDelete,
+  CommentRequest,
+  CommentResponse,
   Favorites,
   Media,
   Rating
@@ -83,6 +85,17 @@ export class MediaProvider {
     if (this._getHeaderWithToken()) {
       return this.http.delete<CommentDelete>(
         `${this._baseAPI}/comments/${commentId}`,
+        this._getHeaderWithToken()
+      );
+    }
+  }
+
+  // Post new comments
+  addCommentByFileId(data: CommentRequest): Observable<CommentResponse> {
+    if (this._getHeaderWithToken()) {
+      return this.http.post<CommentResponse>(
+        `${this._baseAPI}/comments`,
+        data,
         this._getHeaderWithToken()
       );
     }
