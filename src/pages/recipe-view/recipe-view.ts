@@ -31,6 +31,8 @@ export class RecipeViewPage {
   }
 
   showComments(fileId) {
-    this.navCtrl.push(CommentsPage);
+    this.navCtrl.push(CommentsPage, {
+      fileId: fileId
+    });
   }
 }

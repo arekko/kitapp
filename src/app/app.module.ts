@@ -7,6 +7,7 @@ import { IonicStorageModule } from "@ionic/storage";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 import { HomePage } from "../pages/home/home";
 import { MediaProvider } from "../providers/media/media";
+import { CardCommentComponent } from "./../components/card-comment/card-comment";
 import { CardRecipeComponent } from "./../components/card-recipe/card-recipe";
 import { BookmarksPage } from "./../pages/bookmarks/bookmarks";
 import { CommentsPage } from "./../pages/comments/comments";
@@ -31,7 +32,8 @@ import { MyApp } from "./app.component";
     BookmarksPage,
     CardRecipeComponent,
     RecipeViewPage,
-    CommentsPage
+    CommentsPage,
+    CardCommentComponent
   ],
   imports: [
     BrowserModule,

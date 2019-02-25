@@ -1,25 +1,19 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the CommentsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 @IonicPage()
 @Component({
-  selector: 'page-comments',
-  templateUrl: 'comments.html',
+  selector: "page-comments",
+  templateUrl: "comments.html"
 })
 export class CommentsPage {
+  fileId: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CommentsPage');
+    console.log("ionViewDidLoad CommentsPage");
+    this.fileId = this.navParams.get("fileId");
+    console.log(this.fileId);
   }
-
 }
