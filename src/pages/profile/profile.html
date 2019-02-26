@@ -1,22 +1,36 @@
-<!--
-  Generated template for the ProfilePage page.
+<ion-content>
+  <div class="profile">
+    <div class="profile-avatar">
+      <img
+        src="https://static1.squarespace.com/static/525809c9e4b0ab36b916f147/t/5a91f90b53450a1796de161a/1519747185249/shutterstock_136377332.jpg"
+        alt=""
+      />
+    </div>
+    <div class="profile-dashboard">
+      <ion-list>
+        <ion-item>
+          <button ion-button outline item-start icon-start color="light">
+            <ion-icon name="brush"></ion-icon>
+            Edit profile
+          </button>
+          <button ion-button outline item-center icon-start color="light">
+            <ion-icon name="trash"></ion-icon>
+            Delete account
+          </button>
+          <button ion-button outline item-end icon-start color="light">
+            <ion-icon name="log-out"></ion-icon>
+          </button>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-  <ion-navbar>
-    <ion-title>profile</ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
   <ion-list>
     <ion-item-sliding *ngFor="let item of userMedia">
       <ion-item>
-        <ion-avatar item-start>
+        <ion-thumbnail item-start>
           <img [src]="item.file_id | thumbnail: 'medium' | async" />
-        </ion-avatar>
+        </ion-thumbnail>
         <h2>{{ item.title }}</h2>
       </ion-item>
       <ion-item-options side="left">
@@ -37,4 +51,8 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+
+  <ion-fab right bottom>
+    <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

@@ -1,4 +1,52 @@
-<ion-card>
+<div class="card-wrapper">
+  <div class="top">
+    <div class="top-avatar">
+      <img
+        src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_beanie_girl-512.png"
+        alt=""
+      />
+    </div>
+    <div class="top-username">
+      <p>Jeanny Williams</p>
+    </div>
+  </div>
+  <div class="middle">
+    <img
+      [src]="item.file_id | thumbnail: 'medium' | async"
+      [alt]="item.title"
+      (click)="showRecipePage(item)"
+    />
+  </div>
+  <div class="bottom">
+    <div class="bottom-title">
+      <h2>{{ item.title }}</h2>
+    </div>
+    <div class="bottom-stats">
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-start clear small color="light">
+            <ion-icon name="star"></ion-icon>
+            <div>{{ item.file_id | rating | async }}</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-start clear small color="light">
+            <ion-icon name="text"></ion-icon>
+            <div>{{ item.file_id | comment | async }}</div>
+          </button>
+        </ion-col>
+        <ion-col align-self-center text-center>
+          <button ion-button icon-start clear small color="light">
+            <ion-icon [name]="item.file_id | favorite | async"></ion-icon>
+            <div>Bookmarks</div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</div>
+
+<!-- <ion-card>
   <ion-item>
     <ion-avatar item-start>
       <img
@@ -38,4 +86,4 @@
       </button>
     </ion-col>
   </ion-row>
-</ion-card>
+</ion-card> -->

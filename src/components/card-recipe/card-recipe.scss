@@ -1,2 +1,59 @@
+h2 {
+  font-size: 21px;
+}
+
 card-recipe {
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: #e57373;
+    margin: 2px 0;
+
+    .top {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 5px 30px 5px 30px;
+      border-left: 2px solid #fff;
+      &-avatar {
+        img {
+          width: 40px;
+          height: 40px;
+          object-fit: cover;
+          background-color: #fff;
+          border-radius: 50%;
+        }
+      }
+      &-username {
+        margin-left: 15px;
+        font-size: 15px;
+        color: #fff;
+      }
+    }
+
+    .middle {
+      img {
+        width: 100%;
+        max-height: 220px;
+        object-fit: cover;
+      }
+    }
+
+    .bottom {
+      display: flex;
+      flex-direction: column;
+
+      &-title {
+        color: #fff;
+        padding: 10px 30px 10px 30px;
+        h2 {
+          margin: 0;
+          font-size: 21px;
+        }
+      }
+      &-stats {
+        border-top: 1px solid #ffb2b2;
+      }
+    }
+  }
 }

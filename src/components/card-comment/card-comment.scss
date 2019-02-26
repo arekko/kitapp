@@ -1,11 +1,12 @@
-// .item-md {
-//   margin: 0;
-// }
+.item-md {
+  margin: 0;
+  padding: 0;
+}
+.item-md.item-block .item-inner {
+  padding: 0;
+}
 
 card-comment {
-  .item-md {
-    margin: 0;
-  }
   .list-ios {
     margin-bottom: 10px;
   }

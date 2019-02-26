@@ -1,3 +1,31 @@
 page-profile {
+  .profile {
+    &-dashboard {
+    }
 
+    &-avatar {
+      padding-top: 30px;
+      padding-bottom: 30px;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      background-color: #e57373;
+      img {
+        /* make a square container */
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        /* fill the container, preserving aspect ratio, and cropping to fit */
+        background-size: cover;
+        /* center the image vertically and horizontally */
+        background-position: top center;
+        /* round the edges to a circle with border radius 1/2 container size */
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.list-ios > .item-block:first-child {
+  background-color: #e57373;
 }

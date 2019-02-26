@@ -53,6 +53,7 @@ export class CommentsPage {
       .subscribe((res: CommentResponse) => {
         console.log(res);
         this.getComments(this.fileId);
+        f.reset();
       });
   }
 }
