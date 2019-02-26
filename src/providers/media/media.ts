@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import {
+  AddFavoriteRequest,
+  AddFavoriteResponse,
   Comment,
   CommentDelete,
   CommentRequest,
@@ -106,6 +108,17 @@ export class MediaProvider {
     if (this._getHeaderWithToken) {
       return this.http.get<Favorites[]>(
         `${this._baseAPI}/favourites`,
+        this._getHeaderWithToken()
+      );
+    }
+  }
+
+  // Create new favorite
+  addBookmark(data: AddFavoriteRequest): Observable<AddFavoriteResponse> {
+    if (this._getHeaderWithToken()) {
+      return this.http.post<AddFavoriteResponse>(
+        `${this._baseAPI}/favourites`,
+        data,
         this._getHeaderWithToken()
       );
     }

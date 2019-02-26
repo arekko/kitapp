@@ -11,5 +11,6 @@
     *ngFor="let item of mediaList"
     [item]="item"
     (showRecipe)="showRecipe($event)"
+    (fileId)="addBookmark($event)"
   ></card-recipe>
 </ion-content>

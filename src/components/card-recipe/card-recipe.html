@@ -36,7 +36,14 @@
           </button>
         </ion-col>
         <ion-col align-self-center text-center>
-          <button ion-button icon-start clear small color="light">
+          <button
+            ion-button
+            icon-start
+            clear
+            small
+            color="light"
+            (click)="addBookmark(item.file_id)"
+          >
             <ion-icon [name]="item.file_id | favorite | async"></ion-icon>
             <div>Bookmarks</div>
           </button>

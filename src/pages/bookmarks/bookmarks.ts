@@ -32,8 +32,6 @@ export class BookmarksPage {
           .subscribe((res: Media) => {
             this.favoriteList.push(res);
             console.log(this.favoriteList);
-
-            return res;
           });
       });
     });

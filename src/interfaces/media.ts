@@ -54,3 +54,11 @@ export interface Favorites {
   file_id: number;
   user_id: number;
 }
+
+export interface AddFavoriteRequest {
+  file_id: number;
+}
+export interface AddFavoriteResponse {
+  message: string;
+  favourite_id: number;
+}

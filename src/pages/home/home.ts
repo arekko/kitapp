@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { RecipeViewPage } from "../recipe-view/recipe-view";
-import { Media } from "./../../interfaces/media";
+import { AddFavoriteResponse, Media } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
+import { BookmarksPage } from "./../bookmarks/bookmarks";
 
 // TODO: add the infinity scroll
 // TODO: add single view page
@@ -39,5 +40,19 @@ export class HomePage {
     this.navCtrl.push(RecipeViewPage, {
       item: event
     });
+  }
+
+  addBookmark(fileId: number) {
+    console.log(fileId);
+
+    this.mediaProvider
+      .addBookmark({
+        file_id: fileId
+      })
+      .subscribe((res: AddFavoriteResponse) => {
+        console.log(res);
+        this.getAllMedia(this._tag);
+        this.navCtrl.push(BookmarksPage);
+      });
   }
 }

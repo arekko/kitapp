@@ -5,43 +5,29 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
-    <ion-title>recipe-view</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>{{ recipe?.title }}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content *ngIf="recipe" padding>
-  <ion-card>
-    <img [src]="mediaProvider.mediaFilePath + recipe.filename" />
-
-    <ion-card-content>
-      <h2>{{ recipe?.title }}</h2>
-      <p>
-        {{ recipe?.description }}
-      </p>
-    </ion-card-content>
-
-    <ion-row>
-      <ion-col>
-        <button ion-button icon-start clear small>
-          <ion-icon name="thumbs-up"></ion-icon>
-          <div>12 Likes</div>
-        </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button icon-start clear small>
-          <ion-icon name="text"></ion-icon>
-          <div>4 Comments</div>
-        </button>
-      </ion-col>
-      <ion-col align-self-center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
-      </ion-col>
-    </ion-row>
-  </ion-card>
-  <button ion-button outline (click)="showComments(recipe.file_id)">
-    Comments
-  </button>
+<ion-content *ngIf="recipe">
+  <div class="recipe">
+    <div class="recipe-image">
+      <img [src]="mediaProvider.mediaFilePath + recipe.filename" />
+    </div>
+    <div class="recipe-title">
+      <h1>{{ recipe?.title }}</h1>
+    </div>
+    <div class="recipe-rating">
+      rating
+    </div>
+    <div class="recipe-description">
+      <p>{{ recipe?.description }}</p>
+    </div>
+    <div class="recipe-comment-btn">
+      <button ion-button outline (click)="showComments(recipe.file_id)">
+        {{ recipe?.file_id | comment | async }} Comments
+      </button>
+    </div>
+  </div>
 </ion-content>

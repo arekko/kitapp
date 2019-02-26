@@ -1,3 +1,30 @@
 page-recipe-view {
+  .recipe {
+    &-image {
+      max-height: 260px;
+      object-fit: cover;
+    }
 
+    &-title {
+      color: #6a6969;
+      text-align: center;
+      padding: 10px;
+      h1 {
+        font-size: 28px;
+      }
+    }
+    &-rating {
+    }
+    &-description {
+      padding: 10px;
+      p {
+        font-size: 16px;
+        color: #818181;
+      }
+    }
+    &-comment-btn {
+      display: flex;
+      justify-content: center;
+    }
+  }
 }
