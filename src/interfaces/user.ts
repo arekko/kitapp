@@ -29,3 +29,6 @@ export interface UserRegisterResponse {
   message: string;
   user_id: number;
 }
+export interface MessageResponse {
+  message: string;
+}

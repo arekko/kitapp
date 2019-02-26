@@ -39,3 +39,13 @@ export interface Favorites {
   file_id: number;
   user_id: number;
 }
+
+export interface TagMessage {
+  message: string;
+  tag_id: number;
+}
+
+export interface MediaUpload {
+  message: string;
+  file_id: any;
+}

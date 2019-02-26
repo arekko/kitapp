@@ -12,4 +12,25 @@
 
 <ion-content padding>
 
+    <form (ngSubmit)="upload()">
+        <ion-item>
+          <ion-label floating>Title</ion-label>
+          <ion-input [(ngModel)]="title" type="text" name="title"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Description</ion-label>
+          <ion-textarea [(ngModel)]="description" type="text" name="description">Description</ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label>Choose file for upload</ion-label>
+          <ion-input type="file"(change)="handleChange($event)">File</ion-input>
+        </ion-item>
+        
+        <button ion-button block type="submit">Upload</button>
+      </form>
+    
+      <ion-card>
+        <img [ngStyle]="{'filter': brightness}" #preview [src]="filedata">
+      </ion-card>
+
 </ion-content>

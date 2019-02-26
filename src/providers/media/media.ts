@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { Comment, Favorites, Media, Rating } from "./../../interfaces/media";
+import { Comment, Favorites, Media, Rating, TagMessage, MediaUpload } from "./../../interfaces/media";
 import {
   User,
   UserLogin,
   UserLoginResponse,
   UserRegister,
-  UserRegisterResponse
+  UserRegisterResponse,
 } from "./../../interfaces/user";
 
 @Injectable()
@@ -18,6 +18,8 @@ export class MediaProvider {
 
   _baseAPI = "http://media.mw.metropolia.fi/wbma";
   mediaFilePath = "http://media.mw.metropolia.fi/wbma/uploads/";
+
+
 
   constructor(public http: HttpClient) {
     console.log("Hello MediaProvider Provider");
@@ -91,4 +93,27 @@ export class MediaProvider {
       );
     }
   }
+
+  // Post a upload reguest
+  upload(data: any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'x-access-token': localStorage.getItem('token'),
+      }),
+    };
+
+    return this.http.post<MediaUpload>(this._baseAPI + '/media', data, httpOptions)
+  }
+
+  // Post a new tag
+  postNewTag(data){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'x-access-token': localStorage.getItem('token'),
+      }),
+    };
+
+    return this.http.post<TagMessage>(this._baseAPI + '/tags', data, httpOptions)
+  }
+
 }

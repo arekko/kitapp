@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams, LoadingController } from "ionic-angular";
 import { Media } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
+import { UploadPage } from "../upload/upload";
 
 @IonicPage()
 @Component({
@@ -15,7 +16,8 @@ export class ProfilePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private mediaProvider: MediaProvider
+    private mediaProvider: MediaProvider,
+    public loadingCtrl: LoadingController
   ) {}
 
   ionViewDidLoad() {
@@ -28,4 +30,9 @@ export class ProfilePage {
       this.userMedia = res;
     });
   }
+
+  uploadMedia(){
+    this.navCtrl.push(UploadPage);
+  }
+
 }

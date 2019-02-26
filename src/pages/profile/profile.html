@@ -11,6 +11,7 @@
 </ion-header>
 
 <ion-content padding>
+  <button ion-button block (click)="uploadMedia()">Upload a new recipe</button>
   <ion-list>
     <ion-item-sliding *ngFor="let item of userMedia">
       <ion-item>

@@ -40,4 +40,5 @@ export class HomePage {
       item: event
     });
   }
+
 }
