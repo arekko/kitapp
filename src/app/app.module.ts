@@ -19,6 +19,7 @@ import { TabsPage } from "./../pages/tabs/tabs";
 import { UploadPage } from "./../pages/upload/upload";
 import { PipesModule } from "./../pipes/pipes.module";
 import { MyApp } from "./app.component";
+import { StarRatingModule } from 'ionic3-star-rating';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MyApp } from "./app.component";
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     IonicStorageModule.forRoot(),
-    PipesModule
+    PipesModule,
+    StarRatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

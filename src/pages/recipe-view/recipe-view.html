@@ -19,7 +19,15 @@
       <h1>{{ recipe?.title }}</h1>
     </div>
     <div class="recipe-rating">
-      rating
+      <ionic3-star-rating
+        activeIcon="ios-star"
+        defaultIcon="ios-star-outline"
+        activeColor="#e57373"
+        defaultColor="#999"
+        readonly="false"
+        [rating]="recipe.file_id | rating | async"
+      >
+      </ionic3-star-rating>
     </div>
     <div class="recipe-description">
       <p>{{ recipe?.description }}</p>
