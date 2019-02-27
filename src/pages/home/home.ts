@@ -6,7 +6,6 @@ import { MediaProvider } from "./../../providers/media/media";
 import { BookmarksPage } from "./../bookmarks/bookmarks";
 
 // TODO: add the infinity scroll
-// TODO: add single view page
 @Component({
   selector: "page-home",
   templateUrl: "home.html"

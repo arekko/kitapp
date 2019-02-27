@@ -15,7 +15,7 @@ export class ProfilePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private mediaProvider: MediaProvider
+    public mediaProvider: MediaProvider
   ) {}
 
   ionViewDidLoad() {

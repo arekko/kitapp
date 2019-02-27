@@ -55,6 +55,17 @@ export class MediaProvider {
     return this.http.post<UserLoginResponse>(`${this._baseAPI}/login`, data);
   }
 
+  // Request the user information
+
+  getUserInfoByUserId(userId: number): Observable<User> {
+    if (this._getHeaderWithToken()) {
+      return this.http.get<User>(
+        `${this._baseAPI}/users/${userId}`,
+        this._getHeaderWithToken()
+      );
+    }
+  }
+
   // Register user
 
   register(data: UserRegister): Observable<UserRegisterResponse> {

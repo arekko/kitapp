@@ -4,12 +4,8 @@ import { Media } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
 import { CommentsPage } from "./../comments/comments";
 
-/**
- * Generated class for the RecipeViewPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
+// TODO: Implement adding rating
 
 @IonicPage()
 @Component({

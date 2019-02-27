@@ -1,18 +1,25 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
+import { User } from "../../interfaces/user";
+import { MediaProvider } from "./../../providers/media/media";
 
-/**
- * Generated class for the UsernamePipe pipe.
- *
- * See https://angular.io/api/core/Pipe for more info on Angular Pipes.
- */
 @Pipe({
-  name: 'username',
+  name: "username"
 })
 export class UsernamePipe implements PipeTransform {
-  /**
-   * Takes a value and makes it lowercase.
-   */
-  transform(value: string, ...args) {
-    return value.toLowerCase();
+  constructor(private mediaProvider: MediaProvider) {}
+
+  transform(userId: number, type: string, ...args) {
+    return new Promise((resolve, reject) => {
+      this.mediaProvider.getUserInfoByUserId(userId).subscribe((res: User) => {
+        console.log("userid " + userId + " type " + type + res);
+
+        switch (type) {
+          case "username":
+            resolve(res.username);
+          case "fullname":
+            res.full_name ? resolve(res.full_name) : resolve(res.username);
+        }
+      });
+    });
   }
 }

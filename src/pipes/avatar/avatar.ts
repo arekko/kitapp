@@ -1,18 +1,24 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
+import { Media } from "../../interfaces/media";
+import { MediaProvider } from "./../../providers/media/media";
 
-/**
- * Generated class for the AvatarPipe pipe.
- *
- * See https://angular.io/api/core/Pipe for more info on Angular Pipes.
- */
 @Pipe({
-  name: 'avatar',
+  name: "avatar"
 })
 export class AvatarPipe implements PipeTransform {
-  /**
-   * Takes a value and makes it lowercase.
-   */
-  transform(value: string, ...args) {
-    return value.toLowerCase();
+  constructor(private mediaProvider: MediaProvider) {}
+
+  transform(userId: number, tag: string, ...args) {
+    return new Promise((resolve, reject) => {
+      this.mediaProvider.getListOfMediaByTag(tag).subscribe((res: Media[]) => {
+        console.log(res);
+
+        res.forEach(item => {
+          if (item.user_id === userId) {
+            resolve(item.file_id);
+          }
+        });
+      });
+    });
   }
 }

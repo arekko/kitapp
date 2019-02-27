@@ -2,9 +2,27 @@
   <div class="profile">
     <div class="profile-avatar">
       <img
-        src="https://static1.squarespace.com/static/525809c9e4b0ab36b916f147/t/5a91f90b53450a1796de161a/1519747185249/shutterstock_136377332.jpg"
+        [src]="
+          mediaProvider.user.user_id
+            | avatar: 'avatar'
+            | async
+            | thumbnail: 'small'
+            | async
+        "
         alt=""
       />
+    </div>
+    <div class="profile-bio">
+      <h2>
+        {{
+          mediaProvider.user.full_name
+            ? mediaProvider.user.full_name
+            : mediaProvider.user.username
+        }}
+      </h2>
+      <p>
+        {{ mediaProvider.user.email }}
+      </p>
     </div>
     <div class="profile-dashboard">
       <ion-list>

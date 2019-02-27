@@ -3,6 +3,7 @@ page-recipe-view {
     &-image {
       max-height: 260px;
       object-fit: cover;
+      width: 100%;
     }
 
     &-title {

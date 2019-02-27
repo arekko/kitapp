@@ -1,5 +1,20 @@
 page-profile {
   .profile {
+    background-color: #e57373;
+
+    &-bio {
+      text-align: center;
+      h2 {
+        color: #fff;
+        font-size: 24px;
+        margin: 0;
+      }
+      p {
+        color: #ddd;
+        font-size: 16px;
+      }
+    }
+
     &-dashboard {
     }
 
@@ -9,11 +24,10 @@ page-profile {
       display: flex;
       align-content: center;
       justify-content: center;
-      background-color: #e57373;
       img {
         /* make a square container */
-        width: 200px;
-        height: 200px;
+        width: 120px;
+        height: 120px;
         object-fit: cover;
         /* fill the container, preserving aspect ratio, and cropping to fit */
         background-size: cover;

@@ -2,12 +2,14 @@
   <div class="top">
     <div class="top-avatar">
       <img
-        src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_beanie_girl-512.png"
+        [src]="
+          item.user_id | avatar: 'avatar' | async | thumbnail: 'small' | async
+        "
         alt=""
       />
     </div>
     <div class="top-username">
-      <p>Jeanny Williams</p>
+      <p>{{ item.user_id | username: "fullname" | async }}</p>
     </div>
   </div>
   <div class="middle">
