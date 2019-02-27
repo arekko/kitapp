@@ -7,6 +7,7 @@
 </ion-header> -->
 
 <ion-content>
+    <ion-searchbar [(ngModel)]="searchBar" name="searchBar" (ionInput)="searchMedia()"></ion-searchbar>
   <card-recipe
     *ngFor="let item of mediaList"
     [item]="item"

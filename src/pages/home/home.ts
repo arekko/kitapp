@@ -16,6 +16,14 @@ export class HomePage {
   mediaList: Media[] = null;
   mArr: any;
 
+    // Modified
+    search = {
+      "title": ""
+    }
+    searchBar = '';
+    media: Media;
+    //
+
   constructor(
     public navCtrl: NavController,
     private mediaProvider: MediaProvider
@@ -30,7 +38,17 @@ export class HomePage {
     this.mediaProvider.getListOfMediaByTag(tag).subscribe((res: Media[]) => {
       this.mediaList = res;
       console.log(res);
+      if(res[0].tag = 'kitapp'){
+        this.getSingleMedia(res[0].file_id)
+      }
     });
+  }
+
+  getSingleMedia(id){
+    this.mediaProvider.getSingleMedia(id).subscribe(
+      (response: Media) => {
+        console.log(response);
+      });
   }
 
   showRecipe(event) {
@@ -40,5 +58,22 @@ export class HomePage {
       item: event
     });
   }
+
+
+  // Modified
+  searchMedia(){
+    console.log(this.searchBar);
+    if(this.searchBar != ''){
+      this.search.title = this.searchBar;
+      console.log(this.search);
+      console.log(this.search.title);
+      this.mediaProvider.search(this.search).subscribe(
+        (response: Media[]) => {
+          console.log(response);
+        });
+      }
+    }
+  //
+
 
 }
