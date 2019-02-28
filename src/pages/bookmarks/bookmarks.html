@@ -1,3 +1,29 @@
 <ion-content *ngIf="favoriteList">
-  <card-recipe *ngFor="let item of favoriteList" [item]="item"></card-recipe>
+  <!-- <card-recipe *ngFor="let item of favoriteList" [item]="item"></card-recipe> -->
+
+  <div *ngIf="favoriteList.length === 0" class="no-bookmarks" center centerdd>
+    <p>You don't have bookmarks</p>
+  </div>
+
+  <ion-list *ngIf="favoriteList.length > 0">
+    <div class="title">Bookmarks</div>
+    <ion-item-sliding *ngFor="let item of favoriteList">
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img [src]="item.file_id | thumbnail: 'medium' | async" />
+        </ion-thumbnail>
+        <h2>{{ item.title }}</h2>
+      </ion-item>
+      <ion-item-options side="right">
+        <button
+          ion-button
+          color="primary"
+          (click)="deleteBookmark(item.file_id)"
+        >
+          <ion-icon name="trash"></ion-icon>
+          Remove
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

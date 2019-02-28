@@ -1,5 +1,5 @@
 <div class="card-wrapper">
-  <div class="top">
+  <div *ngIf="mediaProvider.isLoggedIn" class="top">
     <div class="top-avatar">
       <img
         [src]="
@@ -9,7 +9,7 @@
       />
     </div>
     <div class="top-username">
-      <p>{{ item.user_id | username: "fullname" | async }}</p>
+      <p>{{ item.user_id | username: "fullname" | async | titlecase }}</p>
     </div>
   </div>
   <div class="middle">
@@ -26,28 +26,28 @@
     <div class="bottom-stats">
       <ion-row>
         <ion-col>
-          <button ion-button icon-start clear small color="light">
+          <button ion-button icon-start clear small color="tomato">
             <ion-icon name="star"></ion-icon>
             <div>{{ item.file_id | rating | async }}</div>
           </button>
         </ion-col>
         <ion-col>
-          <button ion-button icon-start clear small color="light">
+          <button ion-button icon-start clear small color="tomato">
             <ion-icon name="text"></ion-icon>
             <div>{{ item.file_id | comment | async }}</div>
           </button>
         </ion-col>
-        <ion-col align-self-center text-center>
+        <ion-col *ngIf="mediaProvider.isLoggedIn" align-self-center text-center>
           <button
             ion-button
             icon-start
             clear
             small
-            color="light"
+            color="tomato"
             (click)="addBookmark(item.file_id)"
           >
             <ion-icon [name]="item.file_id | favorite | async"></ion-icon>
-            <div>Bookmarks</div>
+          <!-- <div>Bookmarks</div> -->
           </button>
         </ion-col>
       </ion-row>

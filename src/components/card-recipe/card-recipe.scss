@@ -3,10 +3,15 @@ h2 {
 }
 
 card-recipe {
+  .col {
+    display: flex;
+    justify-content: center;
+  }
+
   .card-wrapper {
     display: flex;
     flex-direction: column;
-    background-color: #e57373;
+    background-color: #fafafa;
     margin: 2px 0;
 
     .top {
@@ -14,7 +19,6 @@ card-recipe {
       flex-direction: row;
       align-items: center;
       padding: 5px 30px 5px 30px;
-      border-left: 2px solid #fff;
       &-avatar {
         img {
           width: 40px;
@@ -27,7 +31,7 @@ card-recipe {
       &-username {
         margin-left: 15px;
         font-size: 15px;
-        color: #fff;
+        color: #6a6969;
       }
     }
 
@@ -44,15 +48,16 @@ card-recipe {
       flex-direction: column;
 
       &-title {
-        color: #fff;
+        color: #6a6969;
         padding: 10px 30px 10px 30px;
+        text-align: center;
         h2 {
           margin: 0;
           font-size: 21px;
         }
       }
       &-stats {
-        border-top: 1px solid #ffb2b2;
+        border-top: 1px solid #ddd;
       }
     }
   }

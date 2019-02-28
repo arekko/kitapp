@@ -52,9 +52,7 @@ export class LoginPage {
   onSubmit() {
     if (this.loginForm.valid) {
       const { value } = this.loginForm;
-      console.log(this.loginForm);
       this.mediaProvider.login(value).subscribe((res: UserLoginResponse) => {
-        console.log(res);
         this.mediaProvider.user = res.user;
         this.mediaProvider.isLoggedIn = true;
 

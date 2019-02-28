@@ -22,9 +22,25 @@ export class BookmarksPage {
     this.getUserFavorites();
   }
 
+  /**
+   *
+   *
+   * @param {number} fileId
+   * @memberof BookmarksPage
+   */
+  deleteBookmark(fileId: number) {
+    const inx = this.favoriteList.findIndex(el => el.file_id === fileId);
+    this.mediaProvider.deleteFavoriteByFileId(fileId).subscribe(res => {
+      console.log(res);
+      this.favoriteList.splice(inx, 1);
+      // this.getUserFavorites();
+    });
+  }
+
   getUserFavorites() {
     this.mediaProvider.getUserFavorites().subscribe((res: Favorites[]) => {
       console.log(res);
+      this.favoriteList = [];
 
       res.forEach(item => {
         this.mediaProvider

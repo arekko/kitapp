@@ -35,7 +35,14 @@
             <ion-icon name="trash"></ion-icon>
             Delete account
           </button>
-          <button ion-button outline item-end icon-start color="light">
+          <button
+            ion-button
+            outline
+            item-end
+            icon-start
+            color="light"
+            (click)="logout()"
+          >
             <ion-icon name="log-out"></ion-icon>
           </button>
         </ion-item>

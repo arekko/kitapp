@@ -16,6 +16,9 @@ page-profile {
     }
 
     &-dashboard {
+      .list .list-md {
+        background-color: #e57373;
+      }
     }
 
     &-avatar {
@@ -39,7 +42,9 @@ page-profile {
     }
   }
 }
+.item .item-block .item-md {
+  background-color: #e57373;
+}
 
 .list-ios > .item-block:first-child {
-  background-color: #e57373;
 }

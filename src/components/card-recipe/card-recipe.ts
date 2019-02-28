@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { MediaProvider } from "./../../providers/media/media";
 
 @Component({
   selector: "card-recipe",
@@ -9,11 +10,10 @@ export class CardRecipeComponent {
   @Output() showRecipe = new EventEmitter<number>();
   @Output() fileId = new EventEmitter<number>();
 
-
-  constructor() {}
+  constructor(public mediaProvider: MediaProvider) {}
 
   addBookmark(fileId: number) {
-    this.fileId.emit(fileId)
+    this.fileId.emit(fileId);
   }
 
   showRecipePage(fileId: number) {

@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Storage } from "@ionic/storage";
 import { NavController } from "ionic-angular";
 import { RecipeViewPage } from "../recipe-view/recipe-view";
 import { AddFavoriteResponse, Media } from "./../../interfaces/media";
@@ -18,10 +19,19 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    private mediaProvider: MediaProvider
+    private mediaProvider: MediaProvider,
+    private storage: Storage
   ) {}
 
   ionViewDidLoad() {
+    if (localStorage.getItem("token")) {
+      if (!this.mediaProvider.user) {
+        this.storage.get("user").then(res => {
+          this.mediaProvider.user = JSON.parse(res);
+          this.mediaProvider.isLoggedIn = true;
+        });
+      }
+    }
     this.getAllMedia(this._tag);
   }
 
@@ -36,9 +46,11 @@ export class HomePage {
   showRecipe(event) {
     console.log(event);
 
-    this.navCtrl.push(RecipeViewPage, {
-      item: event
-    });
+    this.mediaProvider.isLoggedIn
+      ? this.navCtrl.push(RecipeViewPage, {
+          item: event
+        })
+      : this.navCtrl.parent.select(1);
   }
 
   addBookmark(fileId: number) {

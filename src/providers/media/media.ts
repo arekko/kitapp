@@ -29,9 +29,7 @@ export class MediaProvider {
   _baseAPI = "http://media.mw.metropolia.fi/wbma";
   mediaFilePath = "http://media.mw.metropolia.fi/wbma/uploads/";
 
-  constructor(public http: HttpClient) {
-    console.log("Hello MediaProvider Provider");
-  }
+  constructor(public http: HttpClient) {}
 
   private _getHeaderWithToken(): object | null {
     const token = localStorage.getItem("token");
@@ -90,10 +88,24 @@ export class MediaProvider {
 
   // Comments methods
   // Request a list of comments by fileId
+  /**
+   *
+   *
+   * @param {number} fileId
+   * @returns {Observable<Comment[]>}
+   * @memberof MediaProvider
+   */
   getCommentsByFileId(fileId: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`${this._baseAPI}/comments/file/${fileId}`);
   }
   // Delete comment
+  /**
+   *
+   *
+   * @param {number} commentId
+   * @returns {Observable<CommentDelete>}
+   * @memberof MediaProvider
+   */
   deleteCommentById(commentId: number): Observable<CommentDelete> {
     if (this._getHeaderWithToken()) {
       return this.http.delete<CommentDelete>(
@@ -104,6 +116,13 @@ export class MediaProvider {
   }
 
   // Post new comments
+  /**
+   *
+   *
+   * @param {CommentRequest} data
+   * @returns {Observable<CommentResponse>}
+   * @memberof MediaProvider
+   */
   addCommentByFileId(data: CommentRequest): Observable<CommentResponse> {
     if (this._getHeaderWithToken()) {
       return this.http.post<CommentResponse>(
@@ -115,6 +134,12 @@ export class MediaProvider {
   }
 
   // Reuest a list of favorites
+  /**
+   *
+   *
+   * @returns {Observable<Favorites[]>}
+   * @memberof MediaProvider
+   */
   getUserFavorites(): Observable<Favorites[]> {
     if (this._getHeaderWithToken) {
       return this.http.get<Favorites[]>(
@@ -124,7 +149,31 @@ export class MediaProvider {
     }
   }
 
+  // Delete from favorite
+
+  /**
+   *
+   *
+   * @param {number} fileId
+   * @memberof MediaProvider
+   */
+  deleteFavoriteByFileId(fileId: number) {
+    if (this._getHeaderWithToken()) {
+      return this.http.delete(
+        `${this._baseAPI}/favourites/file/${fileId}`,
+        this._getHeaderWithToken()
+      );
+    }
+  }
+
   // Create new favorite
+  /**
+   *
+   *
+   * @param {AddFavoriteRequest} data
+   * @returns {Observable<AddFavoriteResponse>}
+   * @memberof MediaProvider
+   */
   addBookmark(data: AddFavoriteRequest): Observable<AddFavoriteResponse> {
     if (this._getHeaderWithToken()) {
       return this.http.post<AddFavoriteResponse>(
@@ -136,7 +185,14 @@ export class MediaProvider {
   }
 
   // List of file of current user
-  getCurrentUserMedia() {
+
+  /**
+   *
+   *
+   * @returns {Observable<Media[]>}
+   * @memberof MediaProvider
+   */
+  getCurrentUserMedia(): Observable<Media[]> {
     if (this._getHeaderWithToken) {
       return this.http.get<Media[]>(
         `${this._baseAPI}/media/user`,
