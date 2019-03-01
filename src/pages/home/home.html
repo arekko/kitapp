@@ -8,7 +8,7 @@
 
 <ion-content>
   <card-recipe
-    *ngFor="let item of mediaList"
+    *ngFor="let item of media"
     [item]="item"
     (showRecipe)="showRecipe($event)"
     (fileId)="addBookmark($event)"

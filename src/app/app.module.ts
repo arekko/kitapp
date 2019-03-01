@@ -5,13 +5,16 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { IonicStorageModule } from "@ionic/storage";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
+import { StarRatingModule } from "ionic3-star-rating";
 import { HomePage } from "../pages/home/home";
+import { BookmarkProvider } from "../providers/bookmark/bookmark";
+import { HelperProvider } from "../providers/helper/helper";
 import { MediaProvider } from "../providers/media/media";
+import { UserProvider } from "../providers/user/user";
 import { CardCommentComponent } from "./../components/card-comment/card-comment";
 import { CardRecipeComponent } from "./../components/card-recipe/card-recipe";
 import { BookmarksPage } from "./../pages/bookmarks/bookmarks";
 import { CommentsPage } from "./../pages/comments/comments";
-import { FrontPage } from "./../pages/front/front";
 import { LoginPage } from "./../pages/login/login";
 import { ProfilePage } from "./../pages/profile/profile";
 import { RecipeViewPage } from "./../pages/recipe-view/recipe-view";
@@ -19,13 +22,11 @@ import { TabsPage } from "./../pages/tabs/tabs";
 import { UploadPage } from "./../pages/upload/upload";
 import { PipesModule } from "./../pipes/pipes.module";
 import { MyApp } from "./app.component";
-import { StarRatingModule } from 'ionic3-star-rating';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    FrontPage,
     LoginPage,
     TabsPage,
     ProfilePage,
@@ -48,7 +49,6 @@ import { StarRatingModule } from 'ionic3-star-rating';
   entryComponents: [
     MyApp,
     HomePage,
-    FrontPage,
     LoginPage,
     TabsPage,
     ProfilePage,
@@ -62,7 +62,10 @@ import { StarRatingModule } from 'ionic3-star-rating';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    MediaProvider
+    MediaProvider,
+    UserProvider,
+    BookmarkProvider,
+    HelperProvider
   ]
 })
 export class AppModule {}

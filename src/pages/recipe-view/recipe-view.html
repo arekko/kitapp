@@ -7,7 +7,7 @@
 <ion-content *ngIf="recipe">
   <div class="recipe">
     <div class="recipe-image">
-      <img [src]="mediaProvider.mediaFilePath + recipe.filename" />
+      <img [src]="helperProvider.mediaFilePath + recipe.filename" />
     </div>
     <div class="recipe-title">
       <h1>{{ recipe?.title }}</h1>

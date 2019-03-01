@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { MediaProvider } from "./../../providers/media/media";
+import { UserProvider } from "./../../providers/user/user";
 
 @Component({
   selector: "card-recipe",
@@ -10,7 +10,9 @@ export class CardRecipeComponent {
   @Output() showRecipe = new EventEmitter<number>();
   @Output() fileId = new EventEmitter<number>();
 
-  constructor(public mediaProvider: MediaProvider) {}
+  constructor(public userProvider: UserProvider) {
+    console.log(this.userProvider.isLoggedIn);
+  }
 
   addBookmark(fileId: number) {
     this.fileId.emit(fileId);

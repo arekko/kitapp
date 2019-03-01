@@ -31,9 +31,8 @@ export class BookmarksPage {
   deleteBookmark(fileId: number) {
     const inx = this.favoriteList.findIndex(el => el.file_id === fileId);
     this.mediaProvider.deleteFavoriteByFileId(fileId).subscribe(res => {
-      console.log(res);
       this.favoriteList.splice(inx, 1);
-      // this.getUserFavorites();
+      this.mediaProvider.fetchMediaData();
     });
   }
 

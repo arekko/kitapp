@@ -1,13 +1,17 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { MediaProvider } from "../../providers/media/media";
 import { Media } from "./../../interfaces/media";
+import { HelperProvider } from "./../../providers/helper/helper";
 
 @Pipe({
   name: "thumbnail"
   // pure: false
 })
 export class ThumbnailPipe implements PipeTransform {
-  constructor(private mediaProvider: MediaProvider) {}
+  constructor(
+    private mediaProvider: MediaProvider,
+    private helperProvider: HelperProvider
+  ) {}
   private cachedId: number;
 
   async transform(id: number, ...args) {
@@ -17,7 +21,7 @@ export class ThumbnailPipe implements PipeTransform {
 
     return new Promise((resolve, reject) => {
       this.mediaProvider.getSingleMedia(id).subscribe((response: Media) => {
-        const url = this.mediaProvider.mediaFilePath;
+        const url = this.helperProvider.mediaFilePath;
 
         if (response.thumbnails) {
           switch (args[0]) {

@@ -1,11 +1,11 @@
 <div class="card-wrapper">
-  <div *ngIf="mediaProvider.isLoggedIn" class="top">
+  <div *ngIf="userProvider.isLoggedIn" class="top">
     <div class="top-avatar">
       <img
         [src]="
           item.user_id | avatar: 'avatar' | async | thumbnail: 'small' | async
         "
-        alt=""
+        [alt]="item.title"
       />
     </div>
     <div class="top-username">
@@ -37,7 +37,7 @@
             <div>{{ item.file_id | comment | async }}</div>
           </button>
         </ion-col>
-        <ion-col *ngIf="mediaProvider.isLoggedIn" align-self-center text-center>
+        <ion-col *ngIf="userProvider.isLoggedIn" align-self-center text-center>
           <button
             ion-button
             icon-start
@@ -47,52 +47,10 @@
             (click)="addBookmark(item.file_id)"
           >
             <ion-icon [name]="item.file_id | favorite | async"></ion-icon>
-          <!-- <div>Bookmarks</div> -->
+            <!-- <div>Bookmarks</div> -->
           </button>
         </ion-col>
       </ion-row>
     </div>
   </div>
 </div>
-
-<!-- <ion-card>
-  <ion-item>
-    <ion-avatar item-start>
-      <img
-        src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_beanie_girl-512.png"
-      />
-    </ion-avatar>
-    <h2>Marty McFly</h2>
-    <p>November 5, 1955</p>
-  </ion-item>
-
-  <img
-    [src]="item.file_id | thumbnail: 'medium' | async"
-    (click)="showRecipePage(item)"
-  />
-
-  <ion-card-content>
-    <h2 class="card-title">{{ item.title }}</h2>
-  </ion-card-content>
-
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-start clear small>
-        <ion-icon name="star"></ion-icon>
-        <div>{{ item.file_id | rating | async }}</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-start clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>{{ item.file_id | comment | async }}</div>
-      </button>
-    </ion-col>
-    <ion-col align-self-center text-center>
-      <button ion-button icon-start clear small>
-        <ion-icon [name]="item.file_id | favorite | async"></ion-icon>
-        <div>Bookmarks</div>
-      </button>
-    </ion-col>
-  </ion-row>
-</ion-card> -->

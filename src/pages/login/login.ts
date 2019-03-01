@@ -2,8 +2,8 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
-import { MediaProvider } from "../../providers/media/media";
 import { UserLoginResponse } from "./../../interfaces/user";
+import { UserProvider } from "./../../providers/user/user";
 import { TabsPage } from "./../tabs/tabs";
 
 @IonicPage()
@@ -18,9 +18,9 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public mediaProvider: MediaProvider,
     public formbuilder: FormBuilder,
-    private storage: Storage
+    private storage: Storage,
+    private userProvider: UserProvider
   ) {
     this.loginForm = formbuilder.group({
       username: [
@@ -52,9 +52,9 @@ export class LoginPage {
   onSubmit() {
     if (this.loginForm.valid) {
       const { value } = this.loginForm;
-      this.mediaProvider.login(value).subscribe((res: UserLoginResponse) => {
-        this.mediaProvider.user = res.user;
-        this.mediaProvider.isLoggedIn = true;
+      this.userProvider.login(value).subscribe((res: UserLoginResponse) => {
+        this.userProvider.user = res.user;
+        this.userProvider.isLoggedIn = true;
 
         this.storage.set("user", JSON.stringify(res.user));
 

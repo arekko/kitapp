@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Media } from "./../../interfaces/media";
+import { HelperProvider } from "./../../providers/helper/helper";
 import { MediaProvider } from "./../../providers/media/media";
 import { CommentsPage } from "./../comments/comments";
-
 
 // TODO: Implement adding rating
 
@@ -18,7 +18,8 @@ export class RecipeViewPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public mediaProvider: MediaProvider
+    public mediaProvider: MediaProvider,
+    public helperProvider: HelperProvider
   ) {}
 
   ionViewDidLoad() {

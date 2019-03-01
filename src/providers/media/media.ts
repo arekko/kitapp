@@ -1,6 +1,7 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
 import {
   AddFavoriteRequest,
   AddFavoriteResponse,
@@ -12,78 +13,50 @@ import {
   Media,
   Rating
 } from "./../../interfaces/media";
-import {
-  User,
-  UserLogin,
-  UserLoginResponse,
-  UserRegister,
-  UserRegisterResponse
-} from "./../../interfaces/user";
+import { HelperProvider } from "./../helper/helper";
 
 @Injectable()
 export class MediaProvider {
-  // this variable contains current user's data (check User type for more details)
-  user: User;
-  isLoggedIn: boolean = false;
+  mediaChanged = new Subject<Media[]>();
+  mediaData: Media[] = [];
+  _tag: string = "kitapp";
 
-  _baseAPI = "http://media.mw.metropolia.fi/wbma";
-  mediaFilePath = "http://media.mw.metropolia.fi/wbma/uploads/";
-
-  constructor(public http: HttpClient) {}
-
-  private _getHeaderWithToken(): object | null {
-    const token = localStorage.getItem("token");
-    let options: object | null = null;
-
-    if (token) {
-      options = {
-        headers: new HttpHeaders({
-          "x-access-token": token
-        })
-      };
-    }
-    return options;
-  }
-
-  // User
-
-  // Login user
-
-  login(data: UserLogin): Observable<UserLoginResponse> {
-    return this.http.post<UserLoginResponse>(`${this._baseAPI}/login`, data);
-  }
-
-  // Request the user information
-
-  getUserInfoByUserId(userId: number): Observable<User> {
-    if (this._getHeaderWithToken()) {
-      return this.http.get<User>(
-        `${this._baseAPI}/users/${userId}`,
-        this._getHeaderWithToken()
-      );
-    }
-  }
-
-  // Register user
-
-  register(data: UserRegister): Observable<UserRegisterResponse> {
-    return this.http.post<UserRegisterResponse>(`${this._baseAPI}/users`, data);
-  }
+  constructor(
+    public http: HttpClient,
+    private helperProvider: HelperProvider
+  ) {}
 
   // Media
   // Get list of files by tag
   getListOfMediaByTag(tag: string): Observable<Media[]> {
-    return this.http.get<Media[]>(`${this._baseAPI}/tags/${tag}`);
+    return this.http.get<Media[]>(`${this.helperProvider.baseAPI}/tags/${tag}`);
+  }
+
+  fetchMediaData() {
+    this.getListOfMediaByTag(this._tag).subscribe((media: Media[]) => {
+      this.setMedia(media);
+    });
+  }
+
+  getMediaData() {
+    return this.mediaData.slice();
+  }
+
+  setMedia(media: Media[]) {
+    this.mediaData = media;
+    this.mediaChanged.next(this.mediaData.slice());
   }
 
   // Get single media
   getSingleMedia(id: number): Observable<Media> {
-    return this.http.get<Media>(`${this._baseAPI}/media/${id}`);
+    return this.http.get<Media>(`${this.helperProvider.baseAPI}/media/${id}`);
   }
 
   // Request a list of ratings by file id
   getListOfRatingsByFileId(fileId: number): Observable<Rating[]> {
-    return this.http.get<Rating[]>(`${this._baseAPI}/ratings/file/${fileId}`);
+    return this.http.get<Rating[]>(
+      `${this.helperProvider.baseAPI}/ratings/file/${fileId}`
+    );
   }
 
   // Comments methods
@@ -96,7 +69,9 @@ export class MediaProvider {
    * @memberof MediaProvider
    */
   getCommentsByFileId(fileId: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`${this._baseAPI}/comments/file/${fileId}`);
+    return this.http.get<Comment[]>(
+      `${this.helperProvider.baseAPI}/comments/file/${fileId}`
+    );
   }
   // Delete comment
   /**
@@ -107,10 +82,10 @@ export class MediaProvider {
    * @memberof MediaProvider
    */
   deleteCommentById(commentId: number): Observable<CommentDelete> {
-    if (this._getHeaderWithToken()) {
+    if (this.helperProvider.getHeaderWithToken()) {
       return this.http.delete<CommentDelete>(
-        `${this._baseAPI}/comments/${commentId}`,
-        this._getHeaderWithToken()
+        `${this.helperProvider.baseAPI}/comments/${commentId}`,
+        this.helperProvider.getHeaderWithToken()
       );
     }
   }
@@ -124,11 +99,11 @@ export class MediaProvider {
    * @memberof MediaProvider
    */
   addCommentByFileId(data: CommentRequest): Observable<CommentResponse> {
-    if (this._getHeaderWithToken()) {
+    if (this.helperProvider.getHeaderWithToken()) {
       return this.http.post<CommentResponse>(
-        `${this._baseAPI}/comments`,
+        `${this.helperProvider.baseAPI}/comments`,
         data,
-        this._getHeaderWithToken()
+        this.helperProvider.getHeaderWithToken()
       );
     }
   }
@@ -141,10 +116,10 @@ export class MediaProvider {
    * @memberof MediaProvider
    */
   getUserFavorites(): Observable<Favorites[]> {
-    if (this._getHeaderWithToken) {
+    if (this.helperProvider.getHeaderWithToken) {
       return this.http.get<Favorites[]>(
-        `${this._baseAPI}/favourites`,
-        this._getHeaderWithToken()
+        `${this.helperProvider.baseAPI}/favourites`,
+        this.helperProvider.getHeaderWithToken()
       );
     }
   }
@@ -158,10 +133,10 @@ export class MediaProvider {
    * @memberof MediaProvider
    */
   deleteFavoriteByFileId(fileId: number) {
-    if (this._getHeaderWithToken()) {
+    if (this.helperProvider.getHeaderWithToken()) {
       return this.http.delete(
-        `${this._baseAPI}/favourites/file/${fileId}`,
-        this._getHeaderWithToken()
+        `${this.helperProvider.baseAPI}/favourites/file/${fileId}`,
+        this.helperProvider.getHeaderWithToken()
       );
     }
   }
@@ -175,11 +150,11 @@ export class MediaProvider {
    * @memberof MediaProvider
    */
   addBookmark(data: AddFavoriteRequest): Observable<AddFavoriteResponse> {
-    if (this._getHeaderWithToken()) {
+    if (this.helperProvider.getHeaderWithToken()) {
       return this.http.post<AddFavoriteResponse>(
-        `${this._baseAPI}/favourites`,
+        `${this.helperProvider.baseAPI}/favourites`,
         data,
-        this._getHeaderWithToken()
+        this.helperProvider.getHeaderWithToken()
       );
     }
   }
@@ -193,10 +168,10 @@ export class MediaProvider {
    * @memberof MediaProvider
    */
   getCurrentUserMedia(): Observable<Media[]> {
-    if (this._getHeaderWithToken) {
+    if (this.helperProvider.getHeaderWithToken) {
       return this.http.get<Media[]>(
-        `${this._baseAPI}/media/user`,
-        this._getHeaderWithToken()
+        `${this.helperProvider.baseAPI}/media/user`,
+        this.helperProvider.getHeaderWithToken()
       );
     }
   }

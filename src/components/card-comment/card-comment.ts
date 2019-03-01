@@ -13,8 +13,6 @@ export class CardCommentComponent {
   constructor(private mediaProvider: MediaProvider) {}
 
   removeComment(commentId) {
-    console.log("click");
-
     this.delComment.emit(commentId);
   }
 }

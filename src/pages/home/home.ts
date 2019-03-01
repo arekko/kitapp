@@ -1,52 +1,54 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { NavController } from "ionic-angular";
+import { Subscription } from "rxjs/Subscription";
 import { RecipeViewPage } from "../recipe-view/recipe-view";
 import { AddFavoriteResponse, Media } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
-import { BookmarksPage } from "./../bookmarks/bookmarks";
+import { UserProvider } from "./../../providers/user/user";
 
 // TODO: add the infinity scroll
 @Component({
   selector: "page-home",
   templateUrl: "home.html"
 })
-export class HomePage {
-  _tag: string = "kitapp";
-  // here we are storing all media with tag _tag
-  mediaList: Media[] = null;
-  mArr: any;
+export class HomePage implements OnInit, OnDestroy {
+  media: Media[];
+  subscription: Subscription;
 
   constructor(
     public navCtrl: NavController,
     private mediaProvider: MediaProvider,
-    private storage: Storage
+    private storage: Storage,
+    private userProvider: UserProvider
   ) {}
 
-  ionViewDidLoad() {
+  async ngOnInit() {
     if (localStorage.getItem("token")) {
-      if (!this.mediaProvider.user) {
+      if (!this.userProvider.user) {
         this.storage.get("user").then(res => {
-          this.mediaProvider.user = JSON.parse(res);
-          this.mediaProvider.isLoggedIn = true;
+          this.userProvider.user = JSON.parse(res);
+          this.userProvider.isLoggedIn = true;
         });
       }
     }
-    this.getAllMedia(this._tag);
+
+    this.subscription = this.mediaProvider.mediaChanged.subscribe(
+      (media: Media[]) => {
+        this.media = media;
+      }
+    );
+    await this.mediaProvider.fetchMediaData();
   }
 
-  // Fetching all media and strore them to mediaList variable
-  getAllMedia(tag) {
-    this.mediaProvider.getListOfMediaByTag(tag).subscribe((res: Media[]) => {
-      this.mediaList = res;
-      console.log(res);
-    });
+  ngOnDestroy() {
+    console.log("home was destroyed");
+
+    this.subscription.unsubscribe();
   }
 
   showRecipe(event) {
-    console.log(event);
-
-    this.mediaProvider.isLoggedIn
+    this.userProvider.isLoggedIn
       ? this.navCtrl.push(RecipeViewPage, {
           item: event
         })
@@ -62,8 +64,6 @@ export class HomePage {
       })
       .subscribe((res: AddFavoriteResponse) => {
         console.log(res);
-        this.getAllMedia(this._tag);
-        this.navCtrl.push(BookmarksPage);
       });
   }
 }

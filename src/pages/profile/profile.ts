@@ -3,6 +3,8 @@ import { Storage } from "@ionic/storage";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Media } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
+import { UserProvider } from "./../../providers/user/user";
+import { HomePage } from "./../home/home";
 
 @IonicPage()
 @Component({
@@ -17,7 +19,8 @@ export class ProfilePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public mediaProvider: MediaProvider,
-    private storage: Storage
+    private storage: Storage,
+    public userProvider: UserProvider
   ) {}
 
   ionViewDidLoad() {
@@ -35,7 +38,8 @@ export class ProfilePage {
     return this.storage.remove("user").then(res => {
       console.log(res);
       localStorage.clear();
-      this.navCtrl.pop();
+      this.userProvider.isLoggedIn = false;
+      this.navCtrl.push(HomePage);
     });
   }
 }

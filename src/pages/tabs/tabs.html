@@ -1,17 +1,17 @@
 <ion-tabs>
   <ion-tab [root]="homePage" tabIcon="home"></ion-tab>
   <ion-tab
-    [show]="mediaProvider.isLoggedIn"
+    [show]="userProvider.isLoggedIn"
     tabIcon="person"
     [root]="profilePage"
   ></ion-tab>
   <ion-tab
-    [show]="mediaProvider.isLoggedIn"
+    [show]="userProvider.isLoggedIn"
     tabIcon="bookmarks"
     [root]="bookmarksPage"
   ></ion-tab>
   <ion-tab
-    [show]="!mediaProvider.isLoggedIn"
+    [show]="!userProvider.isLoggedIn"
     tabIcon="keypad"
     [root]="loginPage"
   ></ion-tab>

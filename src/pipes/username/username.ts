@@ -1,16 +1,16 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { User } from "../../interfaces/user";
-import { MediaProvider } from "./../../providers/media/media";
+import { UserProvider } from "../../providers/user/user";
 
 @Pipe({
   name: "username"
 })
 export class UsernamePipe implements PipeTransform {
-  constructor(private mediaProvider: MediaProvider) {}
+  constructor(private userProvider: UserProvider) {}
 
   transform(userId: number, type: string, ...args) {
     return new Promise((resolve, reject) => {
-      this.mediaProvider.getUserInfoByUserId(userId).subscribe((res: User) => {
+      this.userProvider.getUserInfoByUserId(userId).subscribe((res: User) => {
         console.log("userid " + userId + " type " + type + res);
 
         switch (type) {
