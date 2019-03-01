@@ -3,7 +3,8 @@ import { Storage } from "@ionic/storage";
 import { NavController } from "ionic-angular";
 import { Subscription } from "rxjs/Subscription";
 import { RecipeViewPage } from "../recipe-view/recipe-view";
-import { AddFavoriteResponse, Media } from "./../../interfaces/media";
+import { Media } from "./../../interfaces/media";
+import { BookmarkProvider } from "./../../providers/bookmark/bookmark";
 import { MediaProvider } from "./../../providers/media/media";
 import { UserProvider } from "./../../providers/user/user";
 
@@ -14,16 +15,19 @@ import { UserProvider } from "./../../providers/user/user";
 })
 export class HomePage implements OnInit, OnDestroy {
   media: Media[];
-  subscription: Subscription;
+  subscriptionMediaChanged: Subscription;
+  subscriptionShowRecipeView: Subscription;
+  subscriptionBookmarkHandler: Subscription;
 
   constructor(
     public navCtrl: NavController,
     private mediaProvider: MediaProvider,
     private storage: Storage,
-    private userProvider: UserProvider
+    private userProvider: UserProvider,
+    private bookmarkProvider: BookmarkProvider
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     if (localStorage.getItem("token")) {
       if (!this.userProvider.user) {
         this.storage.get("user").then(res => {
@@ -33,37 +37,43 @@ export class HomePage implements OnInit, OnDestroy {
       }
     }
 
-    this.subscription = this.mediaProvider.mediaChanged.subscribe(
+    this.subscriptionMediaChanged = this.mediaProvider.mediaChanged.subscribe(
       (media: Media[]) => {
         this.media = media;
       }
     );
-    await this.mediaProvider.fetchMediaData();
+    this.mediaProvider.fetchMediaData();
+
+    this.subscriptionShowRecipeView = this.mediaProvider.showRecipeView.subscribe(
+      (fileId: number) => {
+        this.navCtrl.push(RecipeViewPage, {
+          item: fileId
+        });
+      }
+    );
+
+    this.subscriptionBookmarkHandler = this.bookmarkProvider.bookmarkHandler.subscribe(
+      (fileId: string) => {
+        // FIXME: make the same thing like in home page means get set and etc
+        console.log(fileId);
+      }
+    );
   }
 
   ngOnDestroy() {
-    console.log("home was destroyed");
-
-    this.subscription.unsubscribe();
+    this.subscriptionMediaChanged.unsubscribe();
+    this.subscriptionShowRecipeView.unsubscribe();
   }
 
-  showRecipe(event) {
-    this.userProvider.isLoggedIn
-      ? this.navCtrl.push(RecipeViewPage, {
-          item: event
-        })
-      : this.navCtrl.parent.select(1);
-  }
+  // addBookmark(fileId: number) {
+  //   console.log(fileId);
 
-  addBookmark(fileId: number) {
-    console.log(fileId);
-
-    this.mediaProvider
-      .addBookmark({
-        file_id: fileId
-      })
-      .subscribe((res: AddFavoriteResponse) => {
-        console.log(res);
-      });
-  }
+  //   this.mediaProvider
+  //     .addBookmark({
+  //       file_id: fileId
+  //     })
+  //     .subscribe((res: AddFavoriteResponse) => {
+  //       console.log(res);
+  //     });
+  // }
 }

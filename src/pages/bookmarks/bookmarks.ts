@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Favorites, Media } from "./../../interfaces/media";
+import { BookmarkProvider } from "./../../providers/bookmark/bookmark";
 import { MediaProvider } from "./../../providers/media/media";
 
 @IonicPage()
@@ -14,7 +15,8 @@ export class BookmarksPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private mediaProvider: MediaProvider
+    private mediaProvider: MediaProvider,
+    private bookmarkProvider: BookmarkProvider
   ) {}
 
   ionViewDidLoad() {
@@ -30,14 +32,14 @@ export class BookmarksPage {
    */
   deleteBookmark(fileId: number) {
     const inx = this.favoriteList.findIndex(el => el.file_id === fileId);
-    this.mediaProvider.deleteFavoriteByFileId(fileId).subscribe(res => {
+    this.bookmarkProvider.deleteFavoriteByFileId(fileId).subscribe(res => {
       this.favoriteList.splice(inx, 1);
       this.mediaProvider.fetchMediaData();
     });
   }
 
   getUserFavorites() {
-    this.mediaProvider.getUserFavorites().subscribe((res: Favorites[]) => {
+    this.bookmarkProvider.getUserFavorites().subscribe((res: Favorites[]) => {
       console.log(res);
       this.favoriteList = [];
 
