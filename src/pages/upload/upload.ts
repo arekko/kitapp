@@ -19,11 +19,10 @@ import { HomePage } from '../home/home';
 export class UploadPage {
 
   
-  filedata: '';
+  filedata: any;
   file: File;
   title = '';
   description = '';
-
   tag = {
     "file_id": "",
     "tag": "kitapp"
@@ -56,7 +55,6 @@ export class UploadPage {
   }
 
 upload(){
-  // show spinner
     const fd = new FormData();
     fd.append('title', this.title);
     fd.append('description', this.description);
@@ -68,8 +66,6 @@ upload(){
       console.log(this.tag);
       this.postTag(this.tag);
       this.presentLoadingDefault();
-      // setTimeout 2 secs
-      // hide spinner
     })
   }
 
@@ -82,9 +78,7 @@ upload(){
       loading.dismiss();
       this.navCtrl.pop().catch();
       this.navCtrl.push(HomePage);
-    }, 2000);
-    
-    
+    }, 2000); 
   }
 
   postTag(data){

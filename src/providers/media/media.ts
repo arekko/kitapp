@@ -96,36 +96,31 @@ export class MediaProvider {
 
   // Post a upload reguest
   upload(data: any){
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'x-access-token': localStorage.getItem('token'),
-      }),
+    if(this._getHeaderWithToken){
+      return this.http.post<MediaUpload>(
+        this._baseAPI + '/media', data,
+        this._getHeaderWithToken()
+      );
     };
-
-    return this.http.post<MediaUpload>(this._baseAPI + '/media', data, httpOptions)
-  }
+  };
 
   // Post a new tag
   postNewTag(data){
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'x-access-token': localStorage.getItem('token'),
-      }),
+    if(this._getHeaderWithToken){
+      return this.http.post<TagMessage>(
+        this._baseAPI + '/tags', data,
+        this._getHeaderWithToken()
+      );
     };
+  };
 
-    return this.http.post<TagMessage>(this._baseAPI + '/tags', data, httpOptions)
-  }
-
-    // Search for files by their title
-    search(data: any){
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'x-access-token': localStorage.getItem('token'),
-        }),
-      };
-  
-      return this.http.post<Media[]>(this._baseAPI + '/media/search', data, httpOptions)
-  
-    }
-
+  // Search for files by their title
+  search(data: any){
+    if(this._getHeaderWithToken){
+      return this.http.post<Media[]>(
+        this._baseAPI + '/media/search', data,
+        this._getHeaderWithToken()
+      );
+    };
+  };
 }
