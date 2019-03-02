@@ -11,7 +11,9 @@ import {
   CommentResponse,
   Favorites,
   Media,
-  Rating
+  Rating,
+  TagMessage,
+  MediaUpload
 } from "./../../interfaces/media";
 import { HelperProvider } from "./../helper/helper";
 
@@ -128,4 +130,40 @@ export class MediaProvider {
       );
     }
   }
+
+
+
+
+
+
+
+    // Post a upload reguest
+  upload(data: any){
+    if(this.helperProvider.getHeaderWithToken){
+      return this.http.post<MediaUpload>(
+        this.helperProvider.baseAPI + '/media', data,
+        this.helperProvider.getHeaderWithToken()
+      );
+    };
+  };
+
+  // Post a new tag
+  postNewTag(data){
+    if(this.helperProvider.getHeaderWithToken){
+      return this.http.post<TagMessage>(
+        this.helperProvider.baseAPI + '/tags', data,
+        this.helperProvider.getHeaderWithToken()
+      );
+    };
+  };
+
+  // Search for files by their title
+  search(data: any){
+    if(this.helperProvider.getHeaderWithToken){
+      return this.http.post<Media[]>(
+        this.helperProvider.baseAPI + '/media/search', data,
+        this.helperProvider.getHeaderWithToken()
+      );
+    };
+  };
 }

@@ -1,16 +1,11 @@
-<!-- <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Feeds
-    </ion-title>
-  </ion-navbar>
-</ion-header> -->
+<ion-header>
+  <ion-searchbar
+    [(ngModel)]="searchBar"
+    name="searchBar"
+    (ionInput)="searchMedia()"
+  ></ion-searchbar>
+</ion-header>
 
 <ion-content>
-  <card-recipe
-    *ngFor="let item of media"
-    [item]="item"
-    (showRecipe)="showRecipe($event)"
-    (fileId)="addBookmark($event)"
-  ></card-recipe>
+  <card-recipe *ngFor="let item of media" [item]="item"></card-recipe>
 </ion-content>

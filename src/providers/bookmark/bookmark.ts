@@ -5,18 +5,45 @@ import { Subject } from "rxjs/Subject";
 import {
   AddFavoriteRequest,
   AddFavoriteResponse,
-  Favorites
+  Favorites,
+  Media
 } from "../../interfaces/media";
 import { HelperProvider } from "./../helper/helper";
+import { MediaProvider } from "./../media/media";
 
 @Injectable()
 export class BookmarkProvider {
   bookmarkHandler = new Subject();
 
+  bookmarks: Media[] = [];
+  bookmarksChanged = new Subject<Media[]>();
+
   constructor(
     public http: HttpClient,
-    private helperProvider: HelperProvider
+    private helperProvider: HelperProvider,
+    private mediaProvider: MediaProvider
   ) {}
+
+  /**
+   *
+   *
+   * @returns
+   * @memberof BookmarkProvider
+   */
+  getBookmarks() {
+    return this.bookmarks;
+  }
+
+  /**
+   *
+   *
+   * @param {Favorites[]} bookmarks
+   * @memberof BookmarkProvider
+   */
+  setBookmarks(bookmarks: Media[]) {
+    this.bookmarks = bookmarks;
+    this.bookmarksChanged.next(this.bookmarks);
+  }
 
   // Reuest a list of favorites
   /**
@@ -25,12 +52,26 @@ export class BookmarkProvider {
    * @returns {Observable<Favorites[]>}
    * @memberof MediaProvider
    */
-  getUserFavorites(): Observable<Favorites[]> {
+
+  getUserFavorites(): void {
     if (this.helperProvider.getHeaderWithToken) {
-      return this.http.get<Favorites[]>(
-        `${this.helperProvider.baseAPI}/favourites`,
-        this.helperProvider.getHeaderWithToken()
-      );
+      this.http
+        .get<Favorites[]>(
+          `${this.helperProvider.baseAPI}/favourites`,
+          this.helperProvider.getHeaderWithToken()
+        )
+        .subscribe((bookmarks: Favorites[]) => {
+          let tmpData: Media[] = [];
+
+          bookmarks.forEach(bm => {
+            this.mediaProvider
+              .getSingleMedia(bm.file_id)
+              .subscribe((res: Media) => {
+                tmpData.push(res);
+              });
+          });
+          this.setBookmarks(tmpData);
+        });
     }
   }
 

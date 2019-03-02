@@ -46,8 +46,10 @@
             color="tomato"
             (click)="addBookmark(item.file_id)"
           >
-            <ion-icon [name]="item.file_id | favorite | async"></ion-icon>
-            <!-- <div>Bookmarks</div> -->
+            <ion-icon
+              [name]="(item.file_id | favorite) ? 'heart' : 'heart-outline'"
+            ></ion-icon>
+            <div>{{ item.file_id | favorite }}</div>
           </button>
         </ion-col>
       </ion-row>

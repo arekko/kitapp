@@ -3,7 +3,7 @@ import { Storage } from "@ionic/storage";
 import { NavController } from "ionic-angular";
 import { Subscription } from "rxjs/Subscription";
 import { RecipeViewPage } from "../recipe-view/recipe-view";
-import { Media } from "./../../interfaces/media";
+import { AddFavoriteResponse, Media } from "./../../interfaces/media";
 import { BookmarkProvider } from "./../../providers/bookmark/bookmark";
 import { MediaProvider } from "./../../providers/media/media";
 import { UserProvider } from "./../../providers/user/user";
@@ -18,6 +18,12 @@ export class HomePage implements OnInit, OnDestroy {
   subscriptionMediaChanged: Subscription;
   subscriptionShowRecipeView: Subscription;
   subscriptionBookmarkHandler: Subscription;
+
+  searchList: Media[] = [];
+  search = {
+    title: ""
+  };
+  searchBar = "";
 
   constructor(
     public navCtrl: NavController,
@@ -53,11 +59,21 @@ export class HomePage implements OnInit, OnDestroy {
     );
 
     this.subscriptionBookmarkHandler = this.bookmarkProvider.bookmarkHandler.subscribe(
-      (fileId: string) => {
+      (fileId: number) => {
+        this.bookmarkProvider
+          .addBookmark({ file_id: fileId })
+          .subscribe((res: AddFavoriteResponse) => {
+            console.log(res);
+            // this.mediaProvider.fetchMediaData();
+
+            this.bookmarkProvider.getUserFavorites();
+          });
+
         // FIXME: make the same thing like in home page means get set and etc
         console.log(fileId);
       }
     );
+    this.bookmarkProvider.getUserFavorites();
   }
 
   ngOnDestroy() {
@@ -65,15 +81,32 @@ export class HomePage implements OnInit, OnDestroy {
     this.subscriptionShowRecipeView.unsubscribe();
   }
 
-  // addBookmark(fileId: number) {
-  //   console.log(fileId);
+  // Fetching all media and store them to mediaList variable, if search word
+  // is entered filters two arrays by their intersecting objects.
+  getSearchMedia(searchData) {
+    if (this.searchBar === " ") {
+      this.media = this.searchList;
+    } else {
+      this.searchList = this.media.filter(value =>
+        searchData.some(value2 => value.title === value2.title)
+      );
+      this.media = this.searchList;
+    }
+  }
 
-  //   this.mediaProvider
-  //     .addBookmark({
-  //       file_id: fileId
-  //     })
-  //     .subscribe((res: AddFavoriteResponse) => {
-  //       console.log(res);
-  //     });
-  // }
+  // Checks the searchbar and sends a request for an media array of files
+  // containing the searched string in title.
+  searchMedia() {
+    if (this.searchBar !== "") {
+      this.search.title = this.searchBar;
+      this.mediaProvider.search(this.search).subscribe((response: Media[]) => {
+        console.log("response", response);
+
+        this.getSearchMedia(response);
+        // this.media = response;
+      });
+    } else {
+      this.mediaProvider.fetchMediaData();
+    }
+  }
 }

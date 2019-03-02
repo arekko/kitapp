@@ -62,3 +62,13 @@ export interface AddFavoriteResponse {
   message: string;
   favourite_id: number;
 }
+
+export interface TagMessage {
+  message: string;
+  tag_id: number;
+}
+
+export interface MediaUpload {
+  message: string;
+  file_id: any;
+}

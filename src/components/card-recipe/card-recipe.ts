@@ -18,7 +18,6 @@ export class CardRecipeComponent {
   ) {}
 
   addBookmark(fileId: number) {
-    // this.fileId.emit(fileId);
     this.bookmarkProvider.bookmarkHandler.next(fileId);
   }
 
