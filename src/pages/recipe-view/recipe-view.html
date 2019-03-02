@@ -18,7 +18,7 @@
         defaultIcon="ios-star-outline"
         activeColor="#e57373"
         defaultColor="#999"
-        readonly="false"
+        readonly="{{ userProvider.isLoggedIn ? false : true }}"
         [rating]="recipe.file_id | rating | async"
       >
       </ionic3-star-rating>
@@ -27,7 +27,12 @@
       <p>{{ recipe?.description }}</p>
     </div>
     <div class="recipe-comment-btn">
-      <button ion-button outline (click)="showComments(recipe.file_id)">
+      <button
+        ion-button
+        outline
+        (click)="showComments(recipe.file_id)"
+        [disabled]="!userProvider.isLoggedIn"
+      >
         Comments
       </button>
     </div>

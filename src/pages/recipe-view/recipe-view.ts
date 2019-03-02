@@ -3,6 +3,7 @@ import { Events, IonicPage, NavController, NavParams } from "ionic-angular";
 import { Media } from "../../interfaces/media";
 import { HelperProvider } from "./../../providers/helper/helper";
 import { MediaProvider } from "./../../providers/media/media";
+import { UserProvider } from "./../../providers/user/user";
 import { CommentsPage } from "./../comments/comments";
 
 @IonicPage()
@@ -18,7 +19,8 @@ export class RecipeViewPage implements OnInit {
     public navParams: NavParams,
     public mediaProvider: MediaProvider,
     public helperProvider: HelperProvider,
-    public events: Events
+    public events: Events,
+    public userProvider: UserProvider
   ) {}
 
   ngOnInit() {
