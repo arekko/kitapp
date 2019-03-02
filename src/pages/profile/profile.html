@@ -2,11 +2,11 @@
   <ion-navbar color="primary">
     <ion-title>{{ userProvider.user.username }}</ion-title>
 
-    <!-- <ion-buttons end>
-      <button ion-button>
-        <ion-icon color="light" name="add-circle"></ion-icon>
+    <ion-buttons end>
+      <button ion-button (click)="logout()">
+        <ion-icon color="light" name="log-out"></ion-icon>
       </button>
-    </ion-buttons> -->
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 

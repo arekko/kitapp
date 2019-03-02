@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Media } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
 import { UserProvider } from "./../../providers/user/user";
-import { HomePage } from "./../home/home";
+import { TabsPage } from "./../tabs/tabs";
 import { UploadPage } from "./../upload/upload";
 
 @IonicPage()
@@ -40,7 +40,7 @@ export class ProfilePage {
       console.log(res);
       localStorage.clear();
       this.userProvider.isLoggedIn = false;
-      this.navCtrl.push(HomePage);
+      this.navCtrl.push(TabsPage);
     });
   }
 

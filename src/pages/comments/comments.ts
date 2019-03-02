@@ -37,23 +37,22 @@ export class CommentsPage {
     this.mediaProvider
       .deleteCommentById(commentId)
       .subscribe((res: CommentDelete) => {
-        console.log(res);
         this.getComments(this.fileId);
+        this.mediaProvider.fetchMediaData();
       });
   }
 
   // FIXME:  add update feed
   addComment(f) {
-    console.log(f.value.comment);
     this.mediaProvider
       .addCommentByFileId({
         file_id: this.fileId,
         comment: f.value.comment
       })
       .subscribe((res: CommentResponse) => {
-        console.log(res);
         this.getComments(this.fileId);
         f.reset();
+        this.mediaProvider.fetchMediaData();
       });
   }
 }

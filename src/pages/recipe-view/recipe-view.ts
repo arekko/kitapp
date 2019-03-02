@@ -1,18 +1,16 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Events, IonicPage, NavController, NavParams } from "ionic-angular";
-import { Media } from "./../../interfaces/media";
+import { Media } from "../../interfaces/media";
 import { HelperProvider } from "./../../providers/helper/helper";
 import { MediaProvider } from "./../../providers/media/media";
 import { CommentsPage } from "./../comments/comments";
-
-// TODO: Implement adding rating
 
 @IonicPage()
 @Component({
   selector: "page-recipe-view",
   templateUrl: "recipe-view.html"
 })
-export class RecipeViewPage implements OnInit, OnDestroy {
+export class RecipeViewPage implements OnInit {
   recipe: Media;
 
   constructor(
@@ -39,8 +37,6 @@ export class RecipeViewPage implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {}
-
   ionViewDidLoad() {
     this.recipe = this.navParams.get("item");
     console.log(this.recipe);
@@ -49,14 +45,12 @@ export class RecipeViewPage implements OnInit, OnDestroy {
   /**
    *
    *
-   * @param {*} fileId
+   * @param {number} fileId
    * @memberof RecipeViewPage
    */
-  showComments(fileId) {
+  showComments(fileId: number) {
     this.navCtrl.push(CommentsPage, {
       fileId: fileId
     });
   }
-
-  addRating(file) {}
 }

@@ -29,7 +29,7 @@ export class HomePage implements OnInit, OnDestroy {
     public navCtrl: NavController,
     private mediaProvider: MediaProvider,
     private storage: Storage,
-    private userProvider: UserProvider,
+    public userProvider: UserProvider,
     private bookmarkProvider: BookmarkProvider
   ) {}
 

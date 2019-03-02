@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="userProvider.isLoggedIn">
   <ion-searchbar
     color="light"
     [(ngModel)]="searchBar"
