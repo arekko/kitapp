@@ -3,17 +3,14 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import {
-  AddFavoriteRequest,
-  AddFavoriteResponse,
   Comment,
   CommentDelete,
   CommentRequest,
   CommentResponse,
-  Favorites,
   Media,
+  MediaUpload,
   Rating,
-  TagMessage,
-  MediaUpload
+  TagMessage
 } from "./../../interfaces/media";
 import { HelperProvider } from "./../helper/helper";
 
@@ -112,8 +109,6 @@ export class MediaProvider {
     }
   }
 
-  
-
   // List of file of current user
 
   /**
@@ -131,39 +126,44 @@ export class MediaProvider {
     }
   }
 
+  addRating(data: { file_id: number; rating: number }) {
+    return this.http.post(
+      `${this.helperProvider.baseAPI}/ratings`,
+      data,
+      this.helperProvider.getHeaderWithToken()
+    );
+  }
 
-
-
-
-
-
-    // Post a upload reguest
-  upload(data: any){
-    if(this.helperProvider.getHeaderWithToken){
+  // Post a upload reguest
+  upload(data: any) {
+    if (this.helperProvider.getHeaderWithToken) {
       return this.http.post<MediaUpload>(
-        this.helperProvider.baseAPI + '/media', data,
+        this.helperProvider.baseAPI + "/media",
+        data,
         this.helperProvider.getHeaderWithToken()
       );
-    };
-  };
+    }
+  }
 
   // Post a new tag
-  postNewTag(data){
-    if(this.helperProvider.getHeaderWithToken){
+  postNewTag(data) {
+    if (this.helperProvider.getHeaderWithToken) {
       return this.http.post<TagMessage>(
-        this.helperProvider.baseAPI + '/tags', data,
+        this.helperProvider.baseAPI + "/tags",
+        data,
         this.helperProvider.getHeaderWithToken()
       );
-    };
-  };
+    }
+  }
 
   // Search for files by their title
-  search(data: any){
-    if(this.helperProvider.getHeaderWithToken){
+  search(data: any) {
+    if (this.helperProvider.getHeaderWithToken) {
       return this.http.post<Media[]>(
-        this.helperProvider.baseAPI + '/media/search', data,
+        this.helperProvider.baseAPI + "/media/search",
+        data,
         this.helperProvider.getHeaderWithToken()
       );
-    };
-  };
+    }
+  }
 }

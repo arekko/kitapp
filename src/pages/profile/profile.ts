@@ -5,6 +5,7 @@ import { Media } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
 import { UserProvider } from "./../../providers/user/user";
 import { HomePage } from "./../home/home";
+import { UploadPage } from "./../upload/upload";
 
 @IonicPage()
 @Component({
@@ -41,5 +42,9 @@ export class ProfilePage {
       this.userProvider.isLoggedIn = false;
       this.navCtrl.push(HomePage);
     });
+  }
+
+  goToUpload() {
+    this.navCtrl.push(UploadPage);
   }
 }

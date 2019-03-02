@@ -1,6 +1,12 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>{{ userProvider.user.username }}</ion-title>
+
+    <!-- <ion-buttons end>
+      <button ion-button>
+        <ion-icon color="light" name="add-circle"></ion-icon>
+      </button>
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 
@@ -84,6 +90,8 @@
   </ion-list>
 
   <ion-fab right bottom>
-    <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
+    <button ion-fab color="primary" (click)="goToUpload()">
+      <ion-icon name="add"></ion-icon>
+    </button>
   </ion-fab>
 </ion-content>
