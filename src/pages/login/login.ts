@@ -1,11 +1,17 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {
+  IonicPage,
+  LoadingController,
+  NavController,
+  NavParams
+} from "ionic-angular";
 import {
   UserLoginResponse,
   UserRegisterResponse
 } from "./../../interfaces/user";
+import { MediaProvider } from "./../../providers/media/media";
 import { UserProvider } from "./../../providers/user/user";
 import { TabsPage } from "./../tabs/tabs";
 
@@ -15,17 +21,22 @@ import { TabsPage } from "./../tabs/tabs";
   templateUrl: "login.html"
 })
 export class LoginPage implements OnInit {
+  [x: string]: any;
   loginForm: FormGroup;
   registerForm: FormGroup;
   submitAttempt: boolean = false;
   showRegister: boolean = false;
+  file: File;
+  filedata: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public formbuilder: FormBuilder,
     private storage: Storage,
-    private userProvider: UserProvider
+    private userProvider: UserProvider,
+    private mediaProvider: MediaProvider,
+    public loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -89,6 +100,13 @@ export class LoginPage implements OnInit {
 
   ionViewDidLoad() {}
 
+  handleChange($event) {
+    this.file = $event.target.files[0];
+    this.showPreview();
+  }
+
+
+
   onLoginSubmit() {
     if (this.loginForm.valid) {
       const { value } = this.loginForm;
@@ -106,13 +124,12 @@ export class LoginPage implements OnInit {
   }
 
   onRegisterSubmit() {
-    console.log(this.registerForm.value);
-
     this.userProvider
       .register(this.registerForm.value)
       .subscribe((res: UserRegisterResponse) => {
+        console.log(res);
+
         this.registerForm.reset();
-        this.showRegister = false;
       });
   }
 
