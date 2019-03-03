@@ -98,7 +98,27 @@
           !registerForm.get('email').valid && registerForm.get('email').touched
         "
       >
-        <p class="invalid-feedback">Please enter a valid password.</p>
+        <p class="invalid-feedback">Please enter a valid email.</p>
+      </ion-item>
+      <ion-item margin-top>
+        <ion-input
+          type="text"
+          name="full_name"
+          formControlName="full_name"
+          placeholder="Fullname"
+          [class.invalid]="
+            !registerForm.get('full_name').valid &&
+            registerForm.get('full_name').touched
+          "
+        ></ion-input>
+      </ion-item>
+      <ion-item
+        *ngIf="
+          !registerForm.get('full_name').valid &&
+          registerForm.get('full_name').touched
+        "
+      >
+        <p class="invalid-feedback">Please enter a valid fullname.</p>
       </ion-item>
       <ion-item margin-top>
         <ion-input

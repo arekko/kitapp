@@ -13,7 +13,7 @@ import { HelperProvider } from "./../helper/helper";
 @Injectable()
 export class UserProvider {
   // this variable contains current user's data (check User type for more details)
-  user: User;
+  user: User = null;
   isLoggedIn: boolean = false;
 
   constructor(

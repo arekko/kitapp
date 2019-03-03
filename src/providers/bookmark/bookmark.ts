@@ -10,6 +10,7 @@ import {
 } from "../../interfaces/media";
 import { HelperProvider } from "./../helper/helper";
 import { MediaProvider } from "./../media/media";
+import { UserProvider } from "./../user/user";
 
 @Injectable()
 export class BookmarkProvider {
@@ -21,7 +22,8 @@ export class BookmarkProvider {
   constructor(
     public http: HttpClient,
     private helperProvider: HelperProvider,
-    private mediaProvider: MediaProvider
+    private mediaProvider: MediaProvider,
+    private userProvider: UserProvider
   ) {}
 
   /**
@@ -54,7 +56,8 @@ export class BookmarkProvider {
    */
 
   getUserFavorites(): void {
-    if (this.helperProvider.getHeaderWithToken) {
+    this.helperProvider.getHeaderWithToken &&
+      this.userProvider.user &&
       this.http
         .get<Favorites[]>(
           `${this.helperProvider.baseAPI}/favourites`,
@@ -72,7 +75,6 @@ export class BookmarkProvider {
           });
           this.setBookmarks(tmpData);
         });
-    }
   }
 
   // Delete from favorite
