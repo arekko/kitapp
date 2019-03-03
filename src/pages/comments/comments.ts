@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import {
   Comment,
@@ -42,8 +43,7 @@ export class CommentsPage {
       });
   }
 
-  // FIXME:  add update feed
-  addComment(f) {
+  addComment(f: NgForm) {
     this.mediaProvider
       .addCommentByFileId({
         file_id: this.fileId,

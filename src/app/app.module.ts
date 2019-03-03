@@ -1,5 +1,6 @@
 import { HttpClientModule } from "@angular/common/http";
 import { ErrorHandler, NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
@@ -43,7 +44,8 @@ import { MyApp } from "./app.component";
     HttpClientModule,
     IonicStorageModule.forRoot(),
     PipesModule,
-    StarRatingModule
+    StarRatingModule,
+    ReactiveFormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

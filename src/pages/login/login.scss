@@ -1,4 +1,19 @@
 page-login {
+  .container {
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+  .logo {
+    align-self: center;
+    justify-self: center;
+    width: 100px;
+    height: 100px;
+  }
+  form {
+    margin-top: 30%;
+  }
+
   .invalid {
     border: 2px solid #ea6153;
   }

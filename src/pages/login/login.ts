@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
@@ -11,9 +11,11 @@ import { TabsPage } from "./../tabs/tabs";
   selector: "page-login",
   templateUrl: "login.html"
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
   loginForm: FormGroup;
+  registerForm: FormGroup;
   submitAttempt: boolean = false;
+  showRegister: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -21,13 +23,52 @@ export class LoginPage {
     public formbuilder: FormBuilder,
     private storage: Storage,
     private userProvider: UserProvider
-  ) {
-    this.loginForm = formbuilder.group({
+  ) {}
+
+  ngOnInit() {
+    this.loginForm = this.formbuilder.group({
       username: [
         "",
         Validators.compose([
           Validators.maxLength(30),
           Validators.minLength(3),
+          Validators.pattern("[a-zA-Z ]*"),
+          Validators.required
+        ])
+      ],
+      password: [
+        "",
+        Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(4),
+          Validators.required
+        ])
+      ]
+    });
+
+    this.registerForm = this.formbuilder.group({
+      username: [
+        "",
+        Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(4),
+          Validators.required
+        ])
+      ],
+      email: [
+        "",
+        Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(4),
+          Validators.email,
+          Validators.required
+        ])
+      ],
+      full_name: [
+        "",
+        Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(4),
           Validators.pattern("[a-zA-Z ]*"),
           Validators.required
         ])
@@ -62,5 +103,9 @@ export class LoginPage {
         this.navCtrl.push(TabsPage);
       });
     }
+  }
+
+  switchLoginRegisterPage() {
+    this.showRegister = !this.showRegister;
   }
 }
