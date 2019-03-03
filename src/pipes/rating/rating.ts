@@ -22,10 +22,7 @@ export class RatingPipe implements PipeTransform {
         .getListOfRatingsByFileId(value)
         .subscribe((res: Rating[]) => {
           this.ratingLength = res.length;
-          // console.log(res);
           res.forEach(i => (this.sumRating += i.rating));
-          console.log(this.ratingLength);
-          console.log(this.sumRating);
           this.ratingLength
             ? resolve(this.sumRating / this.ratingLength)
             : resolve(0);
