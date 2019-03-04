@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { catchError } from "rxjs/operators";
 import { Subject } from "rxjs/Subject";
 import {
   Comment,
@@ -50,7 +51,9 @@ export class MediaProvider {
 
   // Get single media
   getSingleMedia(id: number): Observable<Media> {
-    return this.http.get<Media>(`${this.helperProvider.baseAPI}/media/${id}`);
+    return this.http
+      .get<Media>(`${this.helperProvider.baseAPI}/media/${id}`)
+      .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
   // Request a list of ratings by file id

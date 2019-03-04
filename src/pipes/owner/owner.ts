@@ -11,7 +11,6 @@ export class OwnerPipe implements PipeTransform {
     if (userId === this.userProvider.user.user_id) {
       return true;
     }
-
     return false;
   }
 }

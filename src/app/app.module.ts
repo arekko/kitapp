@@ -5,6 +5,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { IonicStorageModule } from "@ionic/storage";
+import { EffectsModule } from "@ngrx/effects";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 import { StarRatingModule } from "ionic3-star-rating";
 import { HomePage } from "../pages/home/home";
@@ -12,6 +13,7 @@ import { BookmarkProvider } from "../providers/bookmark/bookmark";
 import { HelperProvider } from "../providers/helper/helper";
 import { MediaProvider } from "../providers/media/media";
 import { UserProvider } from "../providers/user/user";
+import { effects } from "../store/effects";
 import { CardCommentComponent } from "./../components/card-comment/card-comment";
 import { CardRecipeComponent } from "./../components/card-recipe/card-recipe";
 import { BookmarksPage } from "./../pages/bookmarks/bookmarks";
@@ -45,7 +47,8 @@ import { MyApp } from "./app.component";
     IonicStorageModule.forRoot(),
     PipesModule,
     StarRatingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    EffectsModule.forRoot(effects)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
