@@ -6,6 +6,10 @@ export const LOAD_MEDIA = "LOAD_MEDIA";
 export const LOAD_MEDIA_FAIL = "LOAD_MEDIA_FAIL";
 export const LOAD_MEDIA_SUCCESS = "LOAD_MEDIA_SUCCESS";
 
+export const LOAD_SEARCHING = "LOAD_SEARCHING";
+export const LOAD_SEARCHING_FAIL = "LOAD_SEARCHING_FAIL";
+export const LOAD_SEARCHING_SUCCESS = "LOAD_SEARCHING_SUCCESS";
+
 export class LoadMedia implements Action {
   readonly type = LOAD_MEDIA;
 }
@@ -18,5 +22,24 @@ export class LoadMediaSuccess implements Action {
   constructor(public payload: Media[]) {}
 }
 
+export class LoadSearching implements Action {
+  readonly type = LOAD_SEARCHING;
+  constructor(public payload: any) {}
+}
+export class LoadSearchingFail implements Action {
+  readonly type = LOAD_SEARCHING_FAIL;
+  constructor(public payload: Media[]) {}
+}
+export class LoadSearchingSuccess implements Action {
+  readonly type = LOAD_SEARCHING_SUCCESS;
+  constructor(public payload: Media[]) {}
+}
+
 // action types
-export type MediaActions = LoadMedia | LoadMediaFail | LoadMediaSuccess;
+export type MediaActions =
+  | LoadMedia
+  | LoadMediaFail
+  | LoadMediaSuccess
+  | LoadSearching
+  | LoadSearchingFail
+  | LoadSearchingSuccess;

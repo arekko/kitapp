@@ -4,6 +4,7 @@
     [(ngModel)]="searchBar"
     name="searchBar"
     (ionInput)="searchMedia()"
+    debounce="600"
   ></ion-searchbar>
 </ion-header>
 

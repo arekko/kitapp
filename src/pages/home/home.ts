@@ -48,13 +48,13 @@ export class HomePage implements OnInit, OnDestroy {
     this.media$ = this.store.select<any>(fromStore.getMediaState);
     this.store.dispatch(new fromStore.LoadMedia());
 
-    this.store
-      .select(fromStore.getMediaLoading)
-      .subscribe(loading => loading && this.loading.present());
+    // this.store
+    //   .select(fromStore.getMediaLoading)
+    //   .subscribe(loading => loading && this.loading.present());
 
-    this.store
-      .select(fromStore.getMediaLoaded)
-      .subscribe(loaded => loaded && this.loading.dismiss());
+    // this.store
+    //   .select(fromStore.getMediaLoaded)
+    //   .subscribe(loaded => loaded && this.loading.dismiss());
 
     if (localStorage.getItem("token")) {
       if (!this.userProvider.user) {
@@ -108,19 +108,21 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
 
-  // Checks the searchbar and sends a request for an media array of files
-  // containing the searched string in title.
   searchMedia() {
     if (this.searchBar !== "") {
       this.search.title = this.searchBar;
-      this.mediaProvider.search(this.search).subscribe((response: Media[]) => {
-        console.log("response", response);
+      // this.mediaProvider.search(this.search).subscribe((response: Media[]) => {
+      //   console.log("response", response);
 
-        this.getSearchMedia(response);
-        // this.media = response;
-      });
+      //   this.getSearchMedia(response);
+      //   // this.media = response;
+      // });
+      const data = {
+        title: this.searchBar
+      };
+      this.store.dispatch(new fromStore.LoadSearching(data));
     } else {
-      this.mediaProvider.fetchMediaData();
+      this.store.dispatch(new fromStore.LoadMedia());
     }
   }
 }

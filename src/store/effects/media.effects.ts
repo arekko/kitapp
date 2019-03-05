@@ -17,6 +17,16 @@ export class MediaEffects {
     })
   );
 
+  @Effect()
+  getSearching = this.actions$.ofType(mediaActions.LOAD_SEARCHING).pipe(
+    switchMap((action: mediaActions.LoadSearching) => {
+      return this.mediaProvider.search(action.payload).pipe(
+        map(media => new mediaActions.LoadSearchingSuccess(media)),
+        catchError(error => of(new mediaActions.LoadSearchingFail(error)))
+      )
+    })
+  )
+
   constructor(
     private actions$: Actions,
     private mediaProvider: fromServices.MediaProvider
