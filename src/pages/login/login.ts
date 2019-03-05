@@ -13,7 +13,6 @@ import {
 } from "./../../interfaces/user";
 import { MediaProvider } from "./../../providers/media/media";
 import { UserProvider } from "./../../providers/user/user";
-import { TabsPage } from "./../tabs/tabs";
 
 @IonicPage()
 @Component({
@@ -105,8 +104,6 @@ export class LoginPage implements OnInit {
     this.showPreview();
   }
 
-
-
   onLoginSubmit() {
     if (this.loginForm.valid) {
       const { value } = this.loginForm;
@@ -118,7 +115,7 @@ export class LoginPage implements OnInit {
         this.storage.set("user", JSON.stringify(res.user));
 
         localStorage.setItem("token", res.token);
-        this.navCtrl.push(TabsPage);
+        this.navCtrl.parent.select(0);
       });
     }
   }

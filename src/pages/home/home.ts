@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { Store } from "@ngrx/store";
-import { NavController } from "ionic-angular";
+import { LoadingController, NavController } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import * as fromStore from "../../store";
@@ -29,23 +29,31 @@ export class HomePage implements OnInit, OnDestroy {
 
   media$: Observable<Media[]>;
 
+  loading = this.loadingCtrl.create({
+    spinner: "crescent"
+  });
+
   constructor(
     public navCtrl: NavController,
     private mediaProvider: MediaProvider,
     private storage: Storage,
     public userProvider: UserProvider,
     private bookmarkProvider: BookmarkProvider,
-    private store: Store<fromStore.AppState>
+    private store: Store<fromStore.AppState>,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
     this.media$ = this.store.select<any>(fromStore.getMediaState);
-    // .subscribe(state => console.log(state));
-
     this.store.dispatch(new fromStore.LoadMedia());
 
-    // .subscribe(store => console.log(store));
-    // this.store.select("media").subscribe(state => console.log(state));
+    this.store
+      .select(fromStore.getMediaLoading)
+      .subscribe(loading => loading && this.loading.present());
+
+    this.store
+      .select(fromStore.getMediaLoaded)
+      .subscribe(loaded => loaded && this.loading.dismiss());
 
     if (localStorage.getItem("token")) {
       if (!this.userProvider.user) {

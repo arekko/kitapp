@@ -6,6 +6,7 @@ import { FavoritePipe } from './favorite/favorite';
 import { OwnerPipe } from './owner/owner';
 import { UsernamePipe } from './username/username';
 import { AvatarPipe } from './avatar/avatar';
+import { ReversePipe } from './reverse/reverse';
 @NgModule({
 	declarations: [ThumbnailPipe,
     RatingPipe,
@@ -13,7 +14,8 @@ import { AvatarPipe } from './avatar/avatar';
     FavoritePipe,
     OwnerPipe,
     UsernamePipe,
-    AvatarPipe],
+    AvatarPipe,
+    ReversePipe],
 	imports: [],
 	exports: [ThumbnailPipe,
     RatingPipe,
@@ -21,6 +23,7 @@ import { AvatarPipe } from './avatar/avatar';
     FavoritePipe,
     OwnerPipe,
     UsernamePipe,
-    AvatarPipe]
+    AvatarPipe,
+    ReversePipe]
 })
 export class PipesModule {}

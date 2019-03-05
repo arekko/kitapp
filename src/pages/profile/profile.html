@@ -12,18 +12,6 @@
 
 <ion-content>
   <div class="profile">
-    <div class="profile-avatar">
-      <img
-        [src]="
-          userProvider.user.user_id
-            | avatar: 'avatar'
-            | async
-            | thumbnail: 'small'
-            | async
-        "
-        alt=""
-      />
-    </div>
     <div class="profile-bio">
       <h2>
         {{
@@ -39,11 +27,11 @@
     <div class="profile-dashboard">
       <ion-list>
         <ion-item>
-          <button ion-button outline item-start icon-start color="light">
+          <button ion-button outline item-start icon-start color="primary">
             <ion-icon name="brush"></ion-icon>
             Edit profile
           </button>
-          <button ion-button outline item-center icon-start color="light">
+          <button ion-button outline item-center icon-start color="primary">
             <ion-icon name="trash"></ion-icon>
             Delete account
           </button>
@@ -52,7 +40,7 @@
             outline
             item-end
             icon-start
-            color="light"
+            color="primary"
             (click)="logout()"
           >
             <ion-icon name="log-out"></ion-icon>
