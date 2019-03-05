@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { catchError } from "rxjs/operators";
 import { Subject } from "rxjs/Subject";
 import {
   Comment,
@@ -30,7 +31,9 @@ export class MediaProvider {
   // Media
   // Get list of files by tag
   getListOfMediaByTag(tag: string): Observable<Media[]> {
-    return this.http.get<Media[]>(`${this.helperProvider.baseAPI}/tags/${tag}`);
+    return this.http
+      .get<Media[]>(`${this.helperProvider.baseAPI}/tags/${tag}`)
+      .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
   fetchMediaData() {

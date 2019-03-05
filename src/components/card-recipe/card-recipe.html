@@ -1,13 +1,5 @@
 <div class="card-wrapper">
   <div *ngIf="userProvider.isLoggedIn" class="top">
-    <div class="top-avatar">
-      <img
-        [src]="
-          item.user_id | avatar: 'avatar' | async | thumbnail: 'small' | async
-        "
-        [alt]="item.title"
-      />
-    </div>
     <div class="top-username">
       <p>{{ item.user_id | username: "fullname" | async | titlecase }}</p>
     </div>

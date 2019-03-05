@@ -11,8 +11,6 @@ export class UsernamePipe implements PipeTransform {
   transform(userId: number, type: string, ...args) {
     return new Promise((resolve, reject) => {
       this.userProvider.getUserInfoByUserId(userId).subscribe((res: User) => {
-        console.log("userid " + userId + " type " + type + res);
-
         switch (type) {
           case "username":
             resolve(res.username);

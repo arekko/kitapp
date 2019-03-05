@@ -1,14 +1,16 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Storage } from "@ionic/storage";
+import { Store } from "@ngrx/store";
 import { NavController } from "ionic-angular";
+import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
+import * as fromStore from "../../store";
 import { RecipeViewPage } from "../recipe-view/recipe-view";
 import { AddFavoriteResponse, Media } from "./../../interfaces/media";
 import { BookmarkProvider } from "./../../providers/bookmark/bookmark";
 import { MediaProvider } from "./../../providers/media/media";
 import { UserProvider } from "./../../providers/user/user";
 
-// TODO: add the infinity scroll
 @Component({
   selector: "page-home",
   templateUrl: "home.html"
@@ -25,15 +27,26 @@ export class HomePage implements OnInit, OnDestroy {
   };
   searchBar = "";
 
+  media$: Observable<Media[]>;
+
   constructor(
     public navCtrl: NavController,
     private mediaProvider: MediaProvider,
     private storage: Storage,
     public userProvider: UserProvider,
-    private bookmarkProvider: BookmarkProvider
+    private bookmarkProvider: BookmarkProvider,
+    private store: Store<fromStore.AppState>
   ) {}
 
   ngOnInit() {
+    this.media$ = this.store.select<any>(fromStore.getMediaState);
+    // .subscribe(state => console.log(state));
+
+    this.store.dispatch(new fromStore.LoadMedia());
+
+    // .subscribe(store => console.log(store));
+    // this.store.select("media").subscribe(state => console.log(state));
+
     if (localStorage.getItem("token")) {
       if (!this.userProvider.user) {
         this.storage.get("user").then(res => {

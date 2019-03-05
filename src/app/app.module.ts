@@ -5,6 +5,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { IonicStorageModule } from "@ionic/storage";
+import { StoreModule } from "@ngrx/store";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 import { StarRatingModule } from "ionic3-star-rating";
 import { HomePage } from "../pages/home/home";
@@ -12,6 +13,7 @@ import { BookmarkProvider } from "../providers/bookmark/bookmark";
 import { HelperProvider } from "../providers/helper/helper";
 import { MediaProvider } from "../providers/media/media";
 import { UserProvider } from "../providers/user/user";
+import { reducers, effects } from "../store";
 import { CardCommentComponent } from "./../components/card-comment/card-comment";
 import { CardRecipeComponent } from "./../components/card-recipe/card-recipe";
 import { BookmarksPage } from "./../pages/bookmarks/bookmarks";
@@ -23,6 +25,7 @@ import { TabsPage } from "./../pages/tabs/tabs";
 import { UploadPage } from "./../pages/upload/upload";
 import { PipesModule } from "./../pipes/pipes.module";
 import { MyApp } from "./app.component";
+import { EffectsModule } from "@ngrx/effects";
 
 @NgModule({
   declarations: [
@@ -45,7 +48,9 @@ import { MyApp } from "./app.component";
     IonicStorageModule.forRoot(),
     PipesModule,
     StarRatingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(effects)
   ],
   bootstrap: [IonicApp],
   entryComponents: [

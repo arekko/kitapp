@@ -8,5 +8,8 @@
 </ion-header>
 
 <ion-content>
-  <card-recipe *ngFor="let item of media" [item]="item"></card-recipe>
+  <card-recipe
+    *ngFor="let item of (media$ | async).data"
+    [item]="item"
+  ></card-recipe>
 </ion-content>
