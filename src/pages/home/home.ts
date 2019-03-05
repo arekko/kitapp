@@ -30,7 +30,8 @@ export class HomePage implements OnInit, OnDestroy {
   media$: Observable<Media[]>;
 
   loading = this.loadingCtrl.create({
-    spinner: "crescent"
+    spinner: "crescent",
+    showBackdrop: false
   });
 
   constructor(
@@ -64,13 +65,6 @@ export class HomePage implements OnInit, OnDestroy {
       }
     }
 
-    this.subscriptionMediaChanged = this.mediaProvider.mediaChanged.subscribe(
-      (media: Media[]) => {
-        this.media = media;
-      }
-    );
-    this.mediaProvider.fetchMediaData();
-
     this.subscriptionShowRecipeView = this.mediaProvider.showRecipeView.subscribe(
       (fileId: number) => {
         this.navCtrl.push(RecipeViewPage, {
@@ -98,7 +92,6 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptionMediaChanged.unsubscribe();
     this.subscriptionShowRecipeView.unsubscribe();
   }
 
