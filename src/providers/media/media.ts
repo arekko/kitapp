@@ -17,8 +17,6 @@ import { HelperProvider } from "./../helper/helper";
 
 @Injectable()
 export class MediaProvider {
-  mediaChanged = new Subject<Media[]>();
-  mediaData: Media[] = [];
   _tag: string = "kitapp";
 
   showRecipeView = new Subject();
@@ -34,21 +32,6 @@ export class MediaProvider {
     return this.http
       .get<Media[]>(`${this.helperProvider.baseAPI}/tags/${tag}`)
       .pipe(catchError((error: any) => Observable.throw(error.json())));
-  }
-
-  fetchMediaData() {
-    this.getListOfMediaByTag(this._tag).subscribe((media: Media[]) => {
-      this.setMedia(media);
-    });
-  }
-
-  getMediaData() {
-    return this.mediaData.slice();
-  }
-
-  setMedia(media: Media[]) {
-    this.mediaData = media;
-    this.mediaChanged.next(this.mediaData.slice());
   }
 
   // Get single media

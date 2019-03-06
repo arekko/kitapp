@@ -14,3 +14,5 @@ export const reducers: ActionReducerMap<AppState> = {
 export const getMediaState = createFeatureSelector<fromMedia.MediaState>(
   "media"
 );
+
+export const getUserState = createFeatureSelector<fromUser.UserState>("user");

@@ -9,7 +9,6 @@ import {
   NavParams
 } from "ionic-angular";
 import * as fromStore from "../../store";
-import { UserRegisterResponse } from "./../../interfaces/user";
 import { MediaProvider } from "./../../providers/media/media";
 import { UserProvider } from "./../../providers/user/user";
 
@@ -26,6 +25,8 @@ export class LoginPage implements OnInit {
   showRegister: boolean = false;
   file: File;
   filedata: any;
+  // errorMessage$: Observable<{ message: string }>;
+  errorMessage: boolean | null = null;
 
   constructor(
     public navCtrl: NavController,
@@ -39,7 +40,34 @@ export class LoginPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.select("user").subscribe(state => console.log(state));
+    this.store
+      .select(fromStore.getCurrentUser)
+      .subscribe(state => console.log(state));
+
+    this.store.select(fromStore.getUserStatus).subscribe(state => {
+      state && this.navCtrl.parent.select(0);
+    });
+
+    this.store.select<any>(fromStore.getError).subscribe(state => {
+      if (state) {
+        this.errorMessage = state.message;
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 2000);
+        console.log(this.errorMessage);
+      }
+    });
+
+    this.store.select(fromStore.getRegStatus).subscribe(
+      state =>
+        state &&
+        this.store.dispatch(
+          new fromStore.LoginUser({
+            username: this.registerForm.value.username,
+            password: this.registerForm.value.password
+          })
+        )
+    );
 
     this.loginForm = this.formbuilder.group({
       username: [
@@ -126,13 +154,8 @@ export class LoginPage implements OnInit {
   }
 
   onRegisterSubmit() {
-    this.userProvider
-      .register(this.registerForm.value)
-      .subscribe((res: UserRegisterResponse) => {
-        console.log(res);
-
-        this.registerForm.reset();
-      });
+    const { value } = this.registerForm;
+    this.store.dispatch(new fromStore.RegisterUser(value));
   }
 
   switchLoginRegisterPage() {

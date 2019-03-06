@@ -14,8 +14,9 @@
           class="input"
           formControlName="username"
           [class.invalid]="
-            !loginForm.get('username').valid &&
-            loginForm.get('username').touched
+            (!loginForm.get('username').valid &&
+              loginForm.get('username').touched) ||
+            errorMessage
           "
         ></ion-input>
       </ion-item>
@@ -34,8 +35,9 @@
           formControlName="password"
           placeholder="Password"
           [class.invalid]="
-            !loginForm.get('password').valid &&
-            loginForm.get('password').touched
+            (!loginForm.get('password').valid &&
+              loginForm.get('password').touched) ||
+            errorMessage
           "
         ></ion-input>
       </ion-item>
@@ -45,6 +47,9 @@
         "
       >
         <p class="invalid-feedback">Please enter a valid password.</p>
+      </ion-item>
+      <ion-item>
+        <p class="invalid-feedback">{{ errorMessage }}</p>
       </ion-item>
       <ion-item>
         <ion-buttons center class="mb-1" margin-top>
@@ -140,6 +145,7 @@
       >
         <p class="invalid-feedback">Please enter a valid password.</p>
       </ion-item>
+
       <ion-item>
         <ion-buttons center class="mb-1" margin-top>
           <button type="submit" ion-button block>Register</button>

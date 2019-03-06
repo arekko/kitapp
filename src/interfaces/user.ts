@@ -24,6 +24,7 @@ export interface UserRegister {
   username: string;
   password: string;
   email: string;
+  full_name?: string;
 }
 export interface UserRegisterResponse {
   message: string;

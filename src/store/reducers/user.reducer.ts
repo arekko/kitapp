@@ -14,6 +14,7 @@ export interface UserState {
   token: string | null;
   error: Error | null;
   message: string | null;
+  registrationCompleted: boolean;
 }
 
 export const initialState: UserState = {
@@ -22,7 +23,8 @@ export const initialState: UserState = {
   bookmarks: [],
   token: null,
   message: null,
-  error: null
+  error: null,
+  registrationCompleted: false
 };
 
 export function reducer(
@@ -40,12 +42,27 @@ export function reducer(
           ...state,
           currentUser: action.payload.user,
           token: action.payload.token,
-          message: action.payload.message
+          message: action.payload.message,
+          isLoggedIn: true
         };
       }
     case fromUser.LOGIN_USER_FAIL:
-      console.log(action.payload);
+      return {
+        ...state,
+        error: action.payload.error
+      };
 
+    case fromUser.REGISTER_USER:
+      return {
+        ...state
+      };
+    case fromUser.REGISTER_USER_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.message,
+        registrationCompleted: true
+      };
+    case fromUser.LOGIN_USER_FAIL:
       return {
         ...state,
         error: action.payload.error
@@ -60,3 +77,5 @@ export const getCurrentUser = (state: UserState) => state.currentUser;
 export const getUserStatus = (state: UserState) => state.isLoggedIn;
 export const getUserToken = (state: UserState) => state.token;
 export const getError = (state: UserState) => state.error;
+
+export const getRegStatus = (state: UserState) => state.registrationCompleted;
