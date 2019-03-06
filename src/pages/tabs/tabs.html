@@ -1,17 +1,17 @@
 <ion-tabs>
   <ion-tab [root]="homePage" tabIcon="home"></ion-tab>
   <ion-tab
-    [show]="userProvider.isLoggedIn"
+    [show]="isLoggedIn$ | async"
     tabIcon="person"
     [root]="profilePage"
   ></ion-tab>
   <ion-tab
-    [show]="userProvider.isLoggedIn"
+    [show]="isLoggedIn$ | async"
     tabIcon="bookmarks"
     [root]="bookmarksPage"
   ></ion-tab>
   <ion-tab
-    [show]="!userProvider.isLoggedIn"
+    [show]="!(isLoggedIn$ | async)"
     tabIcon="keypad"
     [root]="loginPage"
   ></ion-tab>

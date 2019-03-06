@@ -39,7 +39,7 @@ export class CommentsPage {
       .deleteCommentById(commentId)
       .subscribe((res: CommentDelete) => {
         this.getComments(this.fileId);
-        this.mediaProvider.fetchMediaData();
+        // this.mediaProvider.fetchMediaData();
       });
   }
 
@@ -52,7 +52,7 @@ export class CommentsPage {
       .subscribe((res: CommentResponse) => {
         this.getComments(this.fileId);
         f.reset();
-        this.mediaProvider.fetchMediaData();
+        // this.mediaProvider.fetchMediaData();
       });
   }
 }

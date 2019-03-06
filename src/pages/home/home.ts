@@ -71,7 +71,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.subscriptionShowRecipeView = this.mediaProvider.showRecipeView.subscribe(
       (fileId: number) => {
         this.navCtrl.push(RecipeViewPage, {
-          item: fileId
+          fileId: fileId
         });
       }
     );

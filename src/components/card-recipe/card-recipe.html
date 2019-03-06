@@ -8,7 +8,7 @@
     <img
       [src]="item.file_id | thumbnail: 'medium' | async"
       [alt]="item.title"
-      (click)="showRecipePage(item)"
+      (click)="showRecipePage(item.file_id)"
     />
   </div>
   <div class="bottom">

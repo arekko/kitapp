@@ -9,8 +9,6 @@ import {
   NavParams
 } from "ionic-angular";
 import * as fromStore from "../../store";
-import { MediaProvider } from "./../../providers/media/media";
-import { UserProvider } from "./../../providers/user/user";
 
 @IonicPage()
 @Component({
@@ -33,8 +31,6 @@ export class LoginPage implements OnInit {
     public navParams: NavParams,
     public formbuilder: FormBuilder,
     private storage: Storage,
-    private userProvider: UserProvider,
-    private mediaProvider: MediaProvider,
     public loadingCtrl: LoadingController,
     private store: Store<fromStore.AppState>
   ) {}
@@ -54,7 +50,6 @@ export class LoginPage implements OnInit {
         setTimeout(() => {
           this.errorMessage = null;
         }, 2000);
-        console.log(this.errorMessage);
       }
     });
 
@@ -127,29 +122,10 @@ export class LoginPage implements OnInit {
     });
   }
 
-  ionViewDidLoad() {}
-
-  handleChange($event) {
-    this.file = $event.target.files[0];
-    this.showPreview();
-  }
-
   onLoginSubmit() {
     if (this.loginForm.valid) {
       const { value } = this.loginForm;
-
       this.store.dispatch(new fromStore.LoginUser(value));
-
-      // this.userProvider.login(value).subscribe((res: UserLoginResponse) => {
-      //   this.loginForm.reset();
-      //   this.userProvider.user = res.user;
-      //   this.userProvider.isLoggedIn = true;
-
-      //   this.storage.set("user", JSON.stringify(res.user));
-
-      //   localStorage.setItem("token", res.token);
-      //   this.navCtrl.parent.select(0);
-      // });
     }
   }
 

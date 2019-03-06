@@ -47,7 +47,7 @@ export class BookmarksPage implements OnInit {
     const inx = this.bookmarks.findIndex(el => el.file_id === fileId);
     this.bookmarkProvider.deleteFavoriteByFileId(fileId).subscribe(res => {
       this.bookmarks.splice(inx, 1);
-      this.mediaProvider.fetchMediaData();
+      // this.mediaProvider.fetchMediaData();
     });
   }
 
