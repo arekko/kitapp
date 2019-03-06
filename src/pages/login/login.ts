@@ -1,16 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
+import { Store } from "@ngrx/store";
 import {
   IonicPage,
   LoadingController,
   NavController,
   NavParams
 } from "ionic-angular";
-import {
-  UserLoginResponse,
-  UserRegisterResponse
-} from "./../../interfaces/user";
+import * as fromStore from "../../store";
+import { UserRegisterResponse } from "./../../interfaces/user";
 import { MediaProvider } from "./../../providers/media/media";
 import { UserProvider } from "./../../providers/user/user";
 
@@ -35,10 +34,13 @@ export class LoginPage implements OnInit {
     private storage: Storage,
     private userProvider: UserProvider,
     private mediaProvider: MediaProvider,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private store: Store<fromStore.AppState>
   ) {}
 
   ngOnInit() {
+    this.store.select("user").subscribe(state => console.log(state));
+
     this.loginForm = this.formbuilder.group({
       username: [
         "",
@@ -107,16 +109,19 @@ export class LoginPage implements OnInit {
   onLoginSubmit() {
     if (this.loginForm.valid) {
       const { value } = this.loginForm;
-      this.userProvider.login(value).subscribe((res: UserLoginResponse) => {
-        this.loginForm.reset();
-        this.userProvider.user = res.user;
-        this.userProvider.isLoggedIn = true;
 
-        this.storage.set("user", JSON.stringify(res.user));
+      this.store.dispatch(new fromStore.LoginUser(value));
 
-        localStorage.setItem("token", res.token);
-        this.navCtrl.parent.select(0);
-      });
+      // this.userProvider.login(value).subscribe((res: UserLoginResponse) => {
+      //   this.loginForm.reset();
+      //   this.userProvider.user = res.user;
+      //   this.userProvider.isLoggedIn = true;
+
+      //   this.storage.set("user", JSON.stringify(res.user));
+
+      //   localStorage.setItem("token", res.token);
+      //   this.navCtrl.parent.select(0);
+      // });
     }
   }
 

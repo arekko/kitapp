@@ -42,7 +42,8 @@ export function reducer(
     case fromMedia.LOAD_SEARCHING:
       return {
         ...state,
-        loading: true
+        loading: true,
+        loaded: false
       };
     case fromMedia.LOAD_SEARCHING_SUCCESS:
       const dataSearch: Media[] = action.payload;
