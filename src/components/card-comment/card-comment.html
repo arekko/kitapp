@@ -1,10 +1,12 @@
-
+<div>{{ comment.user_id }}</div>
 <ion-list>
   <ion-item-sliding>
     <ion-item>
       <div
         [className]="
-          (comment.user_id | owner) ? 'card-wrapper owner-mark' : 'card-wrapper'
+          (comment.user_id | owner | async)
+            ? 'card-wrapper owner-mark'
+            : 'card-wrapper'
         "
       >
         <div class="top-row">
@@ -25,7 +27,7 @@
         </div>
       </div>
     </ion-item>
-    <ion-item-options *ngIf="(comment.user_id | owner)" side="right">
+    <ion-item-options *ngIf="(comment.user_id | owner | async)" side="right">
       <button
         ion-button
         color="primary"

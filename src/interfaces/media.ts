@@ -41,8 +41,11 @@ export interface CommentRequest {
 }
 
 export interface CommentResponse {
-  message: string;
   comment_id: number;
+  file_id: number;
+  user_id: number;
+  comment: string;
+  time_added: string;
 }
 
 export interface CommentDelete {

@@ -23,7 +23,7 @@
   </form>
 
   <card-comment
-    *ngFor="let comment of commentsList"
+    *ngFor="let comment of (comments$ | async)"
     [comment]="comment"
     (delComment)="deleteComment($event)"
   ></card-comment>

@@ -17,6 +17,17 @@ export class RecipeEffects {
     })
   );
 
+  @Effect()
+  getComments = this.actions$.ofType(recipeActions.LOAD_COMMENTS).pipe(
+    switchMap((action: recipeActions.LoadComments) => {
+      return this.mediaProvider.getCommentsByFileId(action.payload).pipe(
+        map(comments => new recipeActions.LoadCommentsSuccess(comments)),
+        catchError(error => of(new recipeActions.LoadCommentsFail(error))),
+        
+      );
+    })
+  );
+
   constructor(
     private actions$: Actions,
     private mediaProvider: fromServices.MediaProvider

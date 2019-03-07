@@ -14,3 +14,8 @@ export const getRecipeLoading = createSelector(
   fromFeature.getRecipeState,
   fromRecipe.getRecipeLoading
 );
+
+export const getCommnets = createSelector(
+  fromFeature.getRecipeState,
+  fromRecipe.getComments
+);
