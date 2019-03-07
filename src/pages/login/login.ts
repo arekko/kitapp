@@ -41,7 +41,12 @@ export class LoginPage implements OnInit {
       .subscribe(state => console.log(state));
 
     this.store.select(fromStore.getUserStatus).subscribe(state => {
-      state && this.navCtrl.parent.select(0);
+      this.store.select(fromStore.getToken).subscribe(token => {
+        if (token) {
+          localStorage.setItem("token", token);
+          state && this.navCtrl.parent.select(0);
+        }
+      });
     });
 
     this.store.select<any>(fromStore.getError).subscribe(state => {

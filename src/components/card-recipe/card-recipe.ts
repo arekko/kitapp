@@ -9,6 +9,7 @@ import { UserProvider } from "./../../providers/user/user";
 })
 export class CardRecipeComponent {
   @Input() item;
+  @Input() isLoggedIn
   @Output() fileId = new EventEmitter<number>();
 
   constructor(

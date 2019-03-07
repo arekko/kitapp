@@ -28,6 +28,7 @@ export class HomePage implements OnInit, OnDestroy {
   searchBar = "";
 
   media$: Observable<Media[]>;
+  isLoggedIn$: Observable<boolean>;
   loading: Loading;
 
   constructor(
@@ -42,6 +43,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.media$ = this.store.select<any>(fromStore.getMediaState);
+    this.isLoggedIn$ = this.store.select(fromStore.getUserStatus);
     this.store.dispatch(new fromStore.LoadMedia());
 
     this.store.select(fromStore.getMediaLoading).subscribe(loading => {
