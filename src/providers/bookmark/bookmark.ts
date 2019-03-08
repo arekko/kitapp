@@ -55,26 +55,24 @@ export class BookmarkProvider {
    * @memberof MediaProvider
    */
 
-  getUserFavorites(): void {
-    this.helperProvider.getHeaderWithToken &&
-      this.userProvider.user &&
-      this.http
-        .get<Favorites[]>(
-          `${this.helperProvider.baseAPI}/favourites`,
-          this.helperProvider.getHeaderWithToken()
-        )
-        .subscribe((bookmarks: Favorites[]) => {
-          let tmpData: Media[] = [];
+  getUserFavorites(): Observable<Favorites[]> {
+    return this.http.get<Favorites[]>(
+      `${this.helperProvider.baseAPI}/favourites`,
+      this.helperProvider.getHeaderWithToken()
+    );
+    //     .subscribe((bookmarks: Favorites[]) => {
+    //       let tmpData: Media[] = [];
 
-          bookmarks.forEach(bm => {
-            this.mediaProvider
-              .getSingleMedia(bm.file_id)
-              .subscribe((res: Media) => {
-                tmpData.push(res);
-              });
-          });
-          this.setBookmarks(tmpData);
-        });
+    //       bookmarks.forEach(bm => {
+    //         this.mediaProvider
+    //           .getSingleMedia(bm.file_id)
+    //           .subscribe((res: Media) => {
+    //             tmpData.push(res);
+    //           });
+    //       });
+    //       resolve(tmpData);
+    //     });
+    // });
   }
 
   // Delete from favorite

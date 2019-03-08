@@ -39,6 +39,11 @@ export class MediaProvider {
     return this.http.get<Media>(`${this.helperProvider.baseAPI}/media/${id}`);
   }
 
+  // delete file by id
+  deleteFileById(fileId: number) {
+    return this.http.delete(`${this.helperProvider.baseAPI}/media/${fileId}`, this.helperProvider.getHeaderWithToken())
+  }
+
   // Request a list of ratings by file id
   getListOfRatingsByFileId(fileId: number): Observable<Rating[]> {
     return this.http.get<Rating[]>(

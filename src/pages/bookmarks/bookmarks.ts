@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Subscription } from "rxjs/Subscription";
+import * as fromStore from "../../store";
 import { Media } from "./../../interfaces/media";
 import { BookmarkProvider } from "./../../providers/bookmark/bookmark";
 import { MediaProvider } from "./../../providers/media/media";
@@ -18,19 +20,22 @@ export class BookmarksPage implements OnInit {
     public navCtrl: NavController,
     public navParams: NavParams,
     private mediaProvider: MediaProvider,
-    private bookmarkProvider: BookmarkProvider
+    private bookmarkProvider: BookmarkProvider,
+    private store: Store<fromStore.AppState>
   ) {}
 
   ngOnInit() {
-    this.subscribeBMChanged = this.bookmarkProvider.bookmarksChanged.subscribe(
-      (bm: Media[]) => {
-        console.log(bm);
+    this.store.select(fromStore.getBookmarks).subscribe(bookmarks => {
+      const tmpData = [];
+      bookmarks.forEach(bm => {
+        this.mediaProvider
+          .getSingleMedia(bm.file_id)
+          .subscribe((media: Media) => tmpData.push(media));
+        this.bookmarks = tmpData;
+      });
+    });
 
-        this.bookmarks = bm;
-      }
-    );
-
-    this.bookmarkProvider.getUserFavorites();
+    this.store.dispatch(new fromStore.LoadUserBookmarks());
   }
 
   ionViewDidLoad() {

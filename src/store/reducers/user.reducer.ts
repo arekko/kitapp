@@ -1,6 +1,6 @@
 import { User } from "../../interfaces/user";
 import * as fromUser from "../actions/user.action";
-import { Media } from "./../../interfaces/media";
+import { Favorites, Media } from "./../../interfaces/media";
 
 export interface Error {
   error?: string;
@@ -10,7 +10,8 @@ export interface Error {
 export interface UserState {
   currentUser: User | null;
   isLoggedIn: boolean;
-  bookmarks: Media[];
+  bookmarks: Favorites[];
+  userMedia: Media[];
   token: string | null;
   error: Error | null;
   message: string | null;
@@ -21,6 +22,7 @@ export const initialState: UserState = {
   currentUser: null,
   isLoggedIn: false,
   bookmarks: [],
+  userMedia: [],
   token: null,
   message: null,
   error: null,
@@ -62,10 +64,41 @@ export function reducer(
         message: action.payload.message,
         registrationCompleted: true
       };
+
     case fromUser.LOGIN_USER_FAIL:
       return {
         ...state,
         error: action.payload.error
+      };
+    case fromUser.LOAD_USER_MEDIA:
+      return {
+        ...state
+      };
+    case fromUser.LOAD_USER_MEDIA_SUCCESS:
+      const userMedia = action.payload;
+
+      return {
+        ...state,
+        userMedia
+      };
+    case fromUser.LOAD_USER_MEDIA_FAIL:
+      // TODO:
+      return {
+        ...state
+      };
+    case fromUser.LOAD_USER_BOOKMARKS:
+      return {
+        ...state
+      };
+    case fromUser.LOAD_USER_BOOKMARKS_SUCCESS:
+      const bookmarks = action.payload;
+      return {
+        ...state,
+        bookmarks
+      };
+    case fromUser.LOAD_USER_BOOKMARKS:
+      return {
+        ...state
       };
   }
 
@@ -79,3 +112,7 @@ export const getUserToken = (state: UserState) => state.token;
 export const getError = (state: UserState) => state.error;
 
 export const getRegStatus = (state: UserState) => state.registrationCompleted;
+
+export const getUserMedia = (state: UserState) => state.userMedia;
+
+export const getBookmarks = (state: UserState) => state.bookmarks;

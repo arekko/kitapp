@@ -42,6 +42,20 @@ export class HomePage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    if (localStorage.getItem("token")) {
+      this.storage.get("user").then(user => {
+        console.log(user);
+
+        this.store.dispatch(
+          new fromStore.LoginUserSuccess({
+            message: "Set user from token",
+            token: localStorage.getItem("token"),
+            user: JSON.parse(user)
+          })
+        );
+      });
+    }
+
     this.media$ = this.store.select<any>(fromStore.getMediaState);
     this.isLoggedIn$ = this.store.select(fromStore.getUserStatus);
     this.store.dispatch(new fromStore.LoadMedia());
@@ -83,14 +97,10 @@ export class HomePage implements OnInit, OnDestroy {
         this.bookmarkProvider
           .addBookmark({ file_id: fileId })
           .subscribe((res: AddFavoriteResponse) => {
-            console.log(res);
-            // this.mediaProvider.fetchMediaData();
-
             this.bookmarkProvider.getUserFavorites();
+            this.store.dispatch(new fromStore.LoadUserBookmarks());
+            this.store.dispatch(new fromStore.LoadMedia());
           });
-
-        // FIXME: make the same thing like in home page means get set and etc
-        console.log(fileId);
       }
     );
     this.bookmarkProvider.getUserFavorites();

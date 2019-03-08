@@ -1,4 +1,5 @@
 import { Action } from "@ngrx/store";
+import { Media, Favorites } from "../../interfaces/media";
 import {
   UserLogin,
   UserLoginResponse,
@@ -14,6 +15,14 @@ export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
 export const REGISTER_USER = "REGISTER_USER";
 export const REGISTER_USER_FAIL = "REGISTER_USER_FAIL";
 export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";
+
+export const LOAD_USER_MEDIA = "LOAD_USER_MEDIA";
+export const LOAD_USER_MEDIA_FAIL = "LOAD_USER_MEDIA_FAIL";
+export const LOAD_USER_MEDIA_SUCCESS = "LOAD_USER_MEDIA_SUCCESS";
+
+export const LOAD_USER_BOOKMARKS = "LOAD_USER_BOOKMARKS";
+export const LOAD_USER_BOOKMARKS_FAIL = "LOAD_USER_BOOKMARKS_FAIL";
+export const LOAD_USER_BOOKMARKS_SUCCESS = "LOAD_USER_BOOKMARKS_SUCCESS";
 
 export class LoginUser implements Action {
   readonly type = LOGIN_USER;
@@ -40,6 +49,29 @@ export class RegisterUserSuccess implements Action {
   readonly type = REGISTER_USER_SUCCESS;
   constructor(public payload: UserRegisterResponse) {}
 }
+export class LoadUserMedia implements Action {
+  readonly type = LOAD_USER_MEDIA;
+}
+export class LoadUserMediaFail implements Action {
+  readonly type = LOAD_USER_MEDIA_FAIL;
+  constructor(public payload: any) {}
+}
+export class LoadUserMediaSuccess implements Action {
+  readonly type = LOAD_USER_MEDIA_SUCCESS;
+  constructor(public payload: Media[]) {}
+}
+
+export class LoadUserBookmarks implements Action {
+  readonly type = LOAD_USER_BOOKMARKS;
+}
+export class LoadUserBookmarksSuccess implements Action {
+  readonly type = LOAD_USER_BOOKMARKS_SUCCESS;
+  constructor(public payload: Favorites[]) {}
+}
+export class LoadUserBookmarksFail implements Action {
+  readonly type = LOAD_USER_BOOKMARKS_FAIL;
+  constructor(public payload: any) {}
+}
 
 // action types
 export type UserActions =
@@ -48,4 +80,10 @@ export type UserActions =
   | LoginUserSuccess
   | RegisterUser
   | RegisterUserFail
-  | RegisterUserSuccess;
+  | RegisterUserSuccess
+  | LoadUserMedia
+  | LoadUserMediaSuccess
+  | LoadUserMediaFail
+  | LoadUserBookmarks
+  | LoadUserBookmarksFail
+  | LoadUserBookmarksSuccess;

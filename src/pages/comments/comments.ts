@@ -4,11 +4,7 @@ import { Store } from "@ngrx/store";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
 import * as fromStore from "../../store";
-import {
-  Comment,
-  CommentDelete,
-  CommentResponse
-} from "./../../interfaces/media";
+import { Comment } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
 
 @IonicPage()
@@ -31,7 +27,7 @@ export class CommentsPage implements OnInit {
   ngOnInit() {
     this.fileId = this.navParams.get("fileId");
     this.comments$ = this.store.select(fromStore.getCommnets);
-    this.store.dispatch(new fromStore.LoadComments(this.fileId))
+    this.store.dispatch(new fromStore.LoadComments(this.fileId));
   }
 
   ionViewDidLoad() {
@@ -47,24 +43,29 @@ export class CommentsPage implements OnInit {
   }
 
   deleteComment(commentId: number) {
-    this.mediaProvider
-      .deleteCommentById(commentId)
-      .subscribe((res: CommentDelete) => {
-        this.getComments(this.fileId);
-        // this.mediaProvider.fetchMediaData();
-      });
+    this.store.dispatch(
+      new fromStore.DeleteComment({
+        comment_id: commentId,
+        fileId: this.fileId
+      })
+    );
+    // this.mediaProvider
+    //   .deleteCommentById(commentId)
+    //   .subscribe((res: CommentDelete) => {
+    //     this.getComments(this.fileId);
+    //     // this.mediaProvider.fetchMediaData();
+    //   });
   }
 
   addComment(f: NgForm) {
-    this.mediaProvider
-      .addCommentByFileId({
-        file_id: this.fileId,
-        comment: f.value.comment
-      })
-      .subscribe((res: CommentResponse) => {
-        this.getComments(this.fileId);
-        f.reset();
-        // this.mediaProvider.fetchMediaData();
-      });
+    f.valid &&
+      this.store.dispatch(
+        new fromStore.AddComment({
+          file_id: this.fileId,
+          comment: f.value.comment
+        })
+      );
+
+    f.reset();
   }
 }

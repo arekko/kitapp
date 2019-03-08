@@ -29,7 +29,7 @@
             <div>{{ item.file_id | comment | async }}</div>
           </button>
         </ion-col>
-        <ion-col *ngIf="userProvider.isLoggedIn" align-self-center text-center>
+        <ion-col *ngIf="isLoggedIn" align-self-center text-center>
           <button
             ion-button
             icon-start

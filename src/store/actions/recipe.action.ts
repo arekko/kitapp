@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { CommentResponse, Media } from "../../interfaces/media";
+import { CommentRequest, CommentResponse, Media } from "../../interfaces/media";
 
 // load media actions
 export const LOAD_RECIPE = "LOAD_RECIPE";
@@ -11,6 +11,13 @@ export const LOAD_COMMENTS = "LOAD_COMMENTS";
 export const LOAD_COMMENTS_SUCCESS = "LOAD_COMMENTS_SUCCESS";
 export const LOAD_COMMENTS_FAIL = "LOAD_COMMENTS_FAIL";
 export const CLEAR_COMMENTS = "CLEAR_COMMENTS";
+
+export const ADD_COMMENT = "ADD_COMMENT";
+export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
+
+export const DELETE_COMMENT = "DELETE_COMMENT";
+export const DELETE_COMMENT_SUCCESS = "DELETE_COMMENTS_SUCCESS";
+export const DELETE_COMMENT_FAIL = "DELETE_COMMENTS_SUCCESS_FAIL";
 
 export class LoadRecipe implements Action {
   readonly type = LOAD_RECIPE;
@@ -44,6 +51,28 @@ export class ClearComments implements Action {
   readonly type = CLEAR_COMMENTS;
 }
 
+export class AddComment implements Action {
+  readonly type = ADD_COMMENT;
+  constructor(public payload: CommentRequest) {}
+}
+export class AddCommentSuccess implements Action {
+  readonly type = ADD_COMMENT_SUCCESS;
+  constructor(public payload: CommentResponse) {}
+}
+
+export class DeleteComment implements Action {
+  readonly type = DELETE_COMMENT;
+  constructor(public payload: { comment_id: number; fileId: number }) {}
+}
+export class DeleteCommentSuccess implements Action {
+  readonly type = DELETE_COMMENT_SUCCESS;
+  constructor(public payload: any) {}
+}
+export class DeleteCommentFail implements Action {
+  readonly type = DELETE_COMMENT_FAIL;
+  constructor(public payload: any) {}
+}
+
 // action types
 export type RecipeActions =
   | LoadRecipe
@@ -53,4 +82,9 @@ export type RecipeActions =
   | LoadComments
   | LoadCommentsFail
   | LoadCommentsSuccess
-  | ClearComments;
+  | ClearComments
+  | AddComment
+  | AddCommentSuccess
+  | DeleteComment
+  | DeleteCommentFail
+  | DeleteCommentSuccess;

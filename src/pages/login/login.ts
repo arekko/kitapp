@@ -41,6 +41,10 @@ export class LoginPage implements OnInit {
       .subscribe(state => console.log(state));
 
     this.store.select(fromStore.getUserStatus).subscribe(state => {
+      this.store.select(fromStore.getCurrentUser).subscribe(state => {
+        this.storage.set("user", JSON.stringify(state));
+      });
+
       this.store.select(fromStore.getToken).subscribe(token => {
         if (token) {
           localStorage.setItem("token", token);

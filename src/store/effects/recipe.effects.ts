@@ -22,9 +22,28 @@ export class RecipeEffects {
     switchMap((action: recipeActions.LoadComments) => {
       return this.mediaProvider.getCommentsByFileId(action.payload).pipe(
         map(comments => new recipeActions.LoadCommentsSuccess(comments)),
-        catchError(error => of(new recipeActions.LoadCommentsFail(error))),
-        
+        catchError(error => of(new recipeActions.LoadCommentsFail(error)))
       );
+    })
+  );
+  @Effect()
+  addComment = this.actions$.ofType(recipeActions.ADD_COMMENT).pipe(
+    switchMap((action: recipeActions.AddComment) => {
+      return this.mediaProvider.addCommentByFileId(action.payload).pipe(
+        map(() => new recipeActions.LoadComments(action.payload.file_id)),
+        catchError(error => of(new recipeActions.LoadCommentsFail(error)))
+      );
+    })
+  );
+  @Effect()
+  deleteComment = this.actions$.ofType(recipeActions.DELETE_COMMENT).pipe(
+    switchMap((action: recipeActions.DeleteComment) => {
+      return this.mediaProvider
+        .deleteCommentById(action.payload.comment_id)
+        .pipe(
+          map(() => new recipeActions.LoadComments(action.payload.fileId)),
+          catchError(error => of(new recipeActions.DeleteCommentFail(error)))
+        );
     })
   );
 

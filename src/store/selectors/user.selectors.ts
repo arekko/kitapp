@@ -24,3 +24,13 @@ export const getRegStatus = createSelector(
   fromFeature.getUserState,
   fromUser.getRegStatus
 );
+
+export const getUserMedia = createSelector(
+  fromFeature.getUserState,
+  fromUser.getUserMedia
+);
+
+export const getBookmarks = createSelector(
+  fromFeature.getUserState,
+  fromUser.getBookmarks
+);

@@ -73,6 +73,18 @@ export function reducer(
         loaded: false,
         comments: null
       };
+    case fromRecipe.ADD_COMMENT:
+      return {
+        ...state
+      };
+    case fromRecipe.ADD_COMMENT_SUCCESS:
+      return {
+        ...state
+      };
+    case fromRecipe.DELETE_COMMENT:
+      return {
+        ...state
+      };
   }
 
   return state;
