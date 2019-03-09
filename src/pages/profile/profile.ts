@@ -51,8 +51,8 @@ export class ProfilePage implements OnInit, OnDestroy {
   logout() {
     return this.storage.remove("user").then(res => {
       console.log(res);
+      this.store.dispatch(new fromStore.ClearUserData());
       localStorage.clear();
-      this.userProvider.isLoggedIn = false;
       this.navCtrl.parent.select(0);
     });
   }

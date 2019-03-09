@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { Media, Favorites } from "../../interfaces/media";
+import { Favorites, Media } from "../../interfaces/media";
 import {
   UserLogin,
   UserLoginResponse,
@@ -23,6 +23,8 @@ export const LOAD_USER_MEDIA_SUCCESS = "LOAD_USER_MEDIA_SUCCESS";
 export const LOAD_USER_BOOKMARKS = "LOAD_USER_BOOKMARKS";
 export const LOAD_USER_BOOKMARKS_FAIL = "LOAD_USER_BOOKMARKS_FAIL";
 export const LOAD_USER_BOOKMARKS_SUCCESS = "LOAD_USER_BOOKMARKS_SUCCESS";
+
+export const CLEAR_USER_DATA = "CLEAR_USER_DATA";
 
 export class LoginUser implements Action {
   readonly type = LOGIN_USER;
@@ -73,6 +75,10 @@ export class LoadUserBookmarksFail implements Action {
   constructor(public payload: any) {}
 }
 
+export class ClearUserData implements Action {
+  readonly type = CLEAR_USER_DATA;
+}
+
 // action types
 export type UserActions =
   | LoginUser
@@ -86,4 +92,5 @@ export type UserActions =
   | LoadUserMediaFail
   | LoadUserBookmarks
   | LoadUserBookmarksFail
-  | LoadUserBookmarksSuccess;
+  | LoadUserBookmarksSuccess
+  | ClearUserData;

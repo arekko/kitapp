@@ -100,6 +100,14 @@ export function reducer(
       return {
         ...state
       };
+    case fromUser.CLEAR_USER_DATA:
+      return {
+        ...state,
+        currentUser: null,
+        isLoggedIn: false,
+        userMedia: null,
+        bookmarks: null
+      };
   }
 
   return state;

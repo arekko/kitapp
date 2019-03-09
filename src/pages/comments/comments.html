@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title *ngIf="commentsList"
-      >{{ commentsList.length }} Comment(s)</ion-title
+      >{{ (comments$ | async).length }} Comment(s)</ion-title
     >
   </ion-navbar>
 </ion-header>
@@ -15,6 +15,7 @@
         placeholder="Input comment"
         ngModel
         name="comment"
+        required
       ></ion-input>
     </ion-item>
     <ion-item>
@@ -23,7 +24,7 @@
   </form>
 
   <card-comment
-    *ngFor="let comment of (comments$ | async)"
+    *ngFor="let comment of (comments$ | async | reverse)"
     [comment]="comment"
     (delComment)="deleteComment($event)"
   ></card-comment>
