@@ -97,3 +97,4 @@ export const getRecipeLoaded = (state: RecipeState) => state.loaded;
 export const getRecipeLoading = (state: RecipeState) => state.loading;
 
 export const getComments = (state: RecipeState) => state.comments;
+export const getCommentsLength = (state: RecipeState) => state.comments.length;

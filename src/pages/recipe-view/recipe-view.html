@@ -29,8 +29,13 @@
       <p>{{ (recipe$ | async).description }}</p>
     </div>
     <div class="recipe-comment-btn">
-      <button ion-button outline (click)="showComments(fileId)">
-        {{ (recipe$ | async).file_id | comment | async }} Comments
+      <button
+        *ngIf="(comments$ | async)"
+        ion-button
+        outline
+        (click)="showComments(fileId)"
+      >
+        {{ (comments$ | async).length }} Comments
       </button>
     </div>
   </div>

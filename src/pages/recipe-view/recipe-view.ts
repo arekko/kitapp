@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Events, IonicPage, NavController, NavParams } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
-import { Media } from "../../interfaces/media";
+import { Comment, Media } from "../../interfaces/media";
 import * as fromStore from "../../store";
 import { CommentsPage } from "../comments/comments";
 import { LoginPage } from "../login/login";
@@ -22,6 +22,7 @@ export class RecipeViewPage implements OnInit, OnDestroy {
 
   recipe$: Observable<Media>;
   isLoggedIn$: Observable<boolean>;
+  comments$: Observable<Comment[]>;
 
   constructor(
     public navCtrl: NavController,
@@ -39,6 +40,8 @@ export class RecipeViewPage implements OnInit, OnDestroy {
     this.recipe$ = this.store.select<Media>(fromStore.getRecipe);
     this.isLoggedIn$ = this.store.select(fromStore.getUserStatus);
     this.store.dispatch(new fromStore.LoadRecipe(this.fileId));
+    this.comments$ = this.store.select(fromStore.getCommnets);
+    this.store.dispatch(new fromStore.LoadComments(this.fileId));
 
     this.events.subscribe("star-rating:changed", starRating => {
       console.log(starRating);

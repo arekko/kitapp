@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, Effect } from "@ngrx/effects";
 import { of } from "rxjs/observable/of";
-import { catchError, map, switchMap } from "rxjs/operators";
+import { catchError, map, mergeMap, switchMap } from "rxjs/operators";
 import * as fromServices from "../../providers/";
 import * as recipeActions from "../actions/recipe.action";
 
@@ -30,7 +30,10 @@ export class RecipeEffects {
   addComment = this.actions$.ofType(recipeActions.ADD_COMMENT).pipe(
     switchMap((action: recipeActions.AddComment) => {
       return this.mediaProvider.addCommentByFileId(action.payload).pipe(
-        map(() => new recipeActions.LoadComments(action.payload.file_id)),
+        mergeMap(() => [
+          new recipeActions.LoadComments(action.payload.file_id)
+          // new recipeActions.LoadRecipe(action.payload.file_id)
+        ]),
         catchError(error => of(new recipeActions.LoadCommentsFail(error)))
       );
     })
@@ -41,7 +44,10 @@ export class RecipeEffects {
       return this.mediaProvider
         .deleteCommentById(action.payload.comment_id)
         .pipe(
-          map(() => new recipeActions.LoadComments(action.payload.fileId)),
+          mergeMap(() => [
+            new recipeActions.LoadComments(action.payload.fileId)
+            // new recipeActions.LoadRecipe(action.payload.fileId)
+          ]),
           catchError(error => of(new recipeActions.DeleteCommentFail(error)))
         );
     })

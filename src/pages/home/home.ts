@@ -59,6 +59,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.media$ = this.store.select<any>(fromStore.getMediaState);
     this.isLoggedIn$ = this.store.select(fromStore.getUserStatus);
     this.store.dispatch(new fromStore.LoadMedia());
+    this.store.dispatch(new fromStore.LoadUserBookmarks());
 
     this.store.select(fromStore.getMediaLoading).subscribe(loading => {
       if (loading) {

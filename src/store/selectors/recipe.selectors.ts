@@ -19,3 +19,8 @@ export const getCommnets = createSelector(
   fromFeature.getRecipeState,
   fromRecipe.getComments
 );
+
+export const getCommentsLength = createSelector(
+  fromFeature.getRecipeState,
+  fromRecipe.getCommentsLength
+);

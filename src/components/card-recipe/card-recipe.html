@@ -26,7 +26,8 @@
         <ion-col>
           <button ion-button icon-start clear small color="tomato">
             <ion-icon name="text"></ion-icon>
-            <div>{{ item.file_id | comment | async }}</div>
+            <!-- <div>{{ item.file_id | comment | async }}</div> -->
+            <!-- <div>{{ itemLength$ | async }}</div> -->
           </button>
         </ion-col>
         <ion-col *ngIf="isLoggedIn" align-self-center text-center>
@@ -39,9 +40,8 @@
             (click)="addBookmark(item.file_id)"
           >
             <ion-icon
-              [name]="(item.file_id | favorite) ? 'heart' : 'heart-outline'"
+              [name]="isFavorite ? 'heart' : 'heart-outline'"
             ></ion-icon>
-            <div>{{ item.file_id | favorite }}</div>
           </button>
         </ion-col>
       </ion-row>
