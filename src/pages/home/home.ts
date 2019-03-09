@@ -6,8 +6,7 @@ import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import * as fromStore from "../../store";
 import { RecipeViewPage } from "../recipe-view/recipe-view";
-import { AddFavoriteResponse, Media } from "./../../interfaces/media";
-import { BookmarkProvider } from "./../../providers/bookmark/bookmark";
+import { Media } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
 import { UserProvider } from "./../../providers/user/user";
 
@@ -16,10 +15,7 @@ import { UserProvider } from "./../../providers/user/user";
   templateUrl: "home.html"
 })
 export class HomePage implements OnInit, OnDestroy {
-  // media: Media[];
-  // subscriptionMediaChanged: Subscription;
   subscriptionShowRecipeView: Subscription;
-  subscriptionBookmarkHandler: Subscription;
 
   // searchList: Media[] = [];
   // search = {
@@ -28,7 +24,6 @@ export class HomePage implements OnInit, OnDestroy {
   searchBar = "";
 
   media$: Observable<Media[]>;
-  isLoggedIn$: Observable<boolean>;
   loading: Loading;
 
   constructor(
@@ -36,7 +31,6 @@ export class HomePage implements OnInit, OnDestroy {
     private mediaProvider: MediaProvider,
     private storage: Storage,
     public userProvider: UserProvider,
-    private bookmarkProvider: BookmarkProvider,
     private store: Store<fromStore.AppState>,
     private loadingCtrl: LoadingController
   ) {}
@@ -57,9 +51,13 @@ export class HomePage implements OnInit, OnDestroy {
     }
 
     this.media$ = this.store.select<any>(fromStore.getMediaState);
-    this.isLoggedIn$ = this.store.select(fromStore.getUserStatus);
+    this.store
+      .select(fromStore.getUserStatus)
+      .subscribe(
+        isLogin =>
+          isLogin && this.store.dispatch(new fromStore.LoadUserBookmarks())
+      );
     this.store.dispatch(new fromStore.LoadMedia());
-    this.store.dispatch(new fromStore.LoadUserBookmarks());
 
     this.store.select(fromStore.getMediaLoading).subscribe(loading => {
       if (loading) {
@@ -76,14 +74,14 @@ export class HomePage implements OnInit, OnDestroy {
       .select(fromStore.getMediaLoaded)
       .subscribe(loaded => loaded && this.loading.dismiss());
 
-    if (localStorage.getItem("token")) {
-      if (!this.userProvider.user) {
-        this.storage.get("user").then(res => {
-          this.userProvider.user = JSON.parse(res);
-          this.userProvider.isLoggedIn = true;
-        });
-      }
-    }
+    // if (localStorage.getItem("token")) {
+    //   if (!this.userProvider.user) {
+    //     this.storage.get("user").then(res => {
+    //       this.userProvider.user = JSON.parse(res);
+    //       this.userProvider.isLoggedIn = true;
+    //     });
+    //   }
+    // }
 
     this.subscriptionShowRecipeView = this.mediaProvider.showRecipeView.subscribe(
       (fileId: number) => {
@@ -92,19 +90,6 @@ export class HomePage implements OnInit, OnDestroy {
         });
       }
     );
-
-    this.subscriptionBookmarkHandler = this.bookmarkProvider.bookmarkHandler.subscribe(
-      (fileId: number) => {
-        this.bookmarkProvider
-          .addBookmark({ file_id: fileId })
-          .subscribe((res: AddFavoriteResponse) => {
-            this.bookmarkProvider.getUserFavorites();
-            this.store.dispatch(new fromStore.LoadUserBookmarks());
-            this.store.dispatch(new fromStore.LoadMedia());
-          });
-      }
-    );
-    this.bookmarkProvider.getUserFavorites();
   }
 
   ngOnDestroy() {

@@ -12,6 +12,5 @@
   <card-recipe
     *ngFor="let item of ((media$ | async).data | reverse)"
     [item]="item"
-    [isLoggedIn]="isLoggedIn$ | async"
   ></card-recipe>
 </ion-content>

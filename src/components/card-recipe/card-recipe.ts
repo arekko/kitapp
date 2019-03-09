@@ -13,11 +13,11 @@ import { UserProvider } from "./../../providers/user/user";
 })
 export class CardRecipeComponent implements OnInit {
   @Input() item;
-  @Input() isLoggedIn;
+  // @Input() isLoggedIn;
   @Output() fileId = new EventEmitter<number>();
 
   isFavorite: boolean;
-
+  isLoggedIn: boolean;
   commLen$: Observable<any>;
 
   constructor(
@@ -34,13 +34,19 @@ export class CardRecipeComponent implements OnInit {
     //   .subscribe(len => len && console.log(len));
 
     this.store
-      .select(fromStore.getBookmarks)
-      .subscribe(
-        bookmarks =>
-          (this.isFavorite = bookmarks.some(
-            bm => bm.file_id === this.item.file_id
-          ))
-      );
+      .select(fromStore.getUserStatus)
+      .subscribe(status => (this.isLoggedIn = status));
+
+    this.isLoggedIn &&
+      this.store
+        .select(fromStore.getBookmarks)
+        .subscribe(
+          bookmarks =>
+            this.isLoggedIn &&
+            (this.isFavorite = bookmarks.some(
+              bm => bm.file_id === this.item.file_id
+            ))
+        );
   }
 
   addBookmark(fileId: number) {

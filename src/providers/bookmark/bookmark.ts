@@ -56,23 +56,12 @@ export class BookmarkProvider {
    */
 
   getUserFavorites(): Observable<Favorites[]> {
-    return this.http.get<Favorites[]>(
-      `${this.helperProvider.baseAPI}/favourites`,
-      this.helperProvider.getHeaderWithToken()
-    );
-    //     .subscribe((bookmarks: Favorites[]) => {
-    //       let tmpData: Media[] = [];
-
-    //       bookmarks.forEach(bm => {
-    //         this.mediaProvider
-    //           .getSingleMedia(bm.file_id)
-    //           .subscribe((res: Media) => {
-    //             tmpData.push(res);
-    //           });
-    //       });
-    //       resolve(tmpData);
-    //     });
-    // });
+    if (this.helperProvider.getHeaderWithToken) {
+      return this.http.get<Favorites[]>(
+        `${this.helperProvider.baseAPI}/favourites`,
+        this.helperProvider.getHeaderWithToken()
+      );
+    }
   }
 
   // Delete from favorite

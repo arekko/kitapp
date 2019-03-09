@@ -1,29 +1,27 @@
-import { NgModule } from '@angular/core';
-import { ThumbnailPipe } from './thumbnail/thumbnail';
-import { RatingPipe } from './rating/rating';
-import { CommentPipe } from './comment/comment';
-import { FavoritePipe } from './favorite/favorite';
-import { OwnerPipe } from './owner/owner';
-import { UsernamePipe } from './username/username';
-import { AvatarPipe } from './avatar/avatar';
-import { ReversePipe } from './reverse/reverse';
+import { NgModule } from "@angular/core";
+import { CommentPipe } from "./comment/comment";
+import { OwnerPipe } from "./owner/owner";
+import { RatingPipe } from "./rating/rating";
+import { ReversePipe } from "./reverse/reverse";
+import { ThumbnailPipe } from "./thumbnail/thumbnail";
+import { UsernamePipe } from "./username/username";
 @NgModule({
-	declarations: [ThumbnailPipe,
+  declarations: [
+    ThumbnailPipe,
     RatingPipe,
     CommentPipe,
-    FavoritePipe,
     OwnerPipe,
     UsernamePipe,
-    AvatarPipe,
-    ReversePipe],
-	imports: [],
-	exports: [ThumbnailPipe,
+    ReversePipe
+  ],
+  imports: [],
+  exports: [
+    ThumbnailPipe,
     RatingPipe,
     CommentPipe,
-    FavoritePipe,
     OwnerPipe,
     UsernamePipe,
-    AvatarPipe,
-    ReversePipe]
+    ReversePipe
+  ]
 })
 export class PipesModule {}

@@ -106,7 +106,8 @@ export function reducer(
         currentUser: null,
         isLoggedIn: false,
         userMedia: null,
-        bookmarks: null
+        bookmarks: null,
+        token: null
       };
   }
 
