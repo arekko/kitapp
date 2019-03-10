@@ -18,6 +18,8 @@ import { TabsPage } from "./../pages/tabs/tabs";
 import { UploadPage } from "./../pages/upload/upload";
 import { PipesModule } from "./../pipes/pipes.module";
 import { MyApp } from "./app.component";
+import { Chooser } from "@ionic-native/chooser";
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { MyApp } from "./app.component";
     HttpClientModule,
     StatusBar,
     SplashScreen,
+    Chooser,
+    Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     MediaProvider
   ]

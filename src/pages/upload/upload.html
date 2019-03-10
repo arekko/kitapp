@@ -8,29 +8,34 @@
   <ion-navbar>
     <ion-title>upload</ion-title>
   </ion-navbar>
+  <script src="cordova.js"></script>
 </ion-header>
 
 <ion-content padding>
 
     <form (ngSubmit)="upload()">
         <ion-item>
-          <ion-label stacked>Name of The Food</ion-label>
-          <ion-input [(ngModel)]="title" type="text" name="title"></ion-input>
+          <ion-label stacked>Name of The Food (Min: 3 Characters)</ion-label>
+          <ion-input (change)="isFilled()" [(ngModel)]="title" type="text" name="title"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label stacked>Description</ion-label>
-          <ion-textarea [(ngModel)]="description" rows="5" type="text" name="description">Description</ion-textarea>
+          <ion-label stacked>Description (Min: 5 Characters)</ion-label>
+          <ion-textarea (change)="isFilled()" [(ngModel)]="description" rows="5" type="text" name="description">Description</ion-textarea>
         </ion-item>
         <ion-item>
-          <ion-label>Choose file for upload</ion-label>
-          <ion-input type="file"(change)="handleChange($event)">File</ion-input>
+            <button ion-button type="button" (click)="choose()">
+              <ion-icon name="image"></ion-icon>
+            </button>
+            <p>OR</p>
+            <button ion-button type="button" (click)="takePicture()">
+              <ion-icon name="camera"></ion-icon>
+            </button>
         </ion-item>
-        
-        <button ion-button block type="submit">Upload</button>
+        <button [disabled]="!filled" ion-button block type="submit" name="submit">Upload</button>
       </form>
     
       <ion-card>
-        <img [ngStyle]="{'filter': brightness}" #preview [src]="filedata">
+        <img #preview [src]="blob">
       </ion-card>
 
 </ion-content>

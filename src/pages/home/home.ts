@@ -62,7 +62,6 @@ export class HomePage {
     });
   }
 
-
   // Checks the searchbar and sends a request for an media array of files
   // containing the searched string in title.
   searchMedia(){
