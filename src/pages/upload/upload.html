@@ -35,7 +35,8 @@
       </form>
     
       <ion-card>
-        <img #preview [src]="blob">
+        <img [hidden]="!image" #preview [src]="blob">
+        <img [hidden]="!video" #preview src="../../assets/imgs/video.jpg">
       </ion-card>
 
 </ion-content>

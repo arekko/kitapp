@@ -14,7 +14,6 @@ import { ProfilePage } from '../profile/profile';
 })
 export class UploadPage {
 
-  
   filedata: '';
   title = '';
   description = '';
@@ -22,6 +21,8 @@ export class UploadPage {
   file: any;
   photo: any;
   filled: boolean = false;
+  image: boolean = false;
+  video: boolean = false;
   tag = {
     "file_id": "",
     "tag": "kitapp"
@@ -40,6 +41,7 @@ export class UploadPage {
     console.log('ionViewDidLoad UploadPage');
   }
 
+  // Shows preview of chosen media
   showPreview(){
     const reader = new FileReader();
     reader.onloadend = () =>{
@@ -49,7 +51,8 @@ export class UploadPage {
       console.log(this.blob);
   }
 
-upload(){
+  // Uploads the formdata to the server
+  upload(){
     const fd = new FormData();
     fd.append('title', this.title);
     fd.append('description', this.description);
@@ -63,6 +66,7 @@ upload(){
     })
   }
 
+  //Shows the loading spinner after upload
   Loading() {
     console.log("Starting Loading()");
     let loading = this.loadingCtrl.create({
@@ -75,6 +79,7 @@ upload(){
     }, 4000);
   }
 
+  // Posts the "kitapp" tag on the media
   postTag(data){
     this.mediaProvider.postNewTag(data).subscribe(
       (response: TagMessage) => {
@@ -82,23 +87,24 @@ upload(){
       })
   }
 
+  // Lets the device user pick a image file for upload
   choose(){
-    this.chooser.getFile("image/*")
+    this.chooser.getFile("image/gif,video/*")
     .then(result => {
       console.log(result);
       console.log(result.name);
-      console.log(result.data);
-      console.log(this.blob);
       this.blob = new Blob([result.data], {
         type: result.mediaType,
       });
       console.log(this.blob);
+      this.checkMediaType(this.blob.type);
       this.showPreview();
       this.isFilled();
     })
     .catch((error: any) => console.error(error));
   }
 
+  // Opens camera in the device, and then sends data URL
   takePicture(){
     const options: CameraOptions = {
       quality: 100,
@@ -112,6 +118,7 @@ upload(){
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       console.log(this.dataURLtoBlob(base64Image));
       this.blob = this.dataURLtoBlob(base64Image);
+      this.checkMediaType(this.blob.type);
       this.showPreview();
       this.isFilled();
     }, (err) => {
@@ -119,6 +126,7 @@ upload(){
     });
   }
 
+  // Converts data URL to a blob
   dataURLtoBlob(dataurl) {
     var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
@@ -128,6 +136,7 @@ upload(){
     return new Blob([u8arr], {type:mime});
   }
 
+  // Checks if the form is correctly filled for upload
   isFilled(){
     console.log('Checking isFilled()');
     if(this.title.length > 2 && this.description.length > 4 && this.blob != undefined){
@@ -136,6 +145,20 @@ upload(){
     } else {
       this.filled = false;
       console.log(this.filled);
+    }
+  }
+
+  checkMediaType(data){
+    console.log(this.blob.type);
+    if(data == "video/mp4"){
+      this.video = true;
+      this.image = false;
+    } else if (data == "image/jpeg") {
+      this.image = true;
+      this.video = false;
+    } else {
+      this.video = false;
+      this.image = false;
     }
   }
 }
