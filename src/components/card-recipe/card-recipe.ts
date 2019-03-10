@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { Observable } from "rxjs/Observable";
 import { AddFavoriteResponse } from "../../interfaces/media";
 import * as fromStore from "../../store";
 import { BookmarkProvider } from "./../../providers/bookmark/bookmark";
@@ -18,7 +17,6 @@ export class CardRecipeComponent implements OnInit {
 
   isFavorite: boolean;
   isLoggedIn: boolean;
-  commLen$: Observable<any>;
 
   constructor(
     public userProvider: UserProvider,
@@ -28,11 +26,6 @@ export class CardRecipeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.store.dispatch(new fromStore.LoadComments(this.item.file_id));
-    // this.store
-    //   .select(fromStore.getCommnets)
-    //   .subscribe(len => len && console.log(len));
-
     this.store
       .select(fromStore.getUserStatus)
       .subscribe(status => (this.isLoggedIn = status));

@@ -16,35 +16,37 @@
       <h2>{{ item.title }}</h2>
     </div>
     <div class="bottom-stats">
-      <ion-row>
-        <ion-col>
-          <button ion-button icon-start clear small color="tomato">
-            <ion-icon name="star"></ion-icon>
-            <div>{{ item.file_id | rating | async }}</div>
-          </button>
-        </ion-col>
-        <ion-col>
-          <button ion-button icon-start clear small color="tomato">
-            <ion-icon name="text"></ion-icon>
-            <!-- <div>{{ item.file_id | comment | async }}</div> -->
-            <!-- <div>{{ itemLength$ | async }}</div> -->
-          </button>
-        </ion-col>
-        <ion-col *ngIf="isLoggedIn" align-self-center text-center>
-          <button
-            ion-button
-            icon-start
-            clear
-            small
-            color="tomato"
-            (click)="addBookmark(item.file_id)"
-          >
-            <ion-icon
-              [name]="isFavorite ? 'heart' : 'heart-outline'"
-            ></ion-icon>
-          </button>
-        </ion-col>
-      </ion-row>
+      <ul class="bottom-stats-list">
+        <li class="bottom-stats-item">
+          <div class="bottom-stats-item-rating">
+            <span class="amount">{{ item.file_id | rating | async }}</span>
+            <span class="amount-desc">Rating</span>
+          </div>
+        </li>
+        <li class="bottom-stats-item">
+          <div class="bottom-stats-item-rating">
+            <span class="amount">{{ item.file_id | comment | async }}</span>
+            <span class="amount-desc">Comments</span>
+          </div>
+        </li>
+        <li *ngIf="isLoggedIn" class="bottom-stats-item">
+          <div class="bottom-stats-item-rating">
+            <button
+              ion-button
+              icon-start
+              clear
+              small
+              color="tomato"
+              (click)="addBookmark(item.file_id)"
+              large
+            >
+              <ion-icon
+                [name]="isFavorite ? 'heart' : 'heart-outline'"
+              ></ion-icon>
+            </button>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

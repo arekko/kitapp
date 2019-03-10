@@ -22,7 +22,7 @@ export class HomePage implements OnInit, OnDestroy {
   //   title: ""
   // };
   searchBar = "";
-
+  isLoggedIn: boolean;
   media$: Observable<Media[]>;
   loading: Loading;
 
@@ -34,6 +34,8 @@ export class HomePage implements OnInit, OnDestroy {
     private store: Store<fromStore.AppState>,
     private loadingCtrl: LoadingController
   ) {}
+
+  
 
   ngOnInit() {
     if (localStorage.getItem("token")) {
@@ -51,28 +53,26 @@ export class HomePage implements OnInit, OnDestroy {
     }
 
     this.media$ = this.store.select<any>(fromStore.getMediaState);
-    this.store
-      .select(fromStore.getUserStatus)
-      .subscribe(
-        isLogin =>
-          isLogin && this.store.dispatch(new fromStore.LoadUserBookmarks())
-      );
+    this.store.select(fromStore.getUserStatus).subscribe(isLogin => {
+      isLogin && this.store.dispatch(new fromStore.LoadUserBookmarks());
+      this.isLoggedIn = isLogin;
+    });
     this.store.dispatch(new fromStore.LoadMedia());
 
-    this.store.select(fromStore.getMediaLoading).subscribe(loading => {
-      if (loading) {
-        // because we create loadingControll instance more then one time, we have to create it here inside the listener
-        this.loading = this.loadingCtrl.create({
-          spinner: "crescent",
-          showBackdrop: false
-        });
-        this.loading.present();
-      }
-    });
+    // this.store.select(fromStore.getMediaLoading).subscribe(loading => {
+    //   if (loading) {
+    //     // because we create loadingControll instance more then one time, we have to create it here inside the listener
+    //     this.loading = this.loadingCtrl.create({
+    //       spinner: "crescent",
+    //       showBackdrop: false
+    //     });
+    //     this.loading.present();
+    //   }
+    // });
 
-    this.store
-      .select(fromStore.getMediaLoaded)
-      .subscribe(loaded => loaded && this.loading.dismiss());
+    // this.store
+    //   .select(fromStore.getMediaLoaded)
+    //   .subscribe(loaded => loaded && this.loading.dismiss());
 
     // if (localStorage.getItem("token")) {
     //   if (!this.userProvider.user) {
