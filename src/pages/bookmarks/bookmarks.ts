@@ -6,6 +6,7 @@ import * as fromStore from "../../store";
 import { Media } from "./../../interfaces/media";
 import { BookmarkProvider } from "./../../providers/bookmark/bookmark";
 import { MediaProvider } from "./../../providers/media/media";
+import { RecipeViewPage } from "../recipe-view/recipe-view";
 
 @IonicPage()
 @Component({
@@ -53,6 +54,12 @@ export class BookmarksPage implements OnInit {
     this.bookmarkProvider.deleteFavoriteByFileId(fileId).subscribe(res => {
       this.bookmarks.splice(inx, 1);
       this.store.dispatch(new fromStore.LoadUserBookmarks());
+    });
+  }
+
+  viewItem(id) {
+    this.navCtrl.push(RecipeViewPage, {
+      id: id
     });
   }
 

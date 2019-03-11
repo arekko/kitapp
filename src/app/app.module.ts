@@ -27,6 +27,9 @@ import { TabsPage } from "./../pages/tabs/tabs";
 import { UploadPage } from "./../pages/upload/upload";
 import { PipesModule } from "./../pipes/pipes.module";
 import { MyApp } from "./app.component";
+import { Chooser } from '@ionic-native/chooser';
+import { Camera } from '@ionic-native/camera';
+import { ModifyPage } from "../pages/modify/modify";
 
 @NgModule({
   declarations: [
@@ -40,6 +43,7 @@ import { MyApp } from "./app.component";
     CardRecipeComponent,
     RecipeViewPage,
     CommentsPage,
+    ModifyPage,
     CardCommentComponent
   ],
   imports: [
@@ -66,7 +70,8 @@ import { MyApp } from "./app.component";
     UploadPage,
     BookmarksPage,
     RecipeViewPage,
-    CommentsPage
+    CommentsPage,
+    ModifyPage
   ],
   providers: [
     HttpClientModule,
@@ -76,7 +81,9 @@ import { MyApp } from "./app.component";
     MediaProvider,
     UserProvider,
     BookmarkProvider,
-    HelperProvider
+    HelperProvider,
+    Chooser,
+    Camera,
   ]
 })
 export class AppModule {}

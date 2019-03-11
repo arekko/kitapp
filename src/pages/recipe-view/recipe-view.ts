@@ -37,10 +37,14 @@ export class RecipeViewPage implements OnInit, OnDestroy {
     public userProvider: UserProvider,
     public store: Store<fromStore.AppState>,
     private async: AsyncPipe
-  ) {}
+  ) {
+    this.fileId = this.navParams.get('id');
+  }
 
   ngOnInit() {
-    this.fileId = this.navParams.get("fileId");
+    if (this.fileId == undefined) {
+      this.fileId = this.navParams.get("fileId");
+    }
     this.recipe$ = this.store.select<Media>(fromStore.getRecipe);
     this.isLoggedIn$ = this.store.select(fromStore.getUserStatus);
     this.store.dispatch(new fromStore.LoadRecipe(this.fileId));

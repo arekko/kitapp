@@ -157,4 +157,14 @@ export class MediaProvider {
       );
     }
   }
+
+  updateFile(id, modify){
+    if (this.helperProvider.getHeaderWithToken) {
+      return this.http.put<CommentDelete>(
+        this.helperProvider.baseAPI +'/media/' + id, 
+        modify, 
+        this.helperProvider.getHeaderWithToken()
+      );
+    }
+  }
 }

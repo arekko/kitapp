@@ -10,7 +10,7 @@
 
 <ion-content>
   <card-recipe
-    *ngFor="let item of ((media$ | async).data | reverse)"
+    *ngFor="let item of mediaList"
     [item]="item"
   ></card-recipe>
 </ion-content>

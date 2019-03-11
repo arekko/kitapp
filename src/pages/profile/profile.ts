@@ -9,6 +9,8 @@ import { Media } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
 import { UserProvider } from "./../../providers/user/user";
 import { UploadPage } from "./../upload/upload";
+import { RecipeViewPage } from "../recipe-view/recipe-view";
+import { ModifyPage } from "../modify/modify";
 
 @IonicPage()
 @Component({
@@ -63,5 +65,17 @@ export class ProfilePage implements OnInit, OnDestroy {
   remove(fileId) {
     console.log(fileId);
     this.store.dispatch(new fromStore.DeleteMedia(fileId));
+  }
+
+  viewItem(id) {
+    this.navCtrl.push(RecipeViewPage, {
+      id: id
+    });
+  }
+
+  editItem(image) {
+    this.navCtrl.push(ModifyPage, {
+      image: image
+    });
   }
 }
