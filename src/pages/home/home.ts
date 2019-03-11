@@ -5,6 +5,7 @@ import { Loading, LoadingController, NavController } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import * as fromStore from "../../store";
+import { LoginPage } from "../login/login";
 import { RecipeViewPage } from "../recipe-view/recipe-view";
 import { Media } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
@@ -34,8 +35,6 @@ export class HomePage implements OnInit, OnDestroy {
     private store: Store<fromStore.AppState>,
     private loadingCtrl: LoadingController
   ) {}
-
-  
 
   ngOnInit() {
     if (localStorage.getItem("token")) {
@@ -85,9 +84,11 @@ export class HomePage implements OnInit, OnDestroy {
 
     this.subscriptionShowRecipeView = this.mediaProvider.showRecipeView.subscribe(
       (fileId: number) => {
-        this.navCtrl.push(RecipeViewPage, {
-          fileId: fileId
-        });
+        this.isLoggedIn
+          ? this.navCtrl.push(RecipeViewPage, {
+              fileId: fileId
+            })
+          : this.navCtrl.push(LoginPage);
       }
     );
   }

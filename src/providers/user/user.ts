@@ -6,6 +6,7 @@ import {
   User,
   UserLogin,
   UserLoginResponse,
+  UserRatedList,
   UserRegister,
   UserRegisterResponse
 } from "../../interfaces/user";
@@ -57,4 +58,13 @@ export class UserProvider {
     }/users/username/${username}
 `);
   };
+
+  // get user rated list
+
+  getUserRatedList(): Observable<UserRatedList[]> {
+    return this.http.get<UserRatedList[]>(
+      `${this.helperProvider.baseAPI}/ratings`,
+      this.helperProvider.getHeaderWithToken()
+    );
+  }
 }

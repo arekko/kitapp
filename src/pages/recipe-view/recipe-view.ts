@@ -4,6 +4,7 @@ import { Store } from "@ngrx/store";
 import { Events, IonicPage, NavController, NavParams } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
 import { Comment, Media } from "../../interfaces/media";
+import { UserRatedList } from "../../interfaces/user";
 import * as fromStore from "../../store";
 import { CommentsPage } from "../comments/comments";
 import { LoginPage } from "../login/login";
@@ -24,6 +25,9 @@ export class RecipeViewPage implements OnInit, OnDestroy {
   isLoggedIn$: Observable<boolean>;
   comments$: Observable<Comment[]>;
 
+  readOnly: boolean = false;
+  userRating: number = 0;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -43,6 +47,8 @@ export class RecipeViewPage implements OnInit, OnDestroy {
     this.comments$ = this.store.select(fromStore.getCommnets);
     this.store.dispatch(new fromStore.LoadComments(this.fileId));
 
+    this.getRating();
+
     this.events.subscribe("star-rating:changed", starRating => {
       console.log(starRating);
 
@@ -51,7 +57,9 @@ export class RecipeViewPage implements OnInit, OnDestroy {
           file_id: this.fileId,
           rating: starRating
         })
-        .subscribe(res => {});
+        .subscribe(res => {
+          this.readOnly = true;
+        });
     });
   }
 
@@ -72,5 +80,16 @@ export class RecipeViewPage implements OnInit, OnDestroy {
           fileId: fileId
         })
       : this.navCtrl.push(LoginPage);
+  }
+
+  getRating() {
+    this.userProvider.getUserRatedList().subscribe((list: UserRatedList[]) => {
+      list.forEach(item => {
+        if (item.file_id === this.fileId) {
+          this.readOnly = true;
+          this.userRating = item.rating;
+        }
+      });
+    });
   }
 }

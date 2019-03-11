@@ -35,3 +35,10 @@ export interface CheckUsername {
   username: string;
   available: boolean;
 }
+
+export interface UserRatedList {
+  rating_id: number;
+  rating: number;
+  file_id: number;
+  user_id: number;
+}

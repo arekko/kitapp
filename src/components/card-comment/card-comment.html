@@ -11,7 +11,7 @@
         <div class="top-row">
           <div class="top-user-info">
             <div class="top-username">
-              <p>Jeanny Williams</p>
+              <p>{{ comment.user_id | username: "fullname" | async }}</p>
             </div>
           </div>
           <div class="top-date">

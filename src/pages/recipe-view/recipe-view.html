@@ -20,8 +20,8 @@
         defaultIcon="ios-star-outline"
         activeColor="#e57373"
         defaultColor="#999"
-        readonly="{{ userProvider.isLoggedIn ? false : true }}"
-        [rating]="(recipe$ | async).file_id | rating | async"
+        readonly="{{ readOnly }}"
+        [rating]="userRating"
       >
       </ionic3-star-rating>
     </div>
