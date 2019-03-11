@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import {
+  CheckUsername,
   User,
   UserLogin,
   UserLoginResponse,
@@ -48,4 +49,12 @@ export class UserProvider {
       data
     );
   }
+
+  // check is username already exists
+  checkUsername = (username: string): Observable<CheckUsername> => {
+    return this.http.get<CheckUsername>(`${
+      this.helperProvider.baseAPI
+    }/users/username/${username}
+`);
+  };
 }

@@ -30,3 +30,8 @@ export interface UserRegisterResponse {
   message: string;
   user_id: number;
 }
+
+export interface CheckUsername {
+  username: string;
+  available: boolean;
+}

@@ -1,54 +1,32 @@
 page-profile {
-  .user-media {
+  .media {
     margin-top: 20px;
-
     padding: 20px;
+
+    &__title {
+      color: #999;
+      font-size: 14px;
+      text-align: center;
+    }
   }
 
   .profile {
-    padding-top: 50px;
-    background-color: #e57373;
+    background-color: #fafafa;
     height: 230px;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
+    box-shadow: 4px 4px 5px #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    &-bio {
-      text-align: center;
-      h2 {
-        color: #fff;
-        font-size: 27px;
-        margin: 0;
-      }
-      p {
-        color: #fff;
-        font-size: 16px;
-      }
+    &__username {
+      color: #6a6969;
+      font-size: 22px;
+      font-weight: bold;
     }
-
-    &-dashboard {
-      display: flex;
-      justify-content: center;
-      align-content: center;
-    }
-
-    &-avatar {
-      padding-top: 30px;
-      padding-bottom: 30px;
-      display: flex;
-      align-content: center;
-      justify-content: center;
-      img {
-        /* make a square container */
-        width: 180px;
-        height: 180px;
-        object-fit: cover;
-        /* fill the container, preserving aspect ratio, and cropping to fit */
-        background-size: cover;
-        /* center the image vertically and horizontally */
-        background-position: top center;
-        /* round the edges to a circle with border radius 1/2 container size */
-        border-radius: 50%;
-      }
+    &__email {
+      color: #6a6969;
+      font-size: 14px;
     }
   }
 }

@@ -84,6 +84,12 @@
         "
       >
         <p class="invalid-feedback">Please enter a valid name.</p>
+        <p
+          *ngIf="registerForm.controls.username.errors"
+          class="invalid-feedback"
+        >
+          This email already exists
+        </p>
       </ion-item>
 
       <ion-item margin-top>

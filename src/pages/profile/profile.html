@@ -1,5 +1,21 @@
 <ion-content>
-  <div class="profile-wrapper">
+  <div class="profile">
+    <h2 class="profile__username">
+      {{
+        (user$ | async).full_name
+          ? ((user$ | async).full_name | uppercase)
+          : ((user$ | async).username | uppercase)
+      }}
+    </h2>
+    <p class="profile__email">{{ (user$ | async).email }}</p>
+    <div class="profile__dashboard">
+      <button ion-button outline>Edit</button>
+      <button ion-button ouline>Delete</button>
+      <button ion-button full color="light" (click)="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- <div class="profile-wrapper">
     <div class="profile" *ngIf="(user$ | async)">
       <div class="profile-bio">
         <h2>
@@ -24,37 +40,38 @@
           <ion-icon name="log-out"></ion-icon>
         </button>
       </div>
-    </div>
+    </div> -->
 
-    <div *ngIf="userMedia" class="user-media">
-      <h2>You recipes</h2>
-      <ion-list>
-        <ion-item-sliding *ngFor="let item of userMedia">
-          <ion-item>
-            <ion-avatar item-start>
-              <img [src]="item.file_id | thumbnail: 'medium' | async" />
-            </ion-avatar>
-            <h2>{{ item.title }}</h2>
-          </ion-item>
-          <ion-item-options side="left">
-            <button ion-button color="primary">
-              <ion-icon name="eye"></ion-icon>
-              View
-            </button>
-            <button ion-button color="secondary">
-              <ion-icon name="brush"></ion-icon>
-              Edit
-            </button>
-          </ion-item-options>
-          <ion-item-options side="right">
-            <button ion-button color="primary" (click)="remove(item.file_id)">
-              <ion-icon name="trash"></ion-icon>
-              Remove
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
-    </div>
+  <div class="media">
+    <h2 class="media__title">
+      {{ userMedia.length > 0 ? "You recipes" : "You dont have recipes" }}
+    </h2>
+    <ion-list *ngIf="userMedia">
+      <ion-item-sliding *ngFor="let item of userMedia">
+        <ion-item>
+          <ion-avatar item-start>
+            <img [src]="item.file_id | thumbnail: 'medium' | async" />
+          </ion-avatar>
+          <h2>{{ item.title }}</h2>
+        </ion-item>
+        <ion-item-options side="left">
+          <button ion-button color="primary">
+            <ion-icon name="eye"></ion-icon>
+            View
+          </button>
+          <button ion-button color="secondary">
+            <ion-icon name="brush"></ion-icon>
+            Edit
+          </button>
+        </ion-item-options>
+        <ion-item-options side="right">
+          <button ion-button color="primary" (click)="remove(item.file_id)">
+            <ion-icon name="trash"></ion-icon>
+            Remove
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
   </div>
 
   <ion-fab right bottom>

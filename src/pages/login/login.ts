@@ -1,5 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators
+} from "@angular/forms";
 import { Storage } from "@ionic/storage";
 import { Store } from "@ngrx/store";
 import {
@@ -8,6 +13,8 @@ import {
   NavController,
   NavParams
 } from "ionic-angular";
+import { map } from "rxjs/operators";
+import { UserProvider } from "../../providers/user/user";
 import * as fromStore from "../../store";
 
 @IonicPage()
@@ -32,7 +39,8 @@ export class LoginPage implements OnInit {
     public formbuilder: FormBuilder,
     private storage: Storage,
     public loadingCtrl: LoadingController,
-    private store: Store<fromStore.AppState>
+    private store: Store<fromStore.AppState>,
+    private userProvider: UserProvider
   ) {}
 
   ngOnInit() {
@@ -96,11 +104,12 @@ export class LoginPage implements OnInit {
     this.registerForm = this.formbuilder.group({
       username: [
         "",
-        Validators.compose([
+        [
           Validators.maxLength(30),
           Validators.minLength(4),
           Validators.required
-        ])
+        ],
+        this.checkUsername.bind(this)
       ],
       email: [
         "",
@@ -139,11 +148,26 @@ export class LoginPage implements OnInit {
   }
 
   onRegisterSubmit() {
+    // console.log(this.registerForm);
+
     const { value } = this.registerForm;
     this.store.dispatch(new fromStore.RegisterUser(value));
   }
 
   switchLoginRegisterPage() {
     this.showRegister = !this.showRegister;
+  }
+
+  checkUsername(control: AbstractControl) {
+    // return new Promise<any>((resolve, reject) => {
+    return this.userProvider.checkUsername(control.value).pipe(
+      map(res => {
+        return res.available ? null : { emailExists: true };
+      })
+    );
+    // .subscribe((res: CheckUsername) => {
+    //   res.available ? resolve(null) : resolve({ emailExists: true });
+    // });
+    // });
   }
 }
