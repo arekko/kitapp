@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
 import { User } from "../../interfaces/user";
 import * as fromStore from "../../store";
+import { RecipeViewPage } from "../recipe-view/recipe-view";
 import { Media } from "./../../interfaces/media";
 import { MediaProvider } from "./../../providers/media/media";
 import { UserProvider } from "./../../providers/user/user";
@@ -63,5 +64,11 @@ export class ProfilePage implements OnInit, OnDestroy {
   remove(fileId) {
     console.log(fileId);
     this.store.dispatch(new fromStore.DeleteMedia(fileId));
+  }
+
+  showRecipe(fileId) {
+    this.navCtrl.push(RecipeViewPage, {
+      fileId: fileId
+    });
   }
 }

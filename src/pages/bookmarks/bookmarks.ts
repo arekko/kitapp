@@ -3,6 +3,7 @@ import { Store } from "@ngrx/store";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Subscription } from "rxjs/Subscription";
 import * as fromStore from "../../store";
+import { RecipeViewPage } from "../recipe-view/recipe-view";
 import { Media } from "./../../interfaces/media";
 import { BookmarkProvider } from "./../../providers/bookmark/bookmark";
 import { MediaProvider } from "./../../providers/media/media";
@@ -56,19 +57,9 @@ export class BookmarksPage implements OnInit {
     });
   }
 
-  // getUserFavorites() {
-  //   this.bookmarkProvider.getUserFavorites().subscribe((res: Favorites[]) => {
-  //     console.log(res);
-  //     this.favoriteList = [];
-
-  //     res.forEach(item => {
-  //       this.mediaProvider
-  //         .getSingleMedia(item.file_id)
-  //         .subscribe((res: Media) => {
-  //           this.favoriteList.push(res);
-  //           console.log(this.favoriteList);
-  //         });
-  //     });
-  //   });
-  // }
+  showRecipe(fileId) {
+    this.navCtrl.push(RecipeViewPage, {
+      fileId: fileId
+    });
+  }
 }

@@ -8,7 +8,10 @@
     <ion-item-sliding *ngFor="let item of bookmarks">
       <ion-item>
         <ion-thumbnail item-start>
-          <img [src]="item.file_id | thumbnail: 'medium' | async" />
+          <img
+            [src]="item.file_id | thumbnail: 'medium' | async"
+            (click)="showRecipe(item.file_id)"
+          />
         </ion-thumbnail>
         <h2>{{ item.title }}</h2>
       </ion-item>

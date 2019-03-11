@@ -55,7 +55,7 @@
           <h2>{{ item.title }}</h2>
         </ion-item>
         <ion-item-options side="left">
-          <button ion-button color="primary">
+          <button ion-button color="primary" (click)="showRecipe(item.file_id)">
             <ion-icon name="eye"></ion-icon>
             View
           </button>
