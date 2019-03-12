@@ -30,7 +30,7 @@
     </div>
     <div class="recipe-comment-btn">
       <button
-        *ngIf="(comments$ | async)"
+        *ngIf="comments$"
         ion-button
         outline
         (click)="showComments(fileId)"

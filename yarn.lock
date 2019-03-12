@@ -78,6 +78,16 @@
   dependencies:
     tslib "^1.7.1"
 
+"@ionic-native/camera@^4.20.0":
+  version "4.20.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/camera/-/camera-4.20.0.tgz#db236497f880bd1b832e4223485f99875fedc570"
+  integrity sha512-WnfQq8RV+7ezOqpCyNx9Xgpy7Y8TZehGLSxZXnCqCbFZ72CpC70Q5AV/eTIRGiKkotx2U6nUopYF+gTj1cunFA==
+
+"@ionic-native/chooser@^4.20.0":
+  version "4.20.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/chooser/-/chooser-4.20.0.tgz#8dfcfc103853cf4fd56d085d2b91c5587b7160f7"
+  integrity sha512-3Qn6TqWBzs2EQV0zp0uoTRDVPPdC/EgkdzIQVnryTZg1p1NZ3L8hKuIOHms/WqFwOGMeA87dMImxSgHjw9JXJQ==
+
 "@ionic-native/core@~4.18.0":
   version "4.18.0"
   resolved "https://registry.yarnpkg.com/@ionic-native/core/-/core-4.18.0.tgz#d5f57e94c40f1b7bc1e86b4d7a17f02110249383"
@@ -968,6 +978,11 @@ cordova-common@2.2.5:
     shelljs "^0.5.3"
     underscore "^1.8.3"
     unorm "^1.3.3"
+
+cordova-plugin-chooser@1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-chooser/-/cordova-plugin-chooser-1.2.5.tgz#869c758857f660cc124193c261a0f130ba23e96b"
+  integrity sha512-md5ZT3Q3aIV/G0VJNWifsYc/aObNijlAO2reOh7ZOv0UvjqLPvbhapkDsKx7852nGUQeS0MFlhJ6SDNlNl7ftQ==
 
 cordova-plugin-device@^2.0.2:
   version "2.0.2"

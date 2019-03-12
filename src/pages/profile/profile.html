@@ -10,37 +10,11 @@
     <p class="profile__email">{{ (user$ | async).email }}</p>
     <div class="profile__dashboard">
       <button ion-button outline>Edit</button>
-      <button ion-button ouline>Delete</button>
-      <button ion-button full color="light" (click)="logout()">Logout</button>
+      <button ion-button outline (click)="logout()">
+        Logout
+      </button>
     </div>
   </div>
-
-  <!-- <div class="profile-wrapper">
-    <div class="profile" *ngIf="(user$ | async)">
-      <div class="profile-bio">
-        <h2>
-          {{
-            (user$ | async).full_name
-              ? ((user$ | async).full_name | uppercase)
-              : ((user$ | async).username | uppercase)
-          }}
-        </h2>
-        <p>
-          {{ (user$ | async).email }}
-        </p>
-      </div>
-      <div class="profile-dashboard">
-        <button ion-button icon-only>
-          <ion-icon name="build"></ion-icon>
-        </button>
-        <button ion-button icon-only>
-          <ion-icon name="trash"></ion-icon>
-        </button>
-        <button ion-button icon-only (click)="logout()">
-          <ion-icon name="log-out"></ion-icon>
-        </button>
-      </div>
-    </div> -->
 
   <div class="media">
     <h2 class="media__title">

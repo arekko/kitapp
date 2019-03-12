@@ -24,7 +24,7 @@ export class RatingPipe implements PipeTransform {
           this.ratingLength = res.length;
           res.forEach(i => (this.sumRating += i.rating));
           this.ratingLength
-            ? resolve(this.sumRating / this.ratingLength)
+            ? resolve((this.sumRating / this.ratingLength).toFixed(1))
             : resolve(0);
         });
     });
