@@ -11,3 +11,13 @@ For running in browser
 ```
 yarn start 
 ```
+
+For running in device
+```
+ionic cordova run android
+```
+or
+
+```
+ionic cordova run ios
+```
