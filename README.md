@@ -17,13 +17,13 @@ and
 ```
 npm install @ionic-native/camera
 ```
-For running in browser
+##For running in browser
 
 ```
 yarn start 
 ```
 
-For running in device
+##For running in device
 ```
 ionic cordova run android
 ```
