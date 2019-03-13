@@ -101,6 +101,10 @@ export class HomePage implements OnInit, OnDestroy {
     this.subscriptionShowRecipeView.unsubscribe();
   }
 
+  ionViewDidEnter() {
+    this.getAllMedia(this._tag, null);
+  }
+
   getAllMedia(tag, title) {
     this.mediaProvider.getListOfMediaByTag(tag).subscribe((res: Media[]) => {
         this.mediaList = res;

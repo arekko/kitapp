@@ -42,7 +42,6 @@ export class UploadPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UploadPage');
   }
 
   // Shows preview of chosen media
