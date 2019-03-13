@@ -4,8 +4,19 @@
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Just follow the installation instruction
 
+### Prerequisites
+
+What things you need to install the software and how to install them
+
+```
+ionic cordova plugin add cordova-plugin-camera
+```
+and
+```
+npm install @ionic-native/camera
+```
 For running in browser
 
 ```
